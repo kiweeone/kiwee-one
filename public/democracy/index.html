@@ -198,6 +198,61 @@ ol.srcs li{break-inside:avoid;margin-bottom:6px}
 @media (max-width:760px){ol.srcs{columns:1}}
 footer{padding:32px 0 64px;font-size:14.5px;color:var(--muted)}
 footer p{max-width:46em}
+
+/* quiz, stack, before/after, vote */
+.quiz{margin-bottom:64px;display:flex;flex-direction:column;gap:18px}
+.qchips{display:flex;flex-wrap:wrap;gap:8px}
+.qc{border:1px solid var(--ink);background:transparent;border-radius:3px;padding:8px 12px;font-size:16px;text-align:left;display:inline-flex;gap:10px;align-items:baseline}
+.qc small{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;display:inline-block}
+.qc.in{color:#fff;border-color:transparent}
+.qc.out{border-style:dashed;border-color:var(--muted);color:var(--muted)}
+.qc.out span{text-decoration:line-through}
+.stack{margin-top:56px;display:flex;flex-direction:column;gap:16px}
+.srows{border-top:2px solid var(--ink)}
+.srow{display:grid;grid-template-columns:28px minmax(0,1fr) minmax(0,1.5fr) 200px;gap:8px 20px;padding:14px 0;border-bottom:1px solid var(--line);align-items:start}
+.srow .n{width:24px;height:24px;display:grid;place-items:center;color:#fff;font-family:var(--mono);font-size:12px;font-weight:700}
+.srow p{font-size:15.5px}
+.pb{display:flex;flex-direction:column;gap:5px}
+.pb div{height:8px;background:var(--soft);position:relative}
+.pb i{position:absolute;inset:0 auto 0 0}
+@media (max-width:860px){.srow{grid-template-columns:28px 1fr}.srow>*:nth-child(n+3){grid-column:2}}
+.cmp{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1fr) minmax(0,1fr);border-top:2px solid var(--ink);margin-bottom:48px}
+.cmp>div{padding:12px 16px 12px 0;border-bottom:1px solid var(--line);font-size:15.5px}
+.cmp .hd{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:24px;line-height:1}
+.cmp .q{font-weight:700}
+@media (max-width:640px){.cmp{grid-template-columns:1fr 1fr}.cmp .q{grid-column:1/-1;border-bottom:0;padding-bottom:0}.cmp .hd.q{display:none}}
+.bagroup{margin-top:28px}
+.bagroup h3{padding-bottom:8px;border-bottom:2px solid var(--ink)}
+.barow{display:grid;grid-template-columns:minmax(0,290px) minmax(0,1fr) 104px;gap:4px 20px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
+.barow .v{font-family:var(--mono);font-size:12.5px;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dumb{position:relative;height:18px;margin:0 8px}
+.dumb::before{content:"";position:absolute;left:0;right:0;top:8.5px;height:1px;background:var(--line)}
+.dumb s{position:absolute;top:7px;height:4px}
+.dumb i{position:absolute;top:3px;width:12px;height:12px;margin-left:-6px;border-radius:50%}
+.dumb i.a{background:var(--panel);border:2px solid var(--muted)}
+.up s,.up i.b{background:var(--l3)} .dn s,.dn i.b{background:var(--l4)}
+@media (max-width:700px){.barow{grid-template-columns:1fr 104px}.barow .dumb{grid-column:1/-1;grid-row:2}}
+.key{display:flex;gap:18px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:14px}
+.key i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;background:var(--panel);border:1px solid var(--line);padding:20px}
+@media (max-width:760px){.calc{grid-template-columns:1fr}}
+.calc label{display:flex;flex-direction:column;gap:6px;font-size:15px}
+.calc label b{font-family:var(--display);font-weight:900;font-size:30px;line-height:1;font-variant-numeric:tabular-nums}
+.calc input{accent-color:var(--ink);width:100%}
+.calc .ctl{display:flex;flex-direction:column;gap:18px}
+.calc .res{display:flex;flex-direction:column;gap:10px}
+.calc .big{font-family:var(--display);font-weight:900;font-size:clamp(64px,10vw,104px);line-height:.85;color:var(--l4);font-variant-numeric:tabular-nums}
+.vbar{display:flex;height:30px;border:1px solid var(--ink)}
+.vbar i{display:block;height:100%}
+.med{border-top:2px solid var(--ink);margin-top:12px}
+.mrow{display:grid;grid-template-columns:minmax(0,1fr) 150px 70px;gap:4px 20px;padding:11px 0;border-bottom:1px solid var(--line);align-items:center}
+.mrow span{font-size:14px;color:var(--muted);display:block}
+.mrow .tr{font-family:var(--mono);font-size:12px}
+.mrow .rk{font-family:var(--display);font-weight:900;font-size:28px;line-height:1;text-align:right}
+@media (max-width:640px){.mrow{grid-template-columns:1fr 70px}.mrow .tr{grid-column:1}}
+.sub{margin-top:48px;display:flex;flex-direction:column;gap:12px}
+.loop{font-family:var(--mono);font-size:13px;border:1px dashed var(--muted);padding:12px 14px;margin-top:20px}
+@media (max-width:820px){.ni b{width:22px;height:22px}.ni{padding:2px}.bar nav{gap:4px}.ni.on{padding-right:8px}}
 </style>
 </head>
 <body id="top">
@@ -208,7 +263,7 @@ footer p{max-width:46em}
 <div class="bar"><div class="wrap">
   <button class="tldr" id="tb" type="button">TL;DR</button>
   <nav aria-label="Sections">
-    <a class="ni" href="#cube"><b>1</b><span data-t="nav1"></span></a><a class="ni" href="#timeline"><b>2</b><span data-t="nav2"></span></a><a class="ni" href="#eu"><b>3</b><span data-t="nav3"></span></a><a class="ni" href="#shadow"><b>4</b><span data-t="nav4"></span></a><a class="ni" href="#verdict"><b>5</b><span data-t="nav5"></span></a>
+    <a class="ni" href="#cube"><b>1</b><span data-t="nav1"></span></a><a class="ni" href="#before"><b>2</b><span data-t="navB"></span></a><a class="ni" href="#timeline"><b>3</b><span data-t="nav2"></span></a><a class="ni" href="#eu"><b>4</b><span data-t="nav3"></span></a><a class="ni" href="#vote"><b>5</b><span data-t="navV"></span></a><a class="ni" href="#shadow"><b>6</b><span data-t="nav4"></span></a><a class="ni" href="#verdict"><b>7</b><span data-t="nav5"></span></a>
   </nav>
 </div></div>
 </div></div>
@@ -223,6 +278,13 @@ footer p{max-width:46em}
 </div></header>
 
 <section id="cube"><div class="wrap">
+  <div class="quiz">
+    <p class="tag" data-t="qtag"></p>
+    <h2 data-t="qh"></h2>
+    <p class="prose" data-t="qp"></p>
+    <div class="qchips" id="qchips"></div>
+    <p class="prose" data-t="qend"></p>
+  </div>
   <div class="head"><p class="tag" data-t="s1tag"></p><h2 data-t="s1h"></h2><p class="prose" data-t="s1p"></p></div>
   <div class="stage">
     <div class="cubebox">
@@ -236,6 +298,19 @@ footer p{max-width:46em}
       <div class="detail" id="detail" aria-live="polite"></div>
     </div>
   </div>
+  <div class="stack">
+    <h3 data-t="sth"></h3>
+    <p class="prose" data-t="stp"></p>
+    <div class="srows" id="srows"></div>
+  </div>
+</div></section>
+
+<section id="before"><div class="wrap">
+  <div class="head"><p class="tag" data-t="btag"></p><h2 data-t="bh"></h2><p class="prose" data-t="bp"></p></div>
+  <div class="cmp" id="cmp"></div>
+  <div id="ba"></div>
+  <div class="key"><span><i style="background:var(--panel);border:2px solid var(--muted)"></i>1988</span><span><i style="background:var(--l3)"></i><span data-t="kup"></span></span><span><i style="background:var(--l4)"></i><span data-t="kdn"></span></span></div>
+  <p class="prose" style="margin-top:24px" data-t="bnote"></p>
 </div></section>
 
 <section id="timeline"><div class="wrap">
@@ -248,6 +323,26 @@ footer p{max-width:46em}
   <div class="head"><p class="tag" data-t="s3tag"></p><h2 data-t="s3h"></h2><p class="prose" data-t="s3p"></p></div>
   <div class="axis mono muted"><span data-t="worse"></span><span data-t="better"></span></div>
   <div class="strips" id="strips"></div>
+</div></section>
+
+<section id="vote"><div class="wrap">
+  <div class="head"><p class="tag" data-t="vtag"></p><h2 data-t="vhh"></h2><p class="prose" data-t="vpp"></p></div>
+  <div class="calc">
+    <div class="ctl">
+      <label for="vt"><span data-t="vl1"></span><b id="vto"></b><input id="vt" type="range" min="20" max="90" step="1" value="39"></label>
+      <label for="vb"><span data-t="vl2"></span><b id="vbo"></b><input id="vb" type="range" min="1" max="15" step="1" value="5"></label>
+      <p class="mono muted" data-t="vnote"></p>
+    </div>
+    <div class="res" aria-live="polite">
+      <div class="big" id="vbig"></div>
+      <p data-t="vres"></p>
+      <div class="vbar" id="vbar"></div>
+      <div class="key" style="margin-top:0"><span><i style="background:var(--l4)"></i><span data-t="vk1"></span></span><span><i style="background:var(--ink)"></i><span data-t="vk2"></span></span><span><i style="background:var(--soft);border:1px solid var(--muted)"></i><span data-t="vk3"></span></span></div>
+    </div>
+  </div>
+  <p class="prose" style="margin-top:20px" data-t="vfact"></p>
+  <div class="sub"><h3 data-t="mh"></h3><p class="prose" data-t="mp"></p><div class="med" id="med"></div>
+    <p class="loop" data-t="loop"></p><p class="prose" data-t="mnote"></p></div>
 </div></section>
 
 <section id="shadow"><div class="wrap">
@@ -275,7 +370,37 @@ try{const l=localStorage.getItem('dem-lang');if(l==='en'||l==='bg')S.lang=l}catc
 const L=o=>Array.isArray(o)?o[S.lang==='bg'?0:1]:o;
 
 const T={
- word:['Демокрация','Democracy'],nav1:['Кубът','The cube'],nav2:['Кабинети','Cabinets'],nav3:['Спрямо ЕС','Vs the EU'],nav4:['Скритият слой','Hidden layer'],nav5:['Изводът','Verdict'],
+ word:['Демокрация','Democracy'],nav1:['Кубът','The cube'],nav2:['Кабинети','Cabinets'],nav3:['ЕС','EU'],nav4:['Досиета','Files'],nav5:['Изводът','Verdict'],
+ navB:['1989','1989'],navV:['Вотът','Turnout'],
+ qtag:['Преди всичко','First of all'],
+ qh:['Демокрацията не е списък с хубави неща','Democracy is not a list of good things'],
+ qp:['Тя е начин на управление: кой решава и как може да бъде сменен. Кое от изброените е демокрация? Докоснете.','It is a way of governing: who decides, and how they can be removed. Which of these is democracy? Tap to find out.'],
+ qall:['Покажи всички','Reveal all'],qout:['резултат, не демокрация','an outcome, not democracy'],qlay:['слой','layer'],
+ qend:['Една демокрация може да има лоши пътища, а една автокрация добри. Когато наричаме „демокрация“ всичко, което искаме, после я виним за всичко, което нямаме.','A democracy can have bad roads and an autocracy good ones. When we call everything we want “democracy”, we end up blaming it for everything we lack.'],
+ sth:['Как слоевете стъпват един върху друг','How the layers rest on each other'],
+ stp:['Всеки горен слой се умножава по основата. V-Dem смята „либерална демокрация“ главно като избори × права, затова слабите избори смъкват всичко над тях. Светлата лента е слоят сам по себе си, плътната е това, което остава от него върху българската основа от 0,60.','Every upper layer is multiplied by the base. V-Dem computes “liberal democracy” mainly as elections × rights, so weak elections pull down everything above them. The pale bar is the layer on its own, and the solid bar is what is left of it on Bulgaria’s base of 0.60.'],
+ stq:['Въпросът','The question'],stw:['Без него','Without it'],sown:['сам','alone'],son:['върху основата','on the base'],
+ btag:['02 · Преди и след 1989','02 · Before and after 1989'],
+ bh:['Какво се промени, ако усещането е същото','What changed, if it feels the same'],
+ bp:['До 1989 г. България е закрита автокрация: една партия, без избор, без изход. От 1990 г. е изборна демокрация. Разликата е огромна в свободите и обратна там, където човек среща държавата всеки ден.','Until 1989 Bulgaria was a closed autocracy: one party, no choice, no exit. Since 1990 it has been an electoral democracy. The difference is enormous in freedoms, and it runs the other way where a person meets the state every day.'],
+ cA:['Автокрация до 1989 г.','Autocracy until 1989'],cD:['Демокрация след 1990 г.','Democracy since 1990'],
+ g0:['Стана по-добре','Got better'],g1:['Влоши се','Got worse'],
+ kup:['2025, по-добре','2025, better'],kdn:['2025, по-зле','2025, worse'],
+ bnote:['Свободата е нова, а несправедливостта е позната: и петте показателя в долната група са по-ниски от 1988 г. Затова усещането е същото. Уговорка: равенството преди 1989 г. беше равенство в недоимъка, а оценките за закрит режим са по-несигурни.','The freedom is new and the unfairness is familiar: all five measures in the lower group are below their 1988 level. That is why it feels the same. A caveat: equality before 1989 was equality in scarcity, and scores for a closed regime are less certain.'],
+ vtag:['05 · Негласуването','05 · Not voting'],
+ vhh:['Който не гласува, наказва себе си','Not voting punishes the voter'],
+ vpp:['Отказът да гласуваш изглежда като наказание за политиците. Аритметиката казва обратното: колкото по-малко хора гласуват, толкова повече тежи всеки организиран глас. Опитайте.','Refusing to vote feels like punishing the politicians. The arithmetic says the opposite: the fewer people vote, the more each organised vote weighs. Try it.'],
+ vl1:['Избирателна активност','Turnout'],vl2:['Организиран вот (купен, корпоративен, зависим) като дял от всички избиратели','Organised vote (bought, corporate, dependent) as a share of all voters'],
+ vnote:['Вторият плъзгач е илюстрация, не измерване.','The second slider is an illustration, not a measurement.'],
+ vres:['от подадените бюлетини са организиран вот','of the ballots cast are organised votes'],
+ vk1:['организиран вот','organised vote'],vk2:['останалите гласували','other voters'],vk3:['негласували','stayed home'],
+ vfact:['Октомври 2024 г.: първата партия взе 26,4% от гласовете при 38,9% активност. Това е приблизително всеки десети в избирателните списъци.','October 2024: the first-placed party took 26.4% of the vote on 38.9% turnout. That is roughly one in ten people on the electoral roll.'],
+ mh:['Защо хората се отказват','Why people give up'],
+ mp:['V-Dem не мери кой притежава медиите, но мери какво се случва в тях. Мястото е сред 27-те държави в ЕС, броено от най-лошото.','V-Dem does not measure who owns the media, but it does measure what happens inside them. The rank is among the 27 EU states, counted from the worst.'],
+ worse2:['по-зле от 2000 г.','worse than in 2000'],better2:['по-добре от 2000 г.','better than in 2000'],
+ loop:['отвращение → негласуване → организираният вот тежи повече → същият резултат → още отвращение','disgust → not voting → the organised vote weighs more → the same result → more disgust'],
+ mnote:['Какво не е доказано тук: какъв дял от медиите е на собственици, свързани с политици (нужен е отделен източник), и коя държава стои зад дезинформацията (V-Dem не я назовава). Че всичко това е една координирана мрежа, е тълкуване, не измерване.','What is not proven here: what share of the media belongs to owners tied to politicians (that needs a separate source), and which state is behind the disinformation (V-Dem does not name it). That all of this is one coordinated network is an interpretation, not a measurement.'],
+
  kicker:['България · 1989–2026 · данни на <a href="https://www.v-dem.net/" target="_blank" rel="noopener">V-Dem</a> v16','Bulgaria · 1989–2026 · <a href="https://www.v-dem.net/" target="_blank" rel="noopener">V-Dem</a> v16 data'],
  h1:['Демокрацията не е виновна','Democracy isn’t to blame'],
  lede:['Думата „демокрация“ значи пет различни неща. България построи първото през 1990 г. и спря дотам. Останалото беше <span class="redact">заето от други</span>.','The word “democracy” means five different things. Bulgaria built the first one in 1990 and stopped there. The rest was <span class="redact">taken by others</span>.'],
@@ -288,21 +413,21 @@ const T={
  needs:['Какво изисква','What it takes'],
  inbg:['В България','In Bulgaria'],
  score:['Оценка','Score'],nodata:['няма данни','no data'],
- s2tag:['02 · 1989–2026','02 · 1989–2026'],
+ s2tag:['03 · 1989–2026','03 · 1989–2026'],
  s2h:['Шестнадесет редовни кабинета, една крива','Sixteen elected cabinets, one curve'],
  s2p:['Сменяха се леви, десни, царски и протестни правителства. Изборният индекс почти не помръдна нагоре след 1992 г., а корупцията е почти двойно по-висока от тази през 2000 г. Изберете кабинет от лентата.','Left, right, royal and protest governments came and went. The electoral index barely rose after 1992, and corruption is almost double its 2000 level. Pick a cabinet from the strip.'],
  care:['служебен кабинет','caretaker cabinet'],
  sE:['Изборен индекс','Electoral index'],sC:['Политическа корупция','Political corruption'],sT:['Активност на парламентарни избори','Turnout, parliamentary elections'],
  tlh:['Накратко','In short'],close:['Затвори','Close'],vh:['Какво е V-Dem','What is V-Dem'],vp:['V-Dem (Varieties of Democracy, „Разновидности на демокрацията“) е изследователски проект със седалище в Гьотеборгския университет, Швеция. Той не дава на държавите една обща оценка, а мери всеки от петте принципа поотделно: с над 600 показателя, за 202 държави и назад до 1789 г. На въпросите отговарят над 4200 експерти по отделните страни, по правило поне петима за всеки показател. Статистически модел обединява отговорите им, дава по-голяма тежест на по-надеждните експерти и показва несигурността. Данните са свободни за изтегляне.','V-Dem (Varieties of Democracy) is a research project headquartered at the University of Gothenburg, Sweden. It does not give a country one overall grade. It measures each of the five principles separately, with more than 600 indicators, for 202 countries, going back to 1789. More than 4,200 country experts answer the questions, normally at least five for every indicator. A statistical model combines their answers, gives more weight to the more reliable experts and reports the uncertainty. The data is free to download.'],vl:['Към v-dem.net →','Go to v-dem.net →'],tlfoot:['Източниците са в края на страницата.','Sources are at the end of the page.'],
  prev:['← Предишен','← Previous'],next:['Следващ →','Next →'],
- s3tag:['03 · ЕС-27, 2025','03 · EU-27, 2025'],
+ s3tag:['04 · ЕС-27, 2025','04 · EU-27, 2025'],
  s3h:['Последни там, където не се гласува','Last where nobody votes on it'],
  s3p:['Кубът изглежда почти цял. Проблемът е в показателите под него: кой купува гласове, кой разпределя постове и поръчки, важи ли законът за всички. Всяка точка е държава от ЕС.','The cube looks almost whole. The trouble is in the measures underneath it: who buys votes, who hands out jobs and contracts, whether the law applies to everyone. Each dot is an EU member state.'],
  worse:['← по-зле','← worse'],better:['по-добре →','better →'],of27:['от 27','of 27'],
- s4tag:['04 · Държавна сигурност и след нея','04 · State Security and after'],
+ s4tag:['06 · Държавна сигурност и след нея','06 · State Security and after'],
  s4h:['Какво е доказано и какво не','What is proven and what is not'],
  s4p:['Тезата за „задкулисието“ е силна само ако отделя документа от догадката. Всяка карта носи етикет за вида на доказателството и води към източника.','The “backstage” thesis is only strong if it separates the document from the hunch. Each card carries a label for the kind of evidence and links to its source.'],
- s5tag:['05 · Изводът','05 · The verdict'],
+ s5tag:['07 · Изводът','07 · The verdict'],
  s5h:['Кого да виним тогава','So who is to blame'],
  s6tag:['Източници и метод','Sources and method'],
  s6p:['Числата са от <a href="https://www.v-dem.net/" target="_blank" rel="noopener">V-Dem</a> Country-Year Full+Others v16 (март 2026 г.) и от набора Episodes of Regime Transformation. Индексите на V-Dem са експертни оценки с несигурност, не преброявания. Хронологията на кабинетите е по публични справочници.','Figures come from <a href="https://www.v-dem.net/" target="_blank" rel="noopener">V-Dem</a> Country-Year Full+Others v16 (March 2026) and the Episodes of Regime Transformation dataset. V-Dem indices are expert assessments with uncertainty, not counts. The cabinet chronology follows public reference sources.'],
@@ -436,6 +561,38 @@ const TLDR=[
  [['Не всичко е доказано.','Not everything is proven.'],['Че страната винаги е управлявана от Москва, не личи от документите. Същата класа я въведе в НАТО, ЕС и еврозоната.','That the country was always run from Moscow does not follow from the documents. The same class took it into NATO, the EU and the eurozone.']],
  [['Виновна не е демокрацията.','Democracy is not to blame.'],['Виновни са недостроените слоеве и тези, които ги заеха. Имаме избори. Останалото тепърва трябва да се построи.','The unbuilt layers are, along with those who occupied them. We have elections. The rest still has to be built.']]
 ];
+const QUIZ=[
+ [['Свободни избори','Free elections'],0],[['Високи заплати','High wages'],-1],[['Независим съд','Independent courts'],1],[['Ниски цени','Low prices'],-1],
+ [['Свободни медии','Free media'],0],[['Добри пътища и болници','Good roads and hospitals'],-1],[['Право на протест','The right to protest'],3],[['Ниска престъпност','Low crime'],-1],
+ [['Равен достъп до властта','Equal access to power'],2],[['Обществен дебат преди решение','Public debate before a decision'],4]];
+const QS=new Set();
+const STK=[
+ {i:.60,q:['Кой управлява?','Who rules?'],w:['Нищо над него не важи. Права, дадени от власт, която не можеш да смениш, са милост.','Nothing above it counts. Rights granted by a power you cannot remove are favours.']},
+ {i:.50,q:['Какво не може да прави властта?','What may those in power never do?'],w:['51% могат да направят всичко на останалите 49%. Това е избрана диктатура.','51% can do anything to the other 49%. That is an elected dictatorship.']},
+ {i:.44,q:['Всеки ли тежи еднакво?','Does everyone count the same?'],w:['Гласовете са равни, но достъпът не е. Пръв е чут този, който плаща кампаниите и държи медиите.','Votes are equal but access is not. Whoever funds the campaigns and holds the media is heard first.']},
+ {i:.40,q:['Какво става между изборите?','What happens between elections?'],w:['Гражданите са зрители, които някой пита веднъж на четири години.','Citizens are spectators who get asked once every four years.']},
+ {i:.47,q:['Как се стига до решение?','How is a decision reached?'],w:['Решава се с натиск, пари или надвикване и загубилият не приема резултата.','Decisions come from pressure, money or shouting, and the loser does not accept the result.']}];
+const CMP=[
+ [['Кой решава','Who decides'],['Партията. Една листа и 99% „за“.','The Party. One list and 99% in favour.'],['Който спечели избори с истински съперници.','Whoever wins an election against real rivals.']],
+ [['Можеш ли да ги смениш','Can you remove them'],['Не. Сменят се само помежду си.','No. They only replace each other.'],['Да: на избори, с вот на недоверие, с протест.','Yes: at the ballot box, by a no-confidence vote, by protest.']],
+ [['Какво ги ограничава','What limits them'],['Нищо. Съдът, парламентът и медиите са част от властта.','Nothing. Courts, parliament and media are part of the regime.'],['Конституция, съд, парламент и преса. Поне по закон.','A constitution, courts, parliament and press. At least on paper.']],
+ [['Ако не си съгласен','If you disagree'],['Досие, уволнение, лагер, забрана да пътуваш.','A file, dismissal, a camp, a travel ban.'],['Говориш, сдружаваш се, съдиш държавата, заминаваш.','You speak, organise, sue the state, or leave.']]];
+const BA=[
+ [['Свобода на придвижване и местоживеене','Freedom of movement and residence'],.03,.89,0],[['Лични свободи: вяра, труд, личен живот','Private liberties: faith, work, private life'],.03,.87,0],
+ [['Право на собственост','Property rights'],.05,.90,0],[['Свобода на словото и медиите','Freedom of expression and media'],.04,.75,0],
+ [['Свобода на сдружаване','Freedom of association'],.08,.83,0],[['Парламентът контролира властта','Parliament checks the executive'],.07,.90,0],
+ [['Гражданско общество','Civil society'],.07,.86,0],[['Съдът ограничава властта','Courts check the executive'],.22,.79,0],
+ [['Защита от политическо насилие','Freedom from political violence'],.43,.87,0],[['Върховенство на закона','Rule of law'],.26,.56,0],
+ [['Без постове срещу лоялност','No jobs in exchange for loyalty'],.91,.38,1],[['Управление без корупция','Government free of corruption'],.65,.36,1],
+ [['Равно разпределение на ресурсите','Equal distribution of resources'],.96,.67,1],[['Равен достъп до властта','Equal access to power'],.87,.78,1],
+ [['Равна защита на правата','Equal protection of rights'],.75,.71,1]];
+const MED=[
+ [['Автоцензура в медиите','Media self-censorship'],['Журналистите сами избягват неудобни теми','Journalists avoid awkward topics on their own'],2,0],
+ [['Опити на властта за цензура','Government censorship attempts'],['Пряк и косвен натиск върху редакциите','Direct and indirect pressure on newsrooms'],3,0],
+ [['Чужда държавна дезинформация','Foreign-state disinformation'],['Чужди правителства разпространяват неверни твърдения в социалните мрежи','Foreign governments spread false claims on social media'],4,0],
+ [['Дезинформация от партии','Disinformation from parties'],['Партиите сами разпространяват неверни твърдения','Parties spread false claims themselves'],4,0],
+ [['Платено отразяване','Paid coverage'],['Медии и журналисти променят отразяването срещу заплащане','Outlets and journalists alter coverage for payment'],4,1],
+ [['Враждебни политически лагери','Hostile political camps'],['Привържениците на различните лагери се държат като врагове','Supporters of opposing camps treat each other as enemies'],7,0]];
 const SRC=[
  ['V-Dem Dataset v16 (Country-Year Full+Others)','https://v-dem.net/data/the-v-dem-dataset/'],
  ['Atanas Semerdzhiev (Wikipedia; ECHR figures)','https://en.wikipedia.org/wiki/Atanas_Semerdzhiev'],
@@ -581,9 +738,34 @@ function drawStatic(){
   $('#tlist').innerHTML=TLDR.map(t=>`<li><div><b>${L(t[0])}</b>${L(t[1])}</div></li>`).join('');
   $('#srcs').innerHTML=SRC.map(s=>`<li><a href="${s[1]}" target="_blank" rel="noopener">${s[0]}</a></li>`).join('');
 }
+function drawNew(){
+  const qb=$('#qchips'); qb.textContent='';
+  QUIZ.forEach((q,i)=>{const b=document.createElement('button');b.type='button';const on=QS.has(i);
+    b.className='qc'+(on?(q[1]<0?' out':' in'):''); if(on&&q[1]>=0)b.style.background='var('+LAY[q[1]].col+')';
+    b.innerHTML=`<span>${L(q[0])}</span>`+(on?`<small>${q[1]<0?L(T.qout):L(T.qlay)+' '+(q[1]+1)+' · '+L(LAY[q[1]].nm)}</small>`:'');
+    b.onclick=()=>{QS.add(i);drawNew()}; qb.appendChild(b)});
+  if(QS.size<QUIZ.length){const a=document.createElement('button');a.type='button';a.className='chip';a.textContent=L(T.qall);a.onclick=()=>{QUIZ.forEach((_,i)=>QS.add(i));drawNew()};qb.appendChild(a)}
+  $('#srows').innerHTML=LAY.map((l,i)=>{const c=D.bg[l.k][D.bg[l.k].length-1], k=STK[i];
+    return `<div class="srow"><span class="n" style="background:var(${l.col})">${i+1}</span>
+     <div><b>${L(l.full)}</b><p class="muted">${L(k.q)}</p></div>
+     <div><p class="tag">${L(T.stw)}</p><p>${L(k.w)}</p></div>
+     <div class="pb">${i?`<div><i style="width:${c*100}%;background:var(${l.col});opacity:.35"></i></div><p class="mono muted">${L(T.sown)} ${fmt(c)}</p>`:''}<div><i style="width:${k.i*100}%;background:var(${l.col})"></i></div><p class="mono">${i?L(T.son):L(T.score)} ${fmt(k.i)}</p></div></div>`}).join('');
+  $('#cmp').innerHTML=`<div class="hd q"></div><div class="hd">${L(T.cA)}</div><div class="hd">${L(T.cD)}</div>`+CMP.map(r=>`<div class="q">${L(r[0])}</div><div>${L(r[1])}</div><div>${L(r[2])}</div>`).join('');
+  $('#ba').innerHTML=[0,1].map(g=>`<div class="bagroup"><h3>${L(T['g'+g])}</h3>`+BA.filter(r=>r[3]===g).map(r=>{const lo=Math.min(r[1],r[2]),hi=Math.max(r[1],r[2]);
+    return `<div class="barow ${r[2]>=r[1]?'up':'dn'}"><div>${L(r[0])}</div><div class="dumb"><s style="left:${lo*100}%;width:${(hi-lo)*100}%"></s><i class="a" style="left:${r[1]*100}%"></i><i class="b" style="left:${r[2]*100}%"></i></div><div class="v">${fmt(r[1])} → ${fmt(r[2])}</div></div>`}).join('')+'</div>').join('');
+  $('#med').innerHTML=MED.map(m=>`<div class="mrow"><div><b>${L(m[0])}</b><span>${L(m[1])}</span></div><div class="tr" style="color:var(${m[3]?'--l3':'--l4'})">${L(m[3]?T.better2:T.worse2)}</div><div class="rk">${m[2]}<span class="mono muted"> /27</span></div></div>`).join('');
+  drawVote();
+}
+function drawVote(){
+  const t=+$('#vt').value,b=Math.min(+$('#vb').value,t),sh=b/t*100;
+  $('#vto').textContent=t+'%'; $('#vbo').textContent=b+'%';
+  $('#vbig').textContent=(S.lang==='bg'?sh.toFixed(1).replace('.',','):sh.toFixed(1))+'%';
+  $('#vbar').innerHTML=`<i style="width:${b}%;background:var(--l4)"></i><i style="width:${t-b}%;background:var(--ink)"></i><i style="width:${100-t}%;background:var(--soft)"></i>`;
+}
 function render(){drawCountries();drawCube();drawLayers()}
-function all(){drawStatic();render();renderTL();drawStrips();drawEv();if(typeof thLabel==='function')thLabel()}
+function all(){drawStatic();render();renderTL();drawStrips();drawEv();drawNew();if(typeof thLabel==='function')thLabel()}
 $('#year').addEventListener('input',e=>{S.year=+e.target.value;$('#yearout').textContent=S.year;drawCube();drawLayers()});
+$('#vt').addEventListener('input',drawVote); $('#vb').addEventListener('input',drawVote);
 const setL=l=>{S.lang=l;try{localStorage.setItem('dem-lang',l)}catch(e){}all()};
 $('#lbg').onclick=()=>setL('bg'); $('#len').onclick=()=>setL('en');
 const dg=$('#tl-dr'); $('#tb').onclick=()=>dg.showModal(); $('#tc').onclick=()=>dg.close(); dg.addEventListener('click',e=>{if(e.target===dg)dg.close()});

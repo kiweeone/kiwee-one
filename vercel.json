@@ -1,6 +1,13 @@
 {
+  "redirects": [
+    { "source": "/(.*)", "has": [{ "type": "host", "value": "www.kiwee.one" }], "destination": "https://kiwee.one/$1", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/about", "destination": "/about/index.html" },
+    { "source": "/fintech", "destination": "/fintech/index.html" },
+    { "source": "/creative", "destination": "/creative/index.html" },
+    { "source": "/edtech", "destination": "/edtech/index.html" },
+    { "source": "/(.*)", "destination": "/app.html" }
   ]
 }

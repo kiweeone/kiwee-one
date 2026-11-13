@@ -54,6 +54,8 @@ p{margin:0}
 .bar nav{display:flex;gap:16px;flex-wrap:wrap;flex:1}
 .bar nav a{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;text-decoration:none;color:var(--muted)}
 .bar nav a:hover{color:var(--ink)}
+.bar .home{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.04em;text-decoration:none;white-space:nowrap}
+.bar .home:hover{text-decoration:underline}
 .seg{display:inline-flex;border:1px solid var(--ink);border-radius:3px;overflow:hidden}
 .seg button{background:transparent;border:0;padding:5px 11px;font-family:var(--mono);font-size:12px;letter-spacing:.05em}
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
@@ -168,6 +170,7 @@ footer p{max-width:46em}
 </head>
 <body>
 <div class="bar"><div class="wrap">
+  <a class="home" href="https://www.kiwee.one/">← kiwee.one</a>
   <nav aria-label="Sections">
     <a href="#cube" data-t="nav1"></a><a href="#timeline" data-t="nav2"></a><a href="#eu" data-t="nav3"></a><a href="#shadow" data-t="nav4"></a><a href="#verdict" data-t="nav5"></a>
   </nav>
@@ -264,7 +267,7 @@ const T={
  s5h:['Кого да виним тогава','So who is to blame'],
  s6tag:['Източници и метод','Sources and method'],
  s6p:['Числата са от V-Dem Country-Year Full+Others v16 (март 2026 г.) и от набора Episodes of Regime Transformation. Индексите на V-Dem са експертни оценки с несигурност, не преброявания. Хронологията на кабинетите е по публични справочници.','Figures come from V-Dem Country-Year Full+Others v16 (March 2026) and the Episodes of Regime Transformation dataset. V-Dem indices are expert assessments with uncertainty, not counts. The cabinet chronology follows public reference sources.'],
- foot:['Структурата с петте слоя следва видеото „I don’t get democracy“ на Johnny Harris, което използва петте принципа на V-Dem. Текстовете тук са авторски. Лицата, посочени в санкционни списъци, отричат обвиненията.','The five-layer structure follows Johnny Harris’s video “I don’t get democracy”, which uses V-Dem’s five principles. The texts here are original. People named in sanctions lists deny the accusations.']
+ foot:['Структурата с петте слоя следва видеото „I don’t get democracy“ на Johnny Harris, което използва петте принципа на V-Dem. Текстовете тук са авторски. Лицата, посочени в санкционни списъци, отричат обвиненията.<br><br>Проект на Жельо Иванов · <a href="https://www.kiwee.one/">kiwee.one</a>','The five-layer structure follows Johnny Harris’s video “I don’t get democracy”, which uses V-Dem’s five principles. The texts here are original. People named in sanctions lists deny the accusations.<br><br>A project by Zhelyo Ivanov · <a href="https://www.kiwee.one/">kiwee.one</a>']
 };
 
 const LAY=[

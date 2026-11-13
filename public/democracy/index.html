@@ -342,7 +342,8 @@ footer p{max-width:46em}
   </div>
   <p class="prose" style="margin-top:20px" data-t="vfact"></p>
   <div class="sub"><h3 data-t="mh"></h3><p class="prose" data-t="mp"></p><div class="med" id="med"></div>
-    <p class="loop" data-t="loop"></p><p class="prose" data-t="mnote"></p></div>
+    <p class="loop" data-t="loop"></p></div>
+  <div class="sub"><h3 data-t="oh"></h3><p class="prose" data-t="op"></p><div class="ev" id="ev2" style="margin-top:8px"></div></div>
 </div></section>
 
 <section id="shadow"><div class="wrap">
@@ -394,12 +395,13 @@ const T={
  vnote:['Вторият плъзгач е илюстрация, не измерване.','The second slider is an illustration, not a measurement.'],
  vres:['от подадените бюлетини са организиран вот','of the ballots cast are organised votes'],
  vk1:['организиран вот','organised vote'],vk2:['останалите гласували','other voters'],vk3:['негласували','stayed home'],
- vfact:['Октомври 2024 г.: първата партия взе 26,4% от гласовете при 38,9% активност. Това е приблизително всеки десети в избирателните списъци.','October 2024: the first-placed party took 26.4% of the vote on 38.9% turnout. That is roughly one in ten people on the electoral roll.'],
+ vfact:['Октомври 2024 г.: първата партия взе 26,4% от гласовете при 38,9% активност. Това е приблизително всеки десети в избирателните списъци. <a href="https://en.wikipedia.org/wiki/October_2024_Bulgarian_parliamentary_election" target="_blank" rel="noopener">Данни на ЦИК</a>, дял от действителните гласове за партии.','October 2024: the first-placed party took 26.4% of the vote on 38.9% turnout. That is roughly one in ten people on the electoral roll. <a href="https://en.wikipedia.org/wiki/October_2024_Bulgarian_parliamentary_election" target="_blank" rel="noopener">Election commission figures</a>, as a share of valid votes for parties.'],
  mh:['Защо хората се отказват','Why people give up'],
  mp:['V-Dem не мери кой притежава медиите, но мери какво се случва в тях. Мястото е сред 27-те държави в ЕС, броено от най-лошото.','V-Dem does not measure who owns the media, but it does measure what happens inside them. The rank is among the 27 EU states, counted from the worst.'],
  worse2:['по-зле от 2000 г.','worse than in 2000'],better2:['по-добре от 2000 г.','better than in 2000'],
  loop:['отвращение → негласуване → организираният вот тежи повече → същият резултат → още отвращение','disgust → not voting → the organised vote weighs more → the same result → more disgust'],
- mnote:['Какво не е доказано тук: какъв дял от медиите е на собственици, свързани с политици (нужен е отделен източник), и коя държава стои зад дезинформацията (V-Dem не я назовава). Че всичко това е една координирана мрежа, е тълкуване, не измерване.','What is not proven here: what share of the media belongs to owners tied to politicians (that needs a separate source), and which state is behind the disinformation (V-Dem does not name it). That all of this is one coordinated network is an interpretation, not a measurement.'],
+ oh:['Чии са медиите','Who owns the media'],
+ op:['Няма надеждно число за „дял на медиите, притежавани от политици“. Картината е по-сложна: големите медии са на чужди телеком групи, а влиянието минава през реклама, анонимни сайтове и натиск.','There is no reliable figure for “the share of media owned by politicians”. The picture is more complicated: the big outlets belong to foreign telecom groups, and influence travels through advertising money, anonymous sites and pressure.'],
 
  kicker:['България · 1989–2026 · данни на <a href="https://www.v-dem.net/" target="_blank" rel="noopener">V-Dem</a> v16','Bulgaria · 1989–2026 · <a href="https://www.v-dem.net/" target="_blank" rel="noopener">V-Dem</a> v16 data'],
  h1:['Демокрацията не е виновна','Democracy isn’t to blame'],
@@ -593,6 +595,20 @@ const MED=[
  [['Дезинформация от партии','Disinformation from parties'],['Партиите сами разпространяват неверни твърдения','Parties spread false claims themselves'],4,0],
  [['Платено отразяване','Paid coverage'],['Медии и журналисти променят отразяването срещу заплащане','Outlets and journalists alter coverage for payment'],4,1],
  [['Враждебни политически лагери','Hostile political camps'],['Привържениците на различните лагери се държат като врагове','Supporters of opposing camps treat each other as enemies'],7,0]];
+const EV2=[
+ {t:3,h:['Пазарът е най-рисковото място','The market is the riskiest part'],
+  p:['Мониторингът на медийния плурализъм за 2026 г. дава на България общ риск 64%. Най-зле е пазарният плурализъм със 79%, висок риск. Политическата независимост е 54%.','The 2026 Media Pluralism Monitor gives Bulgaria an overall risk of 64%. Market plurality is the worst area at 79%, a high risk. Political independence is at 54%.'],s:[23]},
+ {t:3,h:['Две чужди групи държат ефира','Two foreign groups hold the airwaves'],
+  p:['По доклад на Съвета на Европа от 2026 г. PPF Group и United Group доминират ключови сегменти на телевизията и телекомите. Формално най-големите медии не са на български политици.','According to a 2026 Council of Europe report, PPF Group and United Group dominate key broadcast and telecom segments. On paper, the largest outlets do not belong to Bulgarian politicians.'],s:[24]},
+ {t:3,h:['Вестниците на Пеевски','Peevski’s newspapers'],
+  p:['През 2007 г. майка му купува „Телеграф“, „Монитор“ и „Политика“. През януари 2021 г., месеци преди американските санкции, United Group се договаря да купи вестниците му.','In 2007 his mother bought Telegraf, Monitor and Politika. In January 2021, months before the US sanctions, United Group agreed to buy his newspapers.'],s:[25,26]},
+ {t:3,h:['370 „сайта гъби“','370 “mushroom websites”'],
+  p:['Фондацията за хуманитарни и социални изследвания открива 370 анонимни сайта, които през 2022 г. разпространяват руска пропаганда и умножават всяко послание около 400 пъти. През 2023 г. мрежата публикува над 350 000 статии и печели от реклама.','The Human and Social Studies Foundation identified 370 anonymous sites that spread Russian propaganda in 2022 and multiplied each message about 400 times. In 2023 the network published more than 350,000 articles and earned money from advertising.'],s:[27,28]},
+ {t:3,h:['Мрежа под наем','A network for hire'],
+  p:['Към средата на 2023 г. същите сайтове пускат много по-малко вдъхновени от Москва текстове, а съдържанието, свързано с Пеевски, нараства. Изследователят, който го описва, казва, че после е викан на разпит в ДАНС.','By mid-2023 the same sites were running far fewer Moscow-inspired stories, while Peevski-related content rose. The researcher who described this says he was then called in for questioning by the security agency.'],s:[29]},
+ {t:4,h:['Скрита собственост','Hidden ownership'],
+  p:['Че политик стои зад голяма медия чрез подставени лица, остава предположение на журналисти, а не установен факт. Коя част от дезинформацията е поръчана и коя е просто бизнес с кликове, също не е измерено.','That a politician stands behind a major outlet through proxies remains a hypothesis raised by journalists, not an established fact. How much of the disinformation is commissioned and how much is simply a click business has not been measured either.'],s:[]}
+];
 const SRC=[
  ['V-Dem Dataset v16 (Country-Year Full+Others)','https://v-dem.net/data/the-v-dem-dataset/'],
  ['Atanas Semerdzhiev (Wikipedia; ECHR figures)','https://en.wikipedia.org/wiki/Atanas_Semerdzhiev'],
@@ -616,7 +632,15 @@ const SRC=[
  ['Novinite: plan to shut down the Commission','https://www.novinite.com/view_news.php?id=239237'],
  ['V-Dem ERT (Episodes of Regime Transformation)','https://github.com/vdeminstitute/ERT'],
  ['Wikipedia: 2026 Bulgarian parliamentary election','https://en.wikipedia.org/wiki/2026_Bulgarian_parliamentary_election'],
- ['Johnny Harris, “I don’t get democracy”','https://www.youtube.com/watch?v=O7LvhSQ5Te4']
+ ['Johnny Harris, “I don’t get democracy”','https://www.youtube.com/watch?v=O7LvhSQ5Te4'],
+ ['Media Pluralism Monitor 2026: Bulgaria','https://cmpf.eui.eu/country/bulgaria/'],
+ ['Sofia Globe: Council of Europe on Bulgarian media (2026)','https://sofiaglobe.com/?p=126730'],
+ ['IPI: Magnitsky sanctions shift media landscape','https://ipi.media/bulgaria-magnitsky-sanctions-against-mogul-delyan-peevski-shift-media-landscape/'],
+ ['SeeNews: United Group and Telegraph Newspaper (2021)','https://seenews.com/news/united-group-expects-to-wrap-up-deal-for-bulgarias-telegraph-newspaper-publisher-in-q1-729281'],
+ ['Kyiv Independent: 370 disinformation sites (HSSF)','https://kyivindependent.com/400-pro-russian-disinformation-sites-dicoverd-in-bulgaria'],
+ ['DFRLab: Bulgarian “mushroom” websites','https://dfrlab.org/2024/03/26/suspicious-facebook-assets-bulgarian-mushroom-websites'],
+ ['RFE/RL: Inside the “Mushroom Machine”','https://www.rferl.org/a/bulgaria-disinformation-websites-mushrooms-russia/32950283.html'],
+ ['October 2024 parliamentary election (CEC figures)','https://en.wikipedia.org/wiki/October_2024_Bulgarian_parliamentary_election'],
 ];
 
 const fmt=v=>v==null?'–':(S.lang==='bg'?v.toFixed(2).replace('.',','):v.toFixed(2));
@@ -718,11 +742,13 @@ function drawStrips(){
 function drawEv(){
   const f=$('#filters'); f.textContent='';
   TIER.forEach((t,i)=>{const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=L(t)+(i?` · ${EV.filter(e=>e.t===i).length}`:'');b.setAttribute('aria-pressed',S.tier===i);b.onclick=()=>{S.tier=i;drawEv()};f.appendChild(b)});
-  $('#ev').innerHTML=EV.filter(e=>!S.tier||e.t===S.tier).map(e=>{
+  const card=e=>{
     const mx=e.bars?Math.max(...e.bars.map(b=>b[1])):0;
     return `<article class="card t${e.t}"><p class="tag">${L(TIER[e.t])}</p><h3>${L(e.h)}</h3>
      ${e.bars?`<div class="bars" style="margin:18px 0 22px">${e.bars.map(b=>`<div style="height:${b[1]/mx*100}%"><b>${b[1]}</b><span>${b[0]}</span></div>`).join('')}</div>`:''}
-     <p>${L(e.p)}</p><p class="src">${e.s.map(i=>`<a href="${SRC[i][1]}" target="_blank" rel="noopener">[${i+1}]</a>`).join('')}</p></article>`}).join('');
+     <p>${L(e.p)}</p><p class="src">${e.s.map(i=>`<a href="${SRC[i][1]}" target="_blank" rel="noopener">[${i+1}]</a>`).join('')}</p></article>`};
+  $('#ev').innerHTML=EV.filter(e=>!S.tier||e.t===S.tier).map(card).join('');
+  $('#ev2').innerHTML=EV2.map(card).join('');
 }
 
 function drawStatic(){

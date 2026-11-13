@@ -87,6 +87,9 @@ dialog::backdrop{background:rgba(10,12,15,.6)}
 .dl li{display:grid;grid-template-columns:34px 1fr;gap:8px;padding:12px 0;border-bottom:1px solid var(--line);counter-increment:n}
 .dl li::before{content:counter(n);font-family:var(--display);font-weight:900;font-size:26px;line-height:1}
 .dl li b{display:block}
+.vd{background:var(--soft);padding:16px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.vd p{font-size:15.5px}
+.vd .chip{text-decoration:none;border-color:var(--ink)}
 
 
 section{padding:72px 0;border-bottom:1px solid var(--line)}
@@ -210,7 +213,7 @@ footer p{max-width:46em}
 </div></div>
 </div></div>
 
-<dialog id="tl-dr" aria-labelledby="tlh"><div class="dl"><div class="dh"><h2 id="tlh" data-t="tlh"></h2><button class="chip" id="tc" type="button" data-t="close"></button></div><ol id="tlist"></ol><p class="mono muted" data-t="tlfoot"></p></div></dialog>
+<dialog id="tl-dr" aria-labelledby="tlh"><div class="dl"><div class="dh"><h2 id="tlh" data-t="tlh"></h2><button class="chip" id="tc" type="button" data-t="close"></button></div><ol id="tlist"></ol><div class="vd"><h3 data-t="vh"></h3><p data-t="vp"></p><a class="chip" href="https://www.v-dem.net/" target="_blank" rel="noopener" data-t="vl"></a></div><p class="mono muted" data-t="tlfoot"></p></div></dialog>
 
 <header class="hero"><div class="wrap">
   <p class="tag" data-t="kicker"></p>
@@ -273,12 +276,12 @@ const L=o=>Array.isArray(o)?o[S.lang==='bg'?0:1]:o;
 
 const T={
  word:['Демокрация','Democracy'],nav1:['Кубът','The cube'],nav2:['Кабинети','Cabinets'],nav3:['Спрямо ЕС','Vs the EU'],nav4:['Скритият слой','Hidden layer'],nav5:['Изводът','Verdict'],
- kicker:['България · 1989–2026 · данни на V-Dem v16','Bulgaria · 1989–2026 · V-Dem v16 data'],
+ kicker:['България · 1989–2026 · данни на <a href="https://www.v-dem.net/" target="_blank" rel="noopener">V-Dem</a> v16','Bulgaria · 1989–2026 · <a href="https://www.v-dem.net/" target="_blank" rel="noopener">V-Dem</a> v16 data'],
  h1:['Демокрацията не е виновна','Democracy isn’t to blame'],
  lede:['Думата „демокрация“ значи пет различни неща. България построи първото през 1990 г. и спря дотам. Останалото беше <span class="redact">заето от други</span>.','The word “democracy” means five different things. Bulgaria built the first one in 1990 and stopped there. The rest was <span class="redact">taken by others</span>.'],
  s1tag:['01 · Какво значи думата','01 · What the word means'],
  s1h:['Пет неща, не едно','Five things, not one'],
- s1p:['Изследователите от V-Dem разделят демокрацията на пет принципа. Изборите са основата, а върху тях стъпват правата, равенството, участието и обсъждането. Изберете слой, страна и година и вижте колко от куба е построен.','V-Dem researchers split democracy into five principles. Elections are the base, and rights, equality, participation and deliberation stand on top of them. Pick a layer, a country and a year to see how much of the cube is built.'],
+ s1p:['Изследователите от <a href="https://www.v-dem.net/" target="_blank" rel="noopener">V-Dem</a> разделят демокрацията на пет принципа. Изборите са основата, а върху тях стъпват правата, равенството, участието и обсъждането. Изберете слой, страна и година и вижте колко от куба е построен.','<a href="https://www.v-dem.net/" target="_blank" rel="noopener">V-Dem</a> researchers split democracy into five principles. Elections are the base, and rights, equality, participation and deliberation stand on top of them. Pick a layer, a country and a year to see how much of the cube is built.'],
  year:['Година','Year'],
  cubecap:['Височина = оценка на V-Dem от 0 до 1. Пунктир = оценка 1.','Height = V-Dem score from 0 to 1. Dashed outline = a score of 1.'],
  ideal:['Идеята','The idea'],
@@ -290,7 +293,7 @@ const T={
  s2p:['Сменяха се леви, десни, царски и протестни правителства. Изборният индекс почти не помръдна нагоре след 1992 г., а корупцията е почти двойно по-висока от тази през 2000 г. Изберете кабинет от лентата.','Left, right, royal and protest governments came and went. The electoral index barely rose after 1992, and corruption is almost double its 2000 level. Pick a cabinet from the strip.'],
  care:['служебен кабинет','caretaker cabinet'],
  sE:['Изборен индекс','Electoral index'],sC:['Политическа корупция','Political corruption'],sT:['Активност на парламентарни избори','Turnout, parliamentary elections'],
- tlh:['Накратко','In short'],close:['Затвори','Close'],tlfoot:['Данни: V-Dem v16. Източниците са в края на страницата.','Data: V-Dem v16. Sources are at the end of the page.'],
+ tlh:['Накратко','In short'],close:['Затвори','Close'],vh:['Какво е V-Dem','What is V-Dem'],vp:['V-Dem (Varieties of Democracy, „Разновидности на демокрацията“) е изследователски проект със седалище в Гьотеборгския университет, Швеция. Той не дава на държавите една обща оценка, а мери всеки от петте принципа поотделно: с над 600 показателя, за 202 държави и назад до 1789 г. На въпросите отговарят над 4200 експерти по отделните страни, по правило поне петима за всеки показател. Статистически модел обединява отговорите им, дава по-голяма тежест на по-надеждните експерти и показва несигурността. Данните са свободни за изтегляне.','V-Dem (Varieties of Democracy) is a research project headquartered at the University of Gothenburg, Sweden. It does not give a country one overall grade. It measures each of the five principles separately, with more than 600 indicators, for 202 countries, going back to 1789. More than 4,200 country experts answer the questions, normally at least five for every indicator. A statistical model combines their answers, gives more weight to the more reliable experts and reports the uncertainty. The data is free to download.'],vl:['Към v-dem.net →','Go to v-dem.net →'],tlfoot:['Източниците са в края на страницата.','Sources are at the end of the page.'],
  prev:['← Предишен','← Previous'],next:['Следващ →','Next →'],
  s3tag:['03 · ЕС-27, 2025','03 · EU-27, 2025'],
  s3h:['Последни там, където не се гласува','Last where nobody votes on it'],
@@ -302,7 +305,7 @@ const T={
  s5tag:['05 · Изводът','05 · The verdict'],
  s5h:['Кого да виним тогава','So who is to blame'],
  s6tag:['Източници и метод','Sources and method'],
- s6p:['Числата са от V-Dem Country-Year Full+Others v16 (март 2026 г.) и от набора Episodes of Regime Transformation. Индексите на V-Dem са експертни оценки с несигурност, не преброявания. Хронологията на кабинетите е по публични справочници.','Figures come from V-Dem Country-Year Full+Others v16 (March 2026) and the Episodes of Regime Transformation dataset. V-Dem indices are expert assessments with uncertainty, not counts. The cabinet chronology follows public reference sources.'],
+ s6p:['Числата са от <a href="https://www.v-dem.net/" target="_blank" rel="noopener">V-Dem</a> Country-Year Full+Others v16 (март 2026 г.) и от набора Episodes of Regime Transformation. Индексите на V-Dem са експертни оценки с несигурност, не преброявания. Хронологията на кабинетите е по публични справочници.','Figures come from <a href="https://www.v-dem.net/" target="_blank" rel="noopener">V-Dem</a> Country-Year Full+Others v16 (March 2026) and the Episodes of Regime Transformation dataset. V-Dem indices are expert assessments with uncertainty, not counts. The cabinet chronology follows public reference sources.'],
  foot:['Структурата с петте слоя следва видеото „I don’t get democracy“ на Johnny Harris, което използва петте принципа на V-Dem. Текстовете тук са авторски. Лицата, посочени в санкционни списъци, отричат обвиненията.<br><br>Проект на Жельо Иванов · <a href="https://www.kiwee.one/">kiwee.one</a>','The five-layer structure follows Johnny Harris’s video “I don’t get democracy”, which uses V-Dem’s five principles. The texts here are original. People named in sanctions lists deny the accusations.<br><br>A project by Zhelyo Ivanov · <a href="https://www.kiwee.one/">kiwee.one</a>']
 };
 

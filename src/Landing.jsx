@@ -1,14 +1,29 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const bands = [
-  { title: "F1 Predictor", role: "AI-Powered Fantasy Tool", bg: "#e10600", color: "#fff", link: "/f1predictor", live: true },
-  { title: "Samardala", role: "Live WebGL Experience", bg: "#1C2431", color: "#fff", href: "https://samardala.com", live: true },
-  { title: "Law Trail", role: "Mapping Influence on Bulgarian Law", bg: "#9a80f2", color: "#101216", href: "https://law-trail.vercel.app", live: true },
-  { title: "FinTech", role: "Platform Architect", bg: "#1a1a1a", color: "#fff", link: null, live: false },
-  { title: "Creative", role: "Experiential & Interactive", bg: "#FF8000", color: "#fff", link: null, live: false },
-  { title: "EdTech", role: "Interactive Learning Platform", bg: "#3671C6", color: "#fff", link: null, live: false },
-  { title: "About", role: "Chief Product Officer | Technical Product Leader", bg: "#f5c518", color: "#1a1a1a", link: "/about", live: false },
+const groups = [
+  {
+    label: "Experiments",
+    bands: [
+      { title: "F1 Predictor", role: "AI-Powered Fantasy Tool", bg: "#e10600", color: "#fff", link: "/f1predictor", live: true },
+      { title: "Samardala", role: "Live WebGL Experience", bg: "#1C2431", color: "#fff", href: "https://samardala.com", live: true },
+      { title: "Law Trail", role: "Mapping Influence on Bulgarian Law", bg: "#9a80f2", color: "#101216", href: "https://law-trail.vercel.app", live: true },
+    ],
+  },
+  {
+    label: "Work",
+    bands: [
+      { title: "FinTech", role: "Platform Architect", bg: "#1a1a1a", color: "#fff", link: "/fintech" },
+      { title: "Creative", role: "Experiential & Interactive", bg: "#FF8000", color: "#fff", link: "/creative" },
+      { title: "EdTech", role: "Interactive Learning Platform", bg: "#3671C6", color: "#fff", link: "/edtech" },
+    ],
+  },
+  {
+    label: null,
+    bands: [
+      { title: "About", role: "Chief Product Officer | Technical Product Leader", bg: "#f5c518", color: "#1a1a1a", link: "/about" },
+    ],
+  },
 ];
 
 const skills = [
@@ -64,46 +79,55 @@ export default function Landing() {
 
       {/* ─── BANDS ─── */}
       <section className="fu">
-        {bands.map((p, i) => {
-          const isLink = !!(p.link || p.href);
-          const Wrapper = p.href ? "a" : p.link ? Link : "div";
-          const wrapperProps = p.href
-            ? { href: p.href, target: "_blank", rel: "noopener" }
-            : p.link ? { to: p.link } : {};
-
-          return (
-            <Wrapper
-              key={i}
-              {...wrapperProps}
-              className="band"
-              onMouseEnter={() => setHov(i)}
-              onMouseLeave={() => setHov(null)}
-              style={{
-                padding: "36px var(--pad)", background: p.bg, color: p.color,
-                cursor: isLink ? "pointer" : "default",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "baseline", gap: 12, flexWrap: "wrap" }}>
-                <span style={{
-                  fontSize: "var(--band-size)", fontWeight: 900,
-                  letterSpacing: "-0.03em", lineHeight: 1.05,
-                }}>
-                  {p.title}
-                </span>
-                {p.live && (
-                  <span style={{
-                    fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2,
-                    background: p.color === "#fff" ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.12)", padding: "4px 12px", borderRadius: 4,
-                  }}>
-                    ● Live
-                  </span>
-                )}
+        {groups.map((g) => (
+          <div key={g.label || "end"}>
+            {g.label && (
+              <div style={{ padding: "40px var(--pad) 14px", fontSize: 12, fontWeight: 700, color: "#bbb", textTransform: "uppercase", letterSpacing: 3 }}>
+                {g.label}
               </div>
-              {/* Role text — right-aligned, vertically centered, no arrow */}
-              <span style={{ fontSize: 14, fontWeight: 500, opacity: 0.6 }}>{p.role}</span>
-            </Wrapper>
-          );
-        })}
+            )}
+            {g.bands.map((p) => {
+              const isLink = !!(p.link || p.href);
+              const Wrapper = p.href ? "a" : p.link ? Link : "div";
+              const wrapperProps = p.href
+                ? { href: p.href, target: "_blank", rel: "noopener" }
+                : p.link ? { to: p.link } : {};
+
+              return (
+                <Wrapper
+                  key={p.title}
+                  {...wrapperProps}
+                  className="band"
+                  onMouseEnter={() => setHov(p.title)}
+                  onMouseLeave={() => setHov(null)}
+                  style={{
+                    padding: "36px var(--pad)", background: p.bg, color: p.color,
+                    cursor: isLink ? "pointer" : "default",
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "baseline", gap: 12, flexWrap: "wrap" }}>
+                    <span style={{
+                      fontSize: "var(--band-size)", fontWeight: 900,
+                      letterSpacing: "-0.03em", lineHeight: 1.05,
+                    }}>
+                      {p.title}
+                    </span>
+                    {p.live && (
+                      <span style={{
+                        fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2,
+                        background: p.color === "#fff" ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.12)", padding: "4px 12px", borderRadius: 4,
+                      }}>
+                        ● Live
+                      </span>
+                    )}
+                  </div>
+                  {/* Role text — right-aligned, vertically centered, no arrow */}
+                  <span style={{ fontSize: 14, fontWeight: 500, opacity: 0.6 }}>{p.role}</span>
+                </Wrapper>
+              );
+            })}
+          </div>
+        ))}
       </section>
 
       {/* ─── SKILLS ─── */}

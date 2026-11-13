@@ -17,22 +17,22 @@ export const work = {
           {
             title: "Credissimo", href: "https://credissimo.bg", tag: "Flagship",
             body: "The flagship consumer lender, online since 2006. Fast loans up to €5,000, applied for online with just an ID card — now backed by a native mobile platform.",
-            image: null, // e.g. "/fintech/credissimo.png"
+            image: "/fintech/credissimo.webp"
           },
           {
             title: "Xtra", href: "https://xtra.bg", tag: "Built 0→1",
             body: "An app-first lending product: loans from €100 to €5,000 over 3–24 months, applied for entirely in the Xtra app with an ID card.",
-            image: null,
+            image: "/fintech/xtra.webp",
           },
           {
             title: "Plati Posle", href: "https://platiposle.bg", tag: "Built 0→1",
             body: "Buy now, pay later — split payments for products and services into instalments, with 0% interest for the first 30 days.",
-            image: null,
+            image: "/fintech/platiposle.webp",
           },
           {
             title: "Umo", href: "https://umo.bg",
             body: "Online consumer loans up to €5,000, repaid over 3–24 months.",
-            image: null,
+            image: "/fintech/umo.webp",
           },
         ],
       },

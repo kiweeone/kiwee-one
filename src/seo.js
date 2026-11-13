@@ -1,5 +1,5 @@
 // Page titles/descriptions — used by the build-time prerender and by the client on navigation.
-export const SITE = "https://kiwee.one";
+export const SITE = "https://www.kiwee.one";
 export const NAME = "Zhelyo Ivanov";
 
 export const pages = {

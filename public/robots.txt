@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kiwee.one/sitemap.xml
+Sitemap: https://www.kiwee.one/sitemap.xml

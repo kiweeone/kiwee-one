@@ -92,15 +92,15 @@ export default function Work({ slug }) {
 
       {/* ─── HEADER BAND ─── */}
       <header style={{ background: w.bg, color: w.color, padding: "20px var(--pad) 48px" }}>
-        <Link to="/" style={{ fontSize: 14, fontWeight: 600, opacity: 0.6 }}>← Back</Link>
+        <Link to="/" style={{ fontSize: 15, fontWeight: 600, opacity: 0.7 }}>← Back</Link>
         <div className="fu" style={{ marginTop: 40, display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 12 }}>
           <h1 style={{ fontSize: "clamp(56px, 10vw, 130px)", fontWeight: 900, letterSpacing: "-0.04em", lineHeight: 0.95 }}>{w.title}</h1>
-          <span style={{ fontSize: 14, fontWeight: 500, opacity: 0.6 }}>{w.role}</span>
+          <span style={{ fontSize: 16, fontWeight: 500, opacity: 0.75 }}>{w.role}</span>
         </div>
       </header>
 
-      <main className="fu" style={{ padding: "48px var(--pad) 80px", maxWidth: 1200, margin: "0 auto" }}>
-        <p style={{ fontSize: "clamp(18px, 2.2vw, 24px)", fontWeight: 500, lineHeight: 1.4, color: "#444", maxWidth: 760, marginBottom: 56 }}>{w.intro}</p>
+      <main className="fu" style={{ padding: "56px var(--pad) 96px" }}>
+        <p style={{ fontSize: "clamp(20px, 2.4vw, 28px)", fontWeight: 500, lineHeight: 1.4, color: "#1a1a1a", maxWidth: 820, marginBottom: 72 }}>{w.intro}</p>
 
         {w.sections.map((s) => (
           <section key={s.title || s.label} style={{ marginBottom: 88 }}>
@@ -109,13 +109,13 @@ export default function Work({ slug }) {
             )}
             {s.title && (
               <div style={{ borderTop: `3px solid ${w.bg}`, paddingTop: 20, marginBottom: 28 }}>
-                <h2 style={{ fontSize: "clamp(30px, 4.5vw, 52px)", fontWeight: 900, letterSpacing: "-0.03em", lineHeight: 1.05 }}>{s.title}</h2>
-                {s.meta && <div style={{ fontSize: 13, fontWeight: 600, color: "#999", marginTop: 10 }}>{s.meta}</div>}
-                {s.desc && <p style={{ fontSize: 16, lineHeight: 1.7, color: "#444", maxWidth: 760, marginTop: 20 }}>{s.desc}</p>}
+                <h2 style={{ fontSize: "clamp(30px, 4vw, 48px)", fontWeight: 900, letterSpacing: "-0.03em", lineHeight: 1.05 }}>{s.title}</h2>
+                {s.meta && <div style={{ fontSize: 15, fontWeight: 600, color: "#888", marginTop: 12 }}>{s.meta}</div>}
+                {s.desc && <p style={{ fontSize: 18, lineHeight: 1.65, color: "#333", maxWidth: 760, marginTop: 24 }}>{s.desc}</p>}
                 {s.awards && (
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 20 }}>
                     {s.awards.map((a) => (
-                      <span key={a} style={{ fontSize: 13, fontWeight: 600, padding: "6px 14px", background: "#fff", border: "1px solid #e5e5e5", borderRadius: 999, color: "#333" }}>🏆 {a}</span>
+                      <span key={a} style={{ fontSize: 14, fontWeight: 600, padding: "8px 16px", background: "#fff", border: "1px solid #e5e5e5", borderRadius: 999, color: "#333" }}>🏆 {a}</span>
                     ))}
                   </div>
                 )}
@@ -137,8 +137,8 @@ export default function Work({ slug }) {
 
             {s.links?.map((l) => (
               <a key={l.href} href={l.href} target="_blank" rel="noopener" className="row">
-                <span style={{ fontSize: s.title ? "clamp(18px, 2.2vw, 24px)" : "clamp(24px, 3.5vw, 40px)", fontWeight: 800, letterSpacing: "-0.02em" }}>{l.title}</span>
-                <span className="meta" style={{ fontSize: 14, color: "#888" }}>
+                <span style={{ fontSize: s.title ? "clamp(20px, 2.2vw, 24px)" : "clamp(30px, 4vw, 48px)", fontWeight: 800, letterSpacing: "-0.02em" }}>{l.title}</span>
+                <span className="meta" style={{ fontSize: 15, color: "#888" }}>
                   {l.desc} <span style={{ color: "#bbb" }}>· {host(l.href)}</span> <span className="arr" style={{ display: "inline-block", color: w.bg === "#1a1a1a" ? "#1a1a1a" : w.bg }}>↗</span>
                 </span>
               </a>

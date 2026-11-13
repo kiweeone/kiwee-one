@@ -8,6 +8,7 @@ const groups = [
       { title: "FinTech", role: "Platform Architect", bg: "#1a1a1a", color: "#fff", link: "/fintech" },
       { title: "Creative", role: "Experiential & Interactive", bg: "#FF8000", color: "#fff", link: "/creative" },
       { title: "EdTech", role: "Interactive Learning Platform", bg: "#3671C6", color: "#fff", link: "/edtech" },
+      { title: "About", role: "Chief Product Officer | Technical Product Leader", bg: "#f5c518", color: "#1a1a1a", link: "/about" },
     ],
   },
   {
@@ -18,12 +19,7 @@ const groups = [
       { title: "Law Trail", role: "Mapping Influence on Bulgarian Law", bg: "#9a80f2", color: "#101216", href: "https://law-trail.vercel.app", live: true },
     ],
   },
-  {
-    label: null,
-    bands: [
-      { title: "About", role: "Chief Product Officer | Technical Product Leader", bg: "#f5c518", color: "#1a1a1a", link: "/about" },
-    ],
-  },
+
 ];
 
 const skills = [

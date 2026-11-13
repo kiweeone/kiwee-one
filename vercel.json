@@ -21,6 +21,10 @@
       "destination": "/edtech/index.html"
     },
     {
+      "source": "/democracy",
+      "destination": "/democracy/index.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/app.html"
     }

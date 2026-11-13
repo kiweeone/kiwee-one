@@ -38,7 +38,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 :focus-visible{outline:2px solid var(--l1);outline-offset:2px}
 .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
 h1,h2{font-family:var(--display);font-weight:900;text-transform:uppercase;line-height:.92;margin:0;text-wrap:balance;letter-spacing:.005em}
-h1{font-size:clamp(40px,11vw,132px);overflow-wrap:anywhere}
+h1{font-size:clamp(34px,9.6vw,132px);overflow-wrap:anywhere}
 h2{font-size:clamp(38px,6vw,68px)}
 h3{font-size:19px;margin:0;font-weight:700}
 p{margin:0}
@@ -48,18 +48,35 @@ p{margin:0}
 .muted{color:var(--muted)}
 .tag{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
 
-/* top bar */
-.bar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
-.bar .wrap{display:flex;align-items:center;gap:16px;min-height:52px;flex-wrap:wrap}
-.bar nav{display:flex;gap:16px;flex-wrap:wrap;flex:1}
-.bar nav a{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;text-decoration:none;color:var(--muted)}
-.bar nav a:hover{color:var(--ink)}
-.bar .home{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.04em;text-decoration:none;white-space:nowrap}
-.bar .home:hover{text-decoration:underline}
+/* masthead + sticky section bar */
+.mast{background:var(--bg);padding:18px 0 12px}
+.mast .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.brand{display:flex;flex-direction:column;gap:6px;min-width:0}
+.home{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.04em;text-decoration:none;white-space:nowrap;color:var(--muted)}
+.home:hover{color:var(--ink)}
+.word{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(28px,7.4vw,52px);line-height:.9;text-decoration:none;letter-spacing:.01em}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);border-top:2px solid var(--ink);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:10px;min-height:48px}
+.bar nav{display:flex;gap:6px;flex:1;min-width:0}
+.ni{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding:4px 10px 4px 4px;border-radius:3px;white-space:nowrap}
+.ni b{display:grid;place-items:center;width:24px;height:24px;border:1px solid var(--muted);border-radius:3px;font-weight:700;flex:none}
+.ni:hover{color:var(--ink)}
+.ni.on{color:var(--ink);background:var(--soft)}
+.ni.on b{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+@media (max-width:820px){
+  .ni{padding-right:4px;flex:none}
+  .ni span{display:none}
+  .ni.on{padding-right:10px;flex:0 1 auto;min-width:0}
+  .ni.on span{display:block;overflow:hidden;text-overflow:ellipsis}
+  .bar nav{justify-content:flex-end}
+}
+section{scroll-margin-top:50px}
+.icon{display:grid;place-items:center;width:30px;height:30px;background:transparent;border:1px solid var(--ink);border-radius:3px;padding:0}
+.icon svg{width:16px;height:16px;display:block}
 .seg{display:inline-flex;border:1px solid var(--ink);border-radius:3px;overflow:hidden}
 .seg button{background:transparent;border:0;padding:5px 11px;font-family:var(--mono);font-size:12px;letter-spacing:.05em}
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
-.tools{display:flex;gap:8px;align-items:center}
+.tools{display:flex;gap:8px;align-items:center;flex:none}
 .tldr{background:var(--ink);color:var(--bg);border:0;border-radius:3px;padding:4px 10px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.06em;white-space:nowrap}
 dialog{border:1px solid var(--ink);background:var(--panel);color:var(--ink);padding:0;width:min(680px,calc(100vw - 32px));max-height:calc(100dvh - 48px)}
 dialog::backdrop{background:rgba(10,12,15,.6)}
@@ -70,14 +87,7 @@ dialog::backdrop{background:rgba(10,12,15,.6)}
 .dl li{display:grid;grid-template-columns:34px 1fr;gap:8px;padding:12px 0;border-bottom:1px solid var(--line);counter-increment:n}
 .dl li::before{content:counter(n);font-family:var(--display);font-weight:900;font-size:26px;line-height:1}
 .dl li b{display:block}
-.seg.one{background:transparent;padding:5px 11px;font-family:var(--mono);font-size:12px;letter-spacing:.05em}
-@media (max-width:760px){
-  .bar .wrap{gap:0 12px;padding-top:8px}
-  .bar .home{flex:1}
-  .bar nav{order:3;flex:0 0 100%;flex-wrap:nowrap;overflow-x:auto;gap:20px;padding:10px 0 11px;scrollbar-width:none}
-  .bar nav::-webkit-scrollbar{display:none}
-  .bar nav a{white-space:nowrap}
-}
+
 
 section{padding:72px 0;border-bottom:1px solid var(--line)}
 .head{display:flex;flex-direction:column;gap:16px;margin-bottom:32px}
@@ -187,14 +197,17 @@ footer{padding:32px 0 64px;font-size:14.5px;color:var(--muted)}
 footer p{max-width:46em}
 </style>
 </head>
-<body>
+<body id="top">
+<div class="mast"><div class="wrap">
+  <div class="brand"><a class="home" href="https://www.kiwee.one/">← kiwee.one</a><a class="word" href="#top" data-t="word"></a></div>
+  <div class="tools"><button class="icon" id="th" type="button"></button><div class="seg" role="group" aria-label="Language"><button id="lbg" type="button">BG</button><button id="len" type="button">EN</button></div></div>
+</div></div>
 <div class="bar"><div class="wrap">
-  <a class="home" href="https://www.kiwee.one/">← kiwee.one</a>
+  <button class="tldr" id="tb" type="button">TL;DR</button>
   <nav aria-label="Sections">
-    <button class="tldr" id="tb" type="button">TL;DR</button>
-    <a href="#cube" data-t="nav1"></a><a href="#timeline" data-t="nav2"></a><a href="#eu" data-t="nav3"></a><a href="#shadow" data-t="nav4"></a><a href="#verdict" data-t="nav5"></a>
+    <a class="ni" href="#cube"><b>1</b><span data-t="nav1"></span></a><a class="ni" href="#timeline"><b>2</b><span data-t="nav2"></span></a><a class="ni" href="#eu"><b>3</b><span data-t="nav3"></span></a><a class="ni" href="#shadow"><b>4</b><span data-t="nav4"></span></a><a class="ni" href="#verdict"><b>5</b><span data-t="nav5"></span></a>
   </nav>
-  <div class="tools"><button class="seg one" id="th" type="button"></button><div class="seg" role="group" aria-label="Language"><button id="lbg" type="button">BG</button><button id="len" type="button">EN</button></div></div>
+</div></div>
 </div></div>
 
 <dialog id="tl-dr" aria-labelledby="tlh"><div class="dl"><div class="dh"><h2 id="tlh" data-t="tlh"></h2><button class="chip" id="tc" type="button" data-t="close"></button></div><ol id="tlist"></ol><p class="mono muted" data-t="tlfoot"></p></div></dialog>
@@ -259,7 +272,7 @@ try{const l=localStorage.getItem('dem-lang');if(l==='en'||l==='bg')S.lang=l}catc
 const L=o=>Array.isArray(o)?o[S.lang==='bg'?0:1]:o;
 
 const T={
- nav1:['Кубът','The cube'],nav2:['Кой управляваше','Who governed'],nav3:['Спрямо ЕС','Against the EU'],nav4:['Скритият слой','The hidden layer'],nav5:['Изводът','The verdict'],
+ word:['Демокрация','Democracy'],nav1:['Кубът','The cube'],nav2:['Кабинети','Cabinets'],nav3:['Спрямо ЕС','Vs the EU'],nav4:['Скритият слой','Hidden layer'],nav5:['Изводът','Verdict'],
  kicker:['България · 1989–2026 · данни на V-Dem v16','Bulgaria · 1989–2026 · V-Dem v16 data'],
  h1:['Демокрацията не е виновна','Democracy isn’t to blame'],
  lede:['Думата „демокрация“ значи пет различни неща. България построи първото през 1990 г. и спря дотам. Останалото беше <span class="redact">заето от други</span>.','The word “democracy” means five different things. Bulgaria built the first one in 1990 and stopped there. The rest was <span class="redact">taken by others</span>.'],
@@ -573,7 +586,12 @@ $('#lbg').onclick=()=>setL('bg'); $('#len').onclick=()=>setL('en');
 const dg=$('#tl-dr'); $('#tb').onclick=()=>dg.showModal(); $('#tc').onclick=()=>dg.close(); dg.addEventListener('click',e=>{if(e.target===dg)dg.close()});
 const root=document.documentElement;
 const isDark=()=>root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
-const thLabel=()=>{$('#th').textContent=isDark()?(S.lang==='bg'?'Светла':'Light'):(S.lang==='bg'?'Тъмна':'Dark')};
+const SUN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+const MOON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.500 10.500z"/></svg>';
+const thLabel=()=>{const d=isDark();$('#th').innerHTML=d?SUN:MOON;$('#th').setAttribute('aria-label',d?(S.lang==='bg'?'Светла тема':'Light theme'):(S.lang==='bg'?'Тъмна тема':'Dark theme'))};
+const nis=[...document.querySelectorAll('.ni')], secs=nis.map(a=>document.querySelector(a.getAttribute('href')));
+let tick=0; const spy=()=>{tick=0;let k=-1;secs.forEach((s,i)=>{if(s.getBoundingClientRect().top<=120)k=i});nis.forEach((a,i)=>a.classList.toggle('on',i===k))};
+addEventListener('scroll',()=>{if(!tick)tick=requestAnimationFrame(spy)},{passive:true}); spy();
 try{const t=localStorage.getItem('dem-theme');if(t==='light'||t==='dark')root.dataset.theme=t}catch(e){}
 $('#th').onclick=()=>{const t=isDark()?'light':'dark';root.dataset.theme=t;try{localStorage.setItem('dem-theme',t)}catch(e){}thLabel()};
 S.gov=GOV.length-3; all(); thLabel();

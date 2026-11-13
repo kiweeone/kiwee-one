@@ -15,6 +15,7 @@
 - [About & CV](https://www.kiwee.one/about)
 
 ## Experiments
+- [Democracy](https://www.kiwee.one/democracy): bilingual (BG/EN) interactive explainer of the five layers of democracy and how Bulgaria scores on them since 1989, using V-Dem data.
 - [Samardala](https://samardala.com): a live WebGL experience about the Bulgarian herb samardala.
 - [F1 Predictor](https://www.kiwee.one/f1predictor): AI-powered F1 Fantasy prediction tool.
 

@@ -60,6 +60,16 @@ p{margin:0}
 .seg button{background:transparent;border:0;padding:5px 11px;font-family:var(--mono);font-size:12px;letter-spacing:.05em}
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
 .tools{display:flex;gap:8px;align-items:center}
+.tldr{background:var(--ink);color:var(--bg);border:0;border-radius:3px;padding:4px 10px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.06em;white-space:nowrap}
+dialog{border:1px solid var(--ink);background:var(--panel);color:var(--ink);padding:0;width:min(680px,calc(100vw - 32px));max-height:calc(100dvh - 48px)}
+dialog::backdrop{background:rgba(10,12,15,.6)}
+.dl{padding:24px;display:flex;flex-direction:column;gap:18px}
+.dh{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.dh h2{font-size:clamp(34px,6vw,48px)}
+.dl ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:0;border-top:2px solid var(--ink);counter-reset:n}
+.dl li{display:grid;grid-template-columns:34px 1fr;gap:8px;padding:12px 0;border-bottom:1px solid var(--line);counter-increment:n}
+.dl li::before{content:counter(n);font-family:var(--display);font-weight:900;font-size:26px;line-height:1}
+.dl li b{display:block}
 .seg.one{background:transparent;padding:5px 11px;font-family:var(--mono);font-size:12px;letter-spacing:.05em}
 @media (max-width:760px){
   .bar .wrap{gap:0 12px;padding-top:8px}
@@ -181,10 +191,13 @@ footer p{max-width:46em}
 <div class="bar"><div class="wrap">
   <a class="home" href="https://www.kiwee.one/">← kiwee.one</a>
   <nav aria-label="Sections">
+    <button class="tldr" id="tb" type="button">TL;DR</button>
     <a href="#cube" data-t="nav1"></a><a href="#timeline" data-t="nav2"></a><a href="#eu" data-t="nav3"></a><a href="#shadow" data-t="nav4"></a><a href="#verdict" data-t="nav5"></a>
   </nav>
   <div class="tools"><button class="seg one" id="th" type="button"></button><div class="seg" role="group" aria-label="Language"><button id="lbg" type="button">BG</button><button id="len" type="button">EN</button></div></div>
 </div></div>
+
+<dialog id="tl-dr" aria-labelledby="tlh"><div class="dl"><div class="dh"><h2 id="tlh" data-t="tlh"></h2><button class="chip" id="tc" type="button" data-t="close"></button></div><ol id="tlist"></ol><p class="mono muted" data-t="tlfoot"></p></div></dialog>
 
 <header class="hero"><div class="wrap">
   <p class="tag" data-t="kicker"></p>
@@ -264,6 +277,7 @@ const T={
  s2p:['Сменяха се леви, десни, царски и протестни правителства. Изборният индекс почти не помръдна нагоре след 1992 г., а корупцията е почти двойно по-висока от тази през 2000 г. Изберете кабинет от лентата.','Left, right, royal and protest governments came and went. The electoral index barely rose after 1992, and corruption is almost double its 2000 level. Pick a cabinet from the strip.'],
  care:['служебен кабинет','caretaker cabinet'],
  sE:['Изборен индекс','Electoral index'],sC:['Политическа корупция','Political corruption'],sT:['Активност на парламентарни избори','Turnout, parliamentary elections'],
+ tlh:['Накратко','In short'],close:['Затвори','Close'],tlfoot:['Данни: V-Dem v16. Източниците са в края на страницата.','Data: V-Dem v16. Sources are at the end of the page.'],
  prev:['← Предишен','← Previous'],next:['Следващ →','Next →'],
  s3tag:['03 · ЕС-27, 2025','03 · EU-27, 2025'],
  s3h:['Последни там, където не се гласува','Last where nobody votes on it'],
@@ -397,6 +411,15 @@ const VERD=[
  {b:['И тези, които ги заеха','And those who occupied them'],p:['Документите показват кои мрежи преминаха от старата държава в новата. Те не свалиха демокрацията. Просто не допуснаха тя да стигне по-високо от урната.','The documents show which networks moved from the old state into the new one. They did not bring democracy down. They simply kept it from rising above the ballot box.']}
 ];
 
+const TLDR=[
+ [['„Демокрация“ е пет неща.','“Democracy” is five things.'],['Избори, права, равенство, участие и обсъждане. Повечето спорове идват оттам, че всеки има предвид различен слой.','Elections, rights, equality, participation and deliberation. Most arguments come from people meaning different layers.']],
+ [['България има само първия.','Bulgaria has only the first.'],['От 1990 г. V-Dem я определя като изборна демокрация всяка година и нито веднъж като либерална.','Since 1990 V-Dem has rated it an electoral democracy every year, and never once a liberal one.']],
+ [['Властта се сменя, кривата не.','Governments change, the curve does not.'],['16 редовни кабинета от всички цветове. Изборният индекс стига 0,72 през 2002–2004 г. и е 0,60 през 2025 г., най-ниско от 1990 г.','16 elected cabinets of every colour. The electoral index peaked at 0.72 in 2002–04 and is 0.60 in 2025, its lowest since 1990.']],
+ [['Последна в ЕС под урната.','Last in the EU beneath the ballot box.'],['27-о място от 27 по политическа корупция, купуване на гласове, клиентелизъм и върховенство на закона.','27th of 27 on political corruption, vote buying, clientelism and rule of law.']],
+ [['Старите мрежи са документирани.','The old networks are documented.'],['40% от досиетата са унищожени през 1990 г., архивът се отваря чак през 2007 г. Сред над 12 000 обявени имена са президент, партиен лидер, 11 от 15 митрополити и 45% от посланиците. Санкциите „Магнитски“ засягат хора от ляво до дясно.','40% of the files were destroyed in 1990 and the archive opened only in 2007. The 12,000-plus names announced include a president, a party leader, 11 of 15 metropolitans and 45% of ambassadors. Magnitsky sanctions hit people from left to right.']],
+ [['Не всичко е доказано.','Not everything is proven.'],['Че страната винаги е управлявана от Москва, не личи от документите. Същата класа я въведе в НАТО, ЕС и еврозоната.','That the country was always run from Moscow does not follow from the documents. The same class took it into NATO, the EU and the eurozone.']],
+ [['Виновна не е демокрацията.','Democracy is not to blame.'],['Виновни са недостроените слоеве и тези, които ги заеха. Имаме избори. Останалото тепърва трябва да се построи.','The unbuilt layers are, along with those who occupied them. We have elections. The rest still has to be built.']]
+];
 const SRC=[
  ['V-Dem Dataset v16 (Country-Year Full+Others)','https://v-dem.net/data/the-v-dem-dataset/'],
  ['Atanas Semerdzhiev (Wikipedia; ECHR figures)','https://en.wikipedia.org/wiki/Atanas_Semerdzhiev'],
@@ -539,6 +562,7 @@ function drawStatic(){
            ['90→39%',['избирателна активност, 1990 → 2024','election turnout, 1990 → 2024']]];
   $('#facts').innerHTML=F.map(f=>`<div class="fact"><b>${f[0]}</b><span>${L(f[1])}</span></div>`).join('');
   $('#verd').innerHTML=VERD.map(v=>`<div><b>${L(v.b)}</b><p>${L(v.p)}</p></div>`).join('');
+  $('#tlist').innerHTML=TLDR.map(t=>`<li><div><b>${L(t[0])}</b>${L(t[1])}</div></li>`).join('');
   $('#srcs').innerHTML=SRC.map(s=>`<li><a href="${s[1]}" target="_blank" rel="noopener">${s[0]}</a></li>`).join('');
 }
 function render(){drawCountries();drawCube();drawLayers()}
@@ -546,6 +570,7 @@ function all(){drawStatic();render();renderTL();drawStrips();drawEv();if(typeof 
 $('#year').addEventListener('input',e=>{S.year=+e.target.value;$('#yearout').textContent=S.year;drawCube();drawLayers()});
 const setL=l=>{S.lang=l;try{localStorage.setItem('dem-lang',l)}catch(e){}all()};
 $('#lbg').onclick=()=>setL('bg'); $('#len').onclick=()=>setL('en');
+const dg=$('#tl-dr'); $('#tb').onclick=()=>dg.showModal(); $('#tc').onclick=()=>dg.close(); dg.addEventListener('click',e=>{if(e.target===dg)dg.close()});
 const root=document.documentElement;
 const isDark=()=>root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
 const thLabel=()=>{$('#th').textContent=isDark()?(S.lang==='bg'?'Светла':'Light'):(S.lang==='bg'?'Тъмна':'Dark')};

@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 const bands = [
   { title: "F1 Predictor", role: "AI-Powered Fantasy Tool", bg: "#e10600", color: "#fff", link: "/f1predictor", live: true },
+  { title: "Samardala", role: "Live WebGL Experience", bg: "#1C2431", color: "#fff", href: "https://samardala.com", live: true },
+  { title: "Law Trail", role: "Mapping Influence on Bulgarian Law", bg: "#9a80f2", color: "#101216", href: "https://law-trail.vercel.app", live: true },
   { title: "FinTech", role: "Platform Architect", bg: "#1a1a1a", color: "#fff", link: null, live: false },
   { title: "Creative", role: "Experiential & Interactive", bg: "#FF8000", color: "#fff", link: null, live: false },
   { title: "EdTech", role: "Interactive Learning Platform", bg: "#3671C6", color: "#fff", link: null, live: false },
@@ -63,9 +65,11 @@ export default function Landing() {
       {/* ─── BANDS ─── */}
       <section className="fu">
         {bands.map((p, i) => {
-          const isLink = !!p.link;
-          const Wrapper = isLink ? Link : "div";
-          const wrapperProps = isLink ? { to: p.link } : {};
+          const isLink = !!(p.link || p.href);
+          const Wrapper = p.href ? "a" : p.link ? Link : "div";
+          const wrapperProps = p.href
+            ? { href: p.href, target: "_blank", rel: "noopener" }
+            : p.link ? { to: p.link } : {};
 
           return (
             <Wrapper
@@ -89,7 +93,7 @@ export default function Landing() {
                 {p.live && (
                   <span style={{
                     fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2,
-                    background: "rgba(255,255,255,0.2)", padding: "4px 12px", borderRadius: 4,
+                    background: p.color === "#fff" ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.12)", padding: "4px 12px", borderRadius: 4,
                   }}>
                     ● Live
                   </span>

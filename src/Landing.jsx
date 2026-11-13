@@ -14,7 +14,7 @@ const groups = [
   {
     label: "Experiments",
     bands: [
-      { title: "Law Trail", role: "Mapping Influence on Bulgarian Law", bg: "#9a80f2", color: "#101216", href: "https://law-trail.vercel.app", live: true },
+      { title: "Law Trail", role: "Mapping Influence on Bulgarian Law", bg: "#9a80f2", color: "#101216", href: "https://www.lawtrail.eu", live: true },
       { title: "Samardala", role: "Live WebGL Experience", bg: "#1C2431", color: "#fff", href: "https://samardala.com", live: true },
       { title: "F1 Predictor", role: "AI-Powered Fantasy Tool", bg: "#e10600", color: "#fff", link: "/f1predictor", live: true },
     ],

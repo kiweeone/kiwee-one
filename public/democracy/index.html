@@ -38,7 +38,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 :focus-visible{outline:2px solid var(--l1);outline-offset:2px}
 .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
 h1,h2{font-family:var(--display);font-weight:900;text-transform:uppercase;line-height:.92;margin:0;text-wrap:balance;letter-spacing:.005em}
-h1{font-size:clamp(56px,11vw,132px)}
+h1{font-size:clamp(40px,11vw,132px);overflow-wrap:anywhere}
 h2{font-size:clamp(38px,6vw,68px)}
 h3{font-size:19px;margin:0;font-weight:700}
 p{margin:0}
@@ -59,6 +59,15 @@ p{margin:0}
 .seg{display:inline-flex;border:1px solid var(--ink);border-radius:3px;overflow:hidden}
 .seg button{background:transparent;border:0;padding:5px 11px;font-family:var(--mono);font-size:12px;letter-spacing:.05em}
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.tools{display:flex;gap:8px;align-items:center}
+.seg.one{background:transparent;padding:5px 11px;font-family:var(--mono);font-size:12px;letter-spacing:.05em}
+@media (max-width:760px){
+  .bar .wrap{gap:0 12px;padding-top:8px}
+  .bar .home{flex:1}
+  .bar nav{order:3;flex:0 0 100%;flex-wrap:nowrap;overflow-x:auto;gap:20px;padding:10px 0 11px;scrollbar-width:none}
+  .bar nav::-webkit-scrollbar{display:none}
+  .bar nav a{white-space:nowrap}
+}
 
 section{padding:72px 0;border-bottom:1px solid var(--line)}
 .head{display:flex;flex-direction:column;gap:16px;margin-bottom:32px}
@@ -174,7 +183,7 @@ footer p{max-width:46em}
   <nav aria-label="Sections">
     <a href="#cube" data-t="nav1"></a><a href="#timeline" data-t="nav2"></a><a href="#eu" data-t="nav3"></a><a href="#shadow" data-t="nav4"></a><a href="#verdict" data-t="nav5"></a>
   </nav>
-  <div class="seg" role="group" aria-label="Language"><button id="lbg" type="button">BG</button><button id="len" type="button">EN</button></div>
+  <div class="tools"><button class="seg one" id="th" type="button"></button><div class="seg" role="group" aria-label="Language"><button id="lbg" type="button">BG</button><button id="len" type="button">EN</button></div></div>
 </div></div>
 
 <header class="hero"><div class="wrap">
@@ -533,11 +542,16 @@ function drawStatic(){
   $('#srcs').innerHTML=SRC.map(s=>`<li><a href="${s[1]}" target="_blank" rel="noopener">${s[0]}</a></li>`).join('');
 }
 function render(){drawCountries();drawCube();drawLayers()}
-function all(){drawStatic();render();renderTL();drawStrips();drawEv()}
+function all(){drawStatic();render();renderTL();drawStrips();drawEv();if(typeof thLabel==='function')thLabel()}
 $('#year').addEventListener('input',e=>{S.year=+e.target.value;$('#yearout').textContent=S.year;drawCube();drawLayers()});
 const setL=l=>{S.lang=l;try{localStorage.setItem('dem-lang',l)}catch(e){}all()};
 $('#lbg').onclick=()=>setL('bg'); $('#len').onclick=()=>setL('en');
-S.gov=GOV.length-3; all();
+const root=document.documentElement;
+const isDark=()=>root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
+const thLabel=()=>{$('#th').textContent=isDark()?(S.lang==='bg'?'Светла':'Light'):(S.lang==='bg'?'Тъмна':'Dark')};
+try{const t=localStorage.getItem('dem-theme');if(t==='light'||t==='dark')root.dataset.theme=t}catch(e){}
+$('#th').onclick=()=>{const t=isDark()?'light':'dark';root.dataset.theme=t;try{localStorage.setItem('dem-theme',t)}catch(e){}thLabel()};
+S.gov=GOV.length-3; all(); thLabel();
 </script>
 </body>
 </html>

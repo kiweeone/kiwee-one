@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist-server && node scripts/prerender.mjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node --test src/f1/*.test.js",
+    "backtest": "node scripts/backtest.mjs"
   },
   "dependencies": {
     "react": "^18.2.0",

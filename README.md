@@ -4,44 +4,27 @@ Source of [kiwee.one](https://www.kiwee.one/), the personal site of **Zhelyo Iva
 
 ---
 
-# F1 Fantasy Predictor 2026
+# F1 Fantasy Predictor
 
-Live FP analysis engine, lineup optimizer, and scoring calculator for F1 Fantasy 2026.  
-Powered by [OpenF1 API](https://openf1.org) for real practice session data.
+Live at [kiwee.one/f1predictor](https://www.kiwee.one/f1predictor). Loads the latest race weekend from [OpenF1](https://openf1.org), predicts qualifying and race order, turns that into expected fantasy points, and finds the best line-ups under the $100M cap.
 
-## Features
+## How it works
 
-- **Predictor** — Performance coefficients from FP1/FP2/FP3 data (weighted 15/35/50%)
-- **FP Data** — Auto-fetch from OpenF1 API or manual entry
-- **Optimizer** — Top 5 lineup combinations under $100M budget
-- **Team Builder** — Manual team construction with live budget tracking
-- **Score Calculator** — Full 2026 scoring rules with chip support
-- **Rules Reference** — Complete scoring tables for quali, race, sprint, constructors
+| File | What it does |
+|---|---|
+| `src/f1/data.js` | OpenF1 access (via `/api/openf1` proxy in production), drivers matched by 3-letter code, lap cleaning (107% rule), per-session features |
+| `src/f1/model.js` | Rank-based scoring per signal and session, race prediction anchored on the qualifying result, expected position points with uncertainty |
+| `src/f1/optimize.js` | Exact search over every 5-driver + 2-constructor line-up, 2× boost on the top scorer |
+| `src/f1/defaults.js` | Tuned weights + back-test accuracy (generated) |
+| `scripts/backtest.mjs` | Tunes weights on 2025 weekends, tests on 2026 |
 
-## Signals
-
-| Signal | Weight | Source |
-|--------|--------|--------|
-| Pace delta (vs session best) | 40% | Best lap time |
-| Consistency | 25% | Std deviation of top 80% laps |
-| Long run pace | 25% | Average of laps 4+ |
-| Reliability | 10% | Total lap count |
-
-## Quick Start
+## Commands
 
 ```bash
 npm install
-npm run dev
+npm run dev        # local dev (calls OpenF1 directly)
+npm test           # model + optimizer tests
+npm run backtest   # re-tune weights (needs network access to api.openf1.org)
 ```
 
-## Deploy to Vercel
-
-1. Push to GitHub
-2. Connect repo at vercel.com
-3. Deploy (zero config needed)
-
-## Tech
-
-- React 18 + Vite
-- OpenF1 API (no auth needed for historical data)
-- Zero backend — runs entirely in browser
+Points cover qualifying, sprint and race position points only — overtakes, positions gained, fastest lap, DOTD, pit stops and DNF penalties are not modelled.

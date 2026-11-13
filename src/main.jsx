@@ -4,9 +4,12 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
 import Landing from './Landing.jsx'
 import About from './About.jsx'
-import F1Predictor from './F1Predictor.jsx'
 import Work from './Work.jsx'
+
 import { pages } from './seo.js'
+
+// The predictor (and its charting library) only loads when /f1predictor is opened.
+const F1Predictor = React.lazy(() => import('./F1Predictor.jsx'))
 
 // Keep the tab title and description in sync on client-side navigation.
 function Seo() {
@@ -28,7 +31,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/about" element={<About />} />
-        <Route path="/f1predictor" element={<F1Predictor />} />
+        <Route path="/f1predictor" element={<React.Suspense fallback={<div style={{ minHeight: '100vh', background: '#fafafa' }} />}><F1Predictor /></React.Suspense>} />
         <Route path="/fintech" element={<Work slug="fintech" />} />
         <Route path="/creative" element={<Work slug="creative" />} />
         <Route path="/edtech" element={<Work slug="edtech" />} />

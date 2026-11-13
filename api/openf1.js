@@ -11,6 +11,8 @@
 // Environment Variables (set in Vercel Dashboard):
 //   OPENF1_USERNAME — your OpenF1 email
 //   OPENF1_PASSWORD — your OpenF1 password
+//
+// Note: the rate limiter is per serverless instance, so it is a soft guard only.
 
 // ─── ALLOWED ORIGINS ───
 // Add your domain(s) here
@@ -92,10 +94,9 @@ export default async function handler(req, res) {
   const referer = req.headers.referer || "";
   const isAllowed = ALLOWED_ORIGINS.some(o => origin.startsWith(o) || referer.startsWith(o));
 
-  // Also allow server-side rendering / direct Vercel function calls (no origin)
-  const isServerSide = !origin && !referer;
-
-  if (!isAllowed && !isServerSide) {
+  // Requests with no Origin/Referer (curl, scripts) are refused: this proxy spends
+  // our OpenF1 account's quota, so it only serves the kiwee.one app.
+  if (!isAllowed) {
     return res.status(403).json({ error: "Forbidden: origin not allowed" });
   }
 
@@ -117,14 +118,11 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Missing 'path' query parameter" });
   }
 
-  // Only allow /v1/ endpoints — prevent path traversal or token endpoint abuse
-  if (!path.startsWith("/v1/")) {
-    return res.status(400).json({ error: "Invalid path. Only /v1/ endpoints are allowed." });
-  }
-
-  // Block attempts to access the token endpoint through the proxy
-  if (path.includes("token") || path.includes("auth")) {
-    return res.status(400).json({ error: "Access denied." });
+  // Only the endpoints the predictor uses.
+  const ALLOWED_ENDPOINTS = ["sessions", "laps", "stints", "drivers", "session_result"];
+  const m = /^\/v1\/([a-z_]+)(\?[^#]*)?$/.exec(path);
+  if (!m || !ALLOWED_ENDPOINTS.includes(m[1])) {
+    return res.status(400).json({ error: "Endpoint not allowed." });
   }
 
   try {
@@ -140,10 +138,8 @@ export default async function handler(req, res) {
 
     if (!apiResponse.ok) {
       const text = await apiResponse.text();
-      return res.status(apiResponse.status).json({
-        error: `OpenF1 API error: ${apiResponse.status}`,
-        detail: text,
-      });
+      console.error("OpenF1 upstream error", apiResponse.status, text.slice(0, 300));
+      return res.status(apiResponse.status).json({ error: `OpenF1 API error: ${apiResponse.status}` });
     }
 
     const data = await apiResponse.json();
@@ -157,6 +153,6 @@ export default async function handler(req, res) {
     return res.status(200).json(data);
   } catch (error) {
     console.error("OpenF1 proxy error:", error);
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: "Proxy error" });
   }
 }

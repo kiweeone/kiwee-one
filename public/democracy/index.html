@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Демокрацията не е виновна</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@400;500;700&family=Sofia+Sans+Extra+Condensed:wght@700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: an archive file. Cool paper, ink, five layer colours as the only colour; black redaction bars for the hidden layer. */
+:root{
+  --bg:#eceef1; --panel:#ffffff; --ink:#12161b; --muted:#56606c; --line:#cdd3da; --soft:#e2e6ea;
+  --l1:#2b6be0; --l2:#d99a00; --l3:#249a66; --l4:#e0502c; --l5:#7a58d8;
+  --shadow:#12161b;
+  --display:"Sofia Sans Extra Condensed","Arial Narrow",Impact,sans-serif;
+  --body:"Sofia Sans",system-ui,"Segoe UI",Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e1115; --panel:#161a20; --ink:#e9ecef; --muted:#97a1ad; --line:#2b323b; --soft:#1e242b;
+    --l1:#5b8ff0; --l2:#e6b23a; --l3:#3fb783; --l4:#f0704f; --l5:#9c80ea;
+    --shadow:#e9ecef; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e1115; --panel:#161a20; --ink:#e9ecef; --muted:#97a1ad; --line:#2b323b; --soft:#1e242b;
+  --l1:#5b8ff0; --l2:#e6b23a; --l3:#3fb783; --l4:#f0704f; --l5:#9c80ea;
+  --shadow:#e9ecef; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto} *{transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+a{color:inherit;text-underline-offset:3px}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--l1);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+h1,h2{font-family:var(--display);font-weight:900;text-transform:uppercase;line-height:.92;margin:0;text-wrap:balance;letter-spacing:.005em}
+h1{font-size:clamp(56px,11vw,132px)}
+h2{font-size:clamp(38px,6vw,68px)}
+h3{font-size:19px;margin:0;font-weight:700}
+p{margin:0}
+.lede{font-size:clamp(19px,2.2vw,23px);max-width:34em;line-height:1.4}
+.prose{max-width:38em;color:var(--ink)}
+.mono{font-family:var(--mono);font-size:12.5px;letter-spacing:.02em}
+.muted{color:var(--muted)}
+.tag{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+
+/* top bar */
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:16px;min-height:52px;flex-wrap:wrap}
+.bar nav{display:flex;gap:16px;flex-wrap:wrap;flex:1}
+.bar nav a{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;text-decoration:none;color:var(--muted)}
+.bar nav a:hover{color:var(--ink)}
+.seg{display:inline-flex;border:1px solid var(--ink);border-radius:3px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:5px 11px;font-family:var(--mono);font-size:12px;letter-spacing:.05em}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+
+section{padding:72px 0;border-bottom:1px solid var(--line)}
+.head{display:flex;flex-direction:column;gap:16px;margin-bottom:32px}
+
+/* hero */
+.hero{padding:56px 0 48px}
+.hero .lede{margin-top:24px}
+.redact{background:var(--shadow);color:var(--bg);padding:0 .25em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:40px;border-top:2px solid var(--ink)}
+.fact{padding:16px 16px 4px 0;display:flex;flex-direction:column;gap:6px;border-right:1px solid var(--line)}
+.fact:last-child{border-right:0}
+.fact+.fact{padding-left:16px}
+.fact b{font-family:var(--display);font-weight:900;font-size:clamp(40px,5vw,60px);line-height:.95;font-variant-numeric:tabular-nums}
+.fact span{font-size:14.5px;color:var(--muted);line-height:1.35}
+@media (max-width:760px){.facts{grid-template-columns:1fr 1fr}.fact:nth-child(2){border-right:0}.fact:nth-child(3){padding-left:0}.fact:nth-child(n+3){border-top:1px solid var(--line)}}
+
+/* cube */
+.stage{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:32px;align-items:start}
+@media (max-width:860px){.stage{grid-template-columns:1fr}}
+.cubebox{background:var(--panel);border:1px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:12px}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{background:transparent;border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:14px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.cube{width:100%;max-width:460px;height:auto;align-self:center;display:block}
+.cube .piece{cursor:pointer;transition:opacity .2s}
+.cube .piece:not(.dim) .face{stroke:var(--ink);stroke-width:2.5}
+.cube .piece:focus-visible{outline:none}
+.cube .piece:focus-visible .top{stroke:var(--ink);stroke-width:3}
+.cube .face{stroke:var(--panel);stroke-width:1.5;stroke-linejoin:round}
+.cube .ghost{fill:none;stroke:var(--muted);stroke-width:1;stroke-dasharray:4 4}
+.cube text{font-family:var(--mono);font-size:13px;font-weight:700;fill:#fff;pointer-events:none;text-anchor:middle}
+.yearrow{display:flex;align-items:center;gap:12px}
+.yearrow input{flex:1;accent-color:var(--ink);min-width:0}
+.yearrow output{font-family:var(--display);font-weight:900;font-size:34px;line-height:1;min-width:2.2em;text-align:right;font-variant-numeric:tabular-nums}
+.layers{display:flex;flex-direction:column;gap:0;border-top:2px solid var(--ink)}
+.lbtn{display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:center;background:transparent;border:0;border-bottom:1px solid var(--line);padding:11px 4px;text-align:left}
+.lbtn .n{width:24px;height:24px;display:grid;place-items:center;color:#fff;font-family:var(--mono);font-size:12px;font-weight:700}
+.lbtn .nm{font-weight:700}
+.lbtn .sc{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums;color:var(--muted)}
+.lbtn[aria-pressed="true"]{background:var(--soft)}
+.detail{padding:20px 4px 0;display:flex;flex-direction:column;gap:14px}
+.detail .formula{font-size:22px;line-height:1.25;font-weight:500;text-wrap:balance}
+.detail ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:4px}
+.note{border-left:4px solid var(--ink);padding:2px 0 2px 14px;font-size:16px}
+.meter{height:10px;background:var(--soft);position:relative}
+.meter i{position:absolute;inset:0 auto 0 0;display:block}
+
+/* timeline */
+.scroll{overflow-x:auto;background:var(--panel);border:1px solid var(--line)}
+.tl{display:block;min-width:820px;width:100%;height:auto}
+.tl text{font-family:var(--mono);font-size:11px;fill:var(--muted)}
+.tl .grid{stroke:var(--line);stroke-width:1}
+.tl .band{cursor:pointer;stroke:var(--panel);stroke-width:2}
+.tl .band.reg{fill:var(--muted)}
+.tl .band.care{fill:url(#hatch)}
+.tl .band.on{fill:var(--ink)}
+.tl .bl{fill:var(--panel);font-weight:700;pointer-events:none;text-anchor:middle}
+.tl .hl{fill:var(--ink);opacity:.07}
+.tl .s1{fill:none;stroke:var(--l1);stroke-width:2.5}
+.tl .s2{fill:none;stroke:var(--shadow);stroke-width:2.5}
+.tl .dot{fill:var(--panel);stroke:var(--muted);stroke-width:1.5}
+.tl .end{font-size:12px;font-weight:700}
+.gov{display:grid;grid-template-columns:auto 1fr;gap:8px 24px;padding:20px 4px 0;align-items:baseline}
+.gov .yrs{font-family:var(--display);font-weight:900;font-size:40px;line-height:1;font-variant-numeric:tabular-nums}
+.gov .who{display:flex;flex-direction:column;gap:6px}
+.gov .who p{max-width:40em}
+.nav2{display:flex;gap:8px;margin-top:8px}
+@media (max-width:600px){.gov{grid-template-columns:1fr}}
+
+/* EU strips */
+.strips{display:flex;flex-direction:column;gap:22px}
+.strip{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr) 84px;gap:8px 20px;align-items:center}
+@media (max-width:760px){.strip{grid-template-columns:1fr 84px}.strip .lab{grid-column:1/-1}}
+.strip .lab b{display:block}
+.strip .lab span{font-size:14px;color:var(--muted)}
+.track{position:relative;height:46px;border-bottom:1px solid var(--line);margin:0 10px}
+.track i{position:absolute;bottom:-5px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--muted);opacity:.45}
+.track i.bg{background:var(--l4);opacity:1;width:16px;height:16px;margin-left:-8px;bottom:-8px;z-index:1}
+.track em{position:absolute;bottom:12px;transform:translateX(-50%);font-family:var(--mono);font-size:11px;font-style:normal;color:var(--muted);white-space:nowrap}
+.track em.bg{color:var(--l4);font-weight:700}
+.rank{font-family:var(--display);font-weight:900;font-size:30px;line-height:1;text-align:right;font-variant-numeric:tabular-nums}
+.axis{display:flex;justify-content:space-between;margin:0 10px}
+
+/* evidence */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.ev{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--ink);padding:16px;display:flex;flex-direction:column;gap:10px}
+.card.t2{border-top-color:var(--l4)}
+.card.t3{border-top-color:var(--l1)}
+.card.t4{border-top-style:dashed;border-top-color:var(--muted)}
+.card p{font-size:15.5px}
+.card .src{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:auto;display:flex;flex-wrap:wrap;gap:4px 12px}
+.bars{display:flex;align-items:flex-end;gap:10px;height:96px;padding-top:4px}
+.bars div{flex:1;background:var(--ink);position:relative;min-height:2px}
+.bars div b{position:absolute;top:-19px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:12px}
+.bars div span{position:absolute;bottom:-19px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:11px;color:var(--muted)}
+
+/* verdict */
+.verdict{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media (max-width:860px){.verdict{grid-template-columns:1fr}}
+.verdict div{border-top:2px solid var(--ink);padding-top:14px;display:flex;flex-direction:column;gap:8px}
+.verdict b{font-family:var(--display);font-weight:900;font-size:30px;line-height:1;text-transform:uppercase}
+ol.srcs{margin:0;padding-left:1.4em;columns:2;column-gap:40px;font-size:14.5px}
+ol.srcs li{break-inside:avoid;margin-bottom:6px}
+@media (max-width:760px){ol.srcs{columns:1}}
+footer{padding:32px 0 64px;font-size:14.5px;color:var(--muted)}
+footer p{max-width:46em}
+</style>
+</head>
+<body>
+<div class="bar"><div class="wrap">
+  <nav aria-label="Sections">
+    <a href="#cube" data-t="nav1"></a><a href="#timeline" data-t="nav2"></a><a href="#eu" data-t="nav3"></a><a href="#shadow" data-t="nav4"></a><a href="#verdict" data-t="nav5"></a>
+  </nav>
+  <div class="seg" role="group" aria-label="Language"><button id="lbg" type="button">BG</button><button id="len" type="button">EN</button></div>
+</div></div>
+
+<header class="hero"><div class="wrap">
+  <p class="tag" data-t="kicker"></p>
+  <h1 data-t="h1"></h1>
+  <p class="lede" data-t="lede"></p>
+  <div class="facts" id="facts"></div>
+</div></header>
+
+<section id="cube"><div class="wrap">
+  <div class="head"><p class="tag" data-t="s1tag"></p><h2 data-t="s1h"></h2><p class="prose" data-t="s1p"></p></div>
+  <div class="stage">
+    <div class="cubebox">
+      <div class="controls" id="countries"></div>
+      <svg class="cube" id="cubesvg" viewBox="0 0 400 392" role="group" aria-label="Democracy cube"></svg>
+      <div class="yearrow"><label class="tag" for="year" data-t="year"></label><input id="year" type="range" min="1985" max="2025" step="1" value="2025"><output id="yearout" for="year">2025</output></div>
+      <p class="mono muted" data-t="cubecap"></p>
+    </div>
+    <div>
+      <div class="layers" id="layers"></div>
+      <div class="detail" id="detail" aria-live="polite"></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="timeline"><div class="wrap">
+  <div class="head"><p class="tag" data-t="s2tag"></p><h2 data-t="s2h"></h2><p class="prose" data-t="s2p"></p></div>
+  <div class="scroll"><svg class="tl" id="tl" viewBox="0 0 1000 360"></svg></div>
+  <div class="gov" id="gov" aria-live="polite"></div>
+</div></section>
+
+<section id="eu"><div class="wrap">
+  <div class="head"><p class="tag" data-t="s3tag"></p><h2 data-t="s3h"></h2><p class="prose" data-t="s3p"></p></div>
+  <div class="axis mono muted"><span data-t="worse"></span><span data-t="better"></span></div>
+  <div class="strips" id="strips"></div>
+</div></section>
+
+<section id="shadow"><div class="wrap">
+  <div class="head"><p class="tag" data-t="s4tag"></p><h2 data-t="s4h"></h2><p class="prose" data-t="s4p"></p></div>
+  <div class="filters" id="filters"></div>
+  <div class="ev" id="ev"></div>
+</div></section>
+
+<section id="verdict"><div class="wrap">
+  <div class="head"><p class="tag" data-t="s5tag"></p><h2 data-t="s5h"></h2></div>
+  <div class="verdict" id="verd"></div>
+</div></section>
+
+<section id="sources"><div class="wrap">
+  <div class="head"><p class="tag" data-t="s6tag"></p><p class="prose" data-t="s6p"></p></div>
+  <ol class="srcs" id="srcs"></ol>
+</div></section>
+<footer><div class="wrap"><p data-t="foot"></p></div></footer>
+
+<script>
+const D={"years":[1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025],"bg":{"v2x_polyarchy":[0.18,0.181,0.181,0.181,0.182,0.572,0.622,0.698,0.693,0.692,0.691,0.698,0.712,0.707,0.716,0.717,0.692,0.721,0.721,0.721,0.701,0.706,0.705,0.711,0.691,0.674,0.672,0.664,0.657,0.673,0.671,0.667,0.624,0.612,0.609,0.607,0.665,0.679,0.659,0.645,0.599],"v2x_liberal":[0.146,0.146,0.146,0.146,0.15,0.773,0.812,0.859,0.859,0.859,0.859,0.859,0.859,0.866,0.866,0.87,0.865,0.862,0.866,0.869,0.869,0.871,0.874,0.873,0.853,0.839,0.84,0.847,0.82,0.833,0.849,0.842,0.833,0.827,0.826,0.816,0.826,0.901,0.888,0.822,0.826],"v2x_egal":[0.846,0.846,0.846,0.846,0.846,0.828,0.82,0.804,0.804,0.804,0.808,0.808,0.803,0.79,0.79,0.79,0.768,0.777,0.777,0.777,0.777,0.781,0.775,0.777,0.772,0.768,0.772,0.761,0.762,0.759,0.757,0.753,0.755,0.756,0.739,0.711,0.742,0.789,0.757,0.719,0.712],"v2x_partip":[0.263,0.259,0.255,0.251,0.247,0.573,0.573,0.573,0.573,0.573,0.573,0.573,0.573,0.56,0.56,0.56,0.56,0.56,0.56,0.56,0.56,0.56,0.56,0.56,0.567,0.573,0.594,0.605,0.664,0.672,0.651,0.715,0.694,0.707,0.695,0.702,0.688,0.658,0.669,0.663,0.616],"v2xdl_delib":[0.079,0.079,0.079,0.079,0.079,0.918,0.918,0.918,0.898,0.898,0.898,0.898,0.927,0.917,0.901,0.901,0.906,0.884,0.884,0.884,0.883,0.87,0.866,0.864,0.823,0.808,0.808,0.819,0.803,0.819,0.809,0.817,0.755,0.764,0.758,0.806,0.831,0.849,0.884,0.815,0.779],"v2x_corr":[0.335,0.347,0.347,0.347,0.347,0.327,0.323,0.355,0.374,0.374,0.374,0.368,0.348,0.33,0.33,0.33,0.38,0.38,0.38,0.38,0.38,0.378,0.348,0.352,0.5,0.511,0.511,0.498,0.412,0.406,0.527,0.527,0.539,0.54,0.561,0.565,0.54,0.301,0.336,0.579,0.643],"v2elvotbuy":[2.33,2.34,2.34,2.34,2.34,-0.003,-0.242,-0.242,-0.242,-0.302,-0.302,-0.184,-0.184,-0.184,-0.184,-0.184,-0.577,-0.577,-0.577,-0.577,-0.695,-0.634,-0.634,-0.634,-0.685,-0.685,-0.578,-0.578,-0.835,-0.839,-0.839,-0.519,-0.861,-0.861,-0.861,-0.861,-0.215,-0.696,-1.089,-1.502,-1.502],"v2xnp_client":[0.093,0.094,0.094,0.094,0.094,0.268,0.361,0.363,0.363,0.363,0.378,0.376,0.369,0.369,0.369,0.369,0.404,0.414,0.414,0.414,0.421,0.43,0.437,0.437,0.441,0.46,0.457,0.431,0.468,0.473,0.467,0.453,0.48,0.498,0.518,0.535,0.494,0.397,0.51,0.582,0.618],"v2x_rule":[0.277,0.265,0.265,0.265,0.265,0.692,0.729,0.756,0.744,0.744,0.744,0.747,0.762,0.796,0.796,0.796,0.776,0.776,0.776,0.776,0.776,0.785,0.79,0.784,0.713,0.696,0.697,0.708,0.728,0.738,0.713,0.698,0.693,0.668,0.633,0.635,0.633,0.791,0.775,0.628,0.56],"v2meslfcen":[-2.333,-2.333,-2.333,-2.333,-2.333,1.518,1.518,1.518,1.129,1.129,1.129,1.129,1.129,1.129,1.129,1.129,1.129,1.129,1.129,1.129,1.129,1.129,1.129,1.129,1.072,0.994,0.703,0.755,0.614,0.294,0.246,0.246,0.027,-0.008,-0.008,0.269,0.194,0.468,0.42,0.611,-0.25],"v2x_jucon":[0.22,0.22,0.22,0.22,0.22,0.679,0.769,0.855,0.855,0.855,0.855,0.855,0.855,0.855,0.855,0.855,0.855,0.855,0.855,0.855,0.855,0.855,0.865,0.865,0.847,0.822,0.824,0.831,0.835,0.846,0.882,0.86,0.86,0.827,0.815,0.807,0.807,0.878,0.878,0.815,0.793],"v2x_libdem":[0.058,0.058,0.058,0.058,0.06,0.454,0.508,0.598,0.593,0.593,0.588,0.597,0.609,0.609,0.616,0.617,0.595,0.619,0.621,0.623,0.604,0.61,0.611,0.617,0.587,0.568,0.565,0.561,0.542,0.561,0.566,0.561,0.521,0.508,0.506,0.501,0.549,0.602,0.58,0.533,0.499]},"turnout":[[1990,90.3],[1991,83.9],[1992,75.9],[1994,75.2],[1996,63.3],[1997,58.9],[2001,66.6],[2005,55.8],[2006,44.1],[2009,60.6],[2011,52.3],[2013,52.5],[2014,51.0],[2016,56.3],[2017,53.9],[2021,49.1],[2022,38.0],[2023,39.1],[2024,38.9]],"cmp":{"BGR":{"name":"Bulgaria","s":{"v2x_polyarchy":[0.18,0.181,0.181,0.181,0.182,0.572,0.622,0.698,0.693,0.692,0.691,0.698,0.712,0.707,0.716,0.717,0.692,0.721,0.721,0.721,0.701,0.706,0.705,0.711,0.691,0.674,0.672,0.664,0.657,0.673,0.671,0.667,0.624,0.612,0.609,0.607,0.665,0.679,0.659,0.645,0.599],"v2x_liberal":[0.146,0.146,0.146,0.146,0.15,0.773,0.812,0.859,0.859,0.859,0.859,0.859,0.859,0.866,0.866,0.87,0.865,0.862,0.866,0.869,0.869,0.871,0.874,0.873,0.853,0.839,0.84,0.847,0.82,0.833,0.849,0.842,0.833,0.827,0.826,0.816,0.826,0.901,0.888,0.822,0.826],"v2x_egal":[0.846,0.846,0.846,0.846,0.846,0.828,0.82,0.804,0.804,0.804,0.808,0.808,0.803,0.79,0.79,0.79,0.768,0.777,0.777,0.777,0.777,0.781,0.775,0.777,0.772,0.768,0.772,0.761,0.762,0.759,0.757,0.753,0.755,0.756,0.739,0.711,0.742,0.789,0.757,0.719,0.712],"v2x_partip":[0.263,0.259,0.255,0.251,0.247,0.573,0.573,0.573,0.573,0.573,0.573,0.573,0.573,0.56,0.56,0.56,0.56,0.56,0.56,0.56,0.56,0.56,0.56,0.56,0.567,0.573,0.594,0.605,0.664,0.672,0.651,0.715,0.694,0.707,0.695,0.702,0.688,0.658,0.669,0.663,0.616],"v2xdl_delib":[0.079,0.079,0.079,0.079,0.079,0.918,0.918,0.918,0.898,0.898,0.898,0.898,0.927,0.917,0.901,0.901,0.906,0.884,0.884,0.884,0.883,0.87,0.866,0.864,0.823,0.808,0.808,0.819,0.803,0.819,0.809,0.817,0.755,0.764,0.758,0.806,0.831,0.849,0.884,0.815,0.779]}},"DNK":{"name":"Denmark","s":{"v2x_polyarchy":[0.906,0.906,0.907,0.908,0.908,0.908,0.909,0.909,0.909,0.909,0.908,0.908,0.908,0.906,0.906,0.906,0.906,0.908,0.908,0.908,0.92,0.922,0.922,0.921,0.921,0.921,0.921,0.921,0.921,0.921,0.921,0.918,0.918,0.918,0.916,0.915,0.915,0.915,0.917,0.917,0.913],"v2x_liberal":[0.984,0.984,0.984,0.984,0.984,0.984,0.984,0.984,0.984,0.984,0.984,0.984,0.984,0.984,0.984,0.984,0.984,0.984,0.984,0.984,0.984,0.984,0.984,0.984,0.984,0.984,0.984,0.984,0.983,0.983,0.984,0.984,0.982,0.981,0.98,0.974,0.976,0.981,0.975,0.975,0.979],"v2x_egal":[0.972,0.972,0.972,0.972,0.972,0.971,0.971,0.971,0.971,0.97,0.97,0.97,0.97,0.97,0.97,0.97,0.97,0.97,0.97,0.97,0.97,0.97,0.97,0.97,0.97,0.97,0.97,0.972,0.971,0.971,0.971,0.971,0.963,0.971,0.971,0.971,0.971,0.971,0.971,0.971,0.971],"v2x_partip":[0.712,0.76,0.757,0.753,0.75,0.747,0.74,0.761,0.768,0.768,0.768,0.768,0.762,0.77,0.767,0.763,0.76,0.756,0.75,0.743,0.736,0.729,0.722,0.715,0.732,0.728,0.725,0.721,0.718,0.718,0.717,0.717,0.717,0.717,0.714,0.71,0.701,0.713,0.713,0.713,0.713],"v2xdl_delib":[0.963,0.963,0.963,0.963,0.963,0.963,0.963,0.963,0.963,0.963,0.963,0.963,0.963,0.963,0.963,0.963,0.963,0.963,0.963,0.963,0.963,0.964,0.964,0.964,0.961,0.955,0.971,0.971,0.967,0.968,0.968,0.968,0.971,0.967,0.969,0.973,0.968,0.971,0.965,0.961,0.961]}},"EST":{"name":"Estonia","s":{"v2x_polyarchy":[0.797,0.608,0.45,0.881,0.869,0.869,0.869,0.869,0.869,0.869,0.869,0.869,0.871,0.868,0.871,0.871,0.871,0.871,0.871,0.874,0.88,0.883,0.883,0.883,0.888,0.894,0.907,0.907,0.906,0.898,0.897,0.9,0.896,0.893,0.893,0.887],"v2x_liberal":[0.853,0.773,0.693,0.925,0.924,0.93,0.937,0.937,0.937,0.94,0.941,0.941,0.943,0.943,0.943,0.943,0.944,0.94,0.94,0.942,0.955,0.955,0.952,0.956,0.956,0.956,0.956,0.959,0.962,0.955,0.947,0.959,0.966,0.959,0.962,0.954],"v2x_egal":[0.881,0.881,0.869,0.869,0.869,0.862,0.864,0.864,0.88,0.873,0.874,0.874,0.874,0.874,0.874,0.874,0.881,0.879,0.881,0.881,0.888,0.888,0.89,0.885,0.885,0.885,0.897,0.899,0.898,0.899,0.907,0.905,0.906,0.904,0.904,0.915],"v2x_partip":[0.555,0.639,0.675,0.657,0.657,0.657,0.655,0.651,0.647,0.643,0.639,0.635,0.631,0.689,0.685,0.681,0.677,0.673,0.676,0.668,0.668,0.66,0.657,0.652,0.647,0.644,0.647,0.645,0.647,0.644,0.64,0.644,0.634,0.632,0.632,0.632],"v2xdl_delib":[0.869,0.869,0.854,0.841,0.841,0.841,0.836,0.836,0.836,0.868,0.89,0.89,0.873,0.88,0.88,0.88,0.883,0.895,0.879,0.878,0.884,0.886,0.912,0.898,0.912,0.906,0.913,0.909,0.909,0.848,0.753,0.886,0.857,0.847,0.869,0.838]}},"ROU":{"name":"Romania","s":{"v2x_polyarchy":[0.186,0.185,0.185,0.185,0.185,0.522,0.545,0.553,0.562,0.562,0.562,0.573,0.619,0.619,0.619,0.611,0.597,0.597,0.609,0.592,0.61,0.611,0.609,0.621,0.666,0.68,0.684,0.674,0.672,0.676,0.716,0.733,0.695,0.692,0.75,0.805,0.766,0.691,0.677,0.628,0.605],"v2x_liberal":[0.086,0.086,0.086,0.086,0.086,0.49,0.53,0.596,0.651,0.651,0.651,0.668,0.668,0.668,0.658,0.671,0.671,0.667,0.679,0.703,0.746,0.746,0.777,0.784,0.781,0.799,0.799,0.787,0.836,0.844,0.854,0.865,0.742,0.658,0.705,0.832,0.778,0.767,0.713,0.677,0.747],"v2x_egal":[0.818,0.818,0.818,0.818,0.818,0.789,0.789,0.789,0.789,0.789,0.789,0.782,0.785,0.779,0.779,0.774,0.778,0.778,0.779,0.779,0.77,0.77,0.771,0.78,0.78,0.778,0.778,0.783,0.761,0.753,0.753,0.751,0.712,0.71,0.704,0.71,0.66,0.653,0.673,0.668,0.664],"v2x_partip":[0.111,0.171,0.171,0.171,0.171,0.437,0.501,0.565,0.566,0.566,0.566,0.581,0.576,0.572,0.568,0.565,0.568,0.564,0.609,0.605,0.616,0.612,0.65,0.649,0.651,0.654,0.652,0.655,0.658,0.651,0.655,0.642,0.591,0.647,0.71,0.711,0.727,0.689,0.652,0.623,0.647],"v2xdl_delib":[0.017,0.017,0.017,0.017,0.024,0.529,0.529,0.529,0.529,0.529,0.529,0.585,0.593,0.593,0.593,0.593,0.521,0.521,0.532,0.532,0.615,0.615,0.615,0.615,0.615,0.637,0.637,0.616,0.646,0.646,0.691,0.897,0.363,0.335,0.391,0.491,0.648,0.382,0.336,0.322,0.385]}},"HUN":{"name":"Hungary","s":{"v2x_polyarchy":[0.141,0.145,0.15,0.167,0.265,0.799,0.843,0.843,0.843,0.842,0.844,0.844,0.844,0.84,0.839,0.839,0.839,0.842,0.843,0.843,0.843,0.831,0.85,0.85,0.85,0.808,0.778,0.773,0.738,0.669,0.617,0.613,0.555,0.481,0.466,0.46,0.45,0.447,0.434,0.444,0.421],"v2x_liberal":[0.338,0.345,0.349,0.383,0.496,0.899,0.903,0.903,0.903,0.903,0.903,0.903,0.904,0.904,0.896,0.896,0.896,0.9,0.905,0.905,0.897,0.898,0.904,0.905,0.906,0.828,0.809,0.787,0.759,0.758,0.751,0.751,0.752,0.727,0.724,0.705,0.705,0.682,0.67,0.661,0.667],"v2x_egal":[0.822,0.822,0.822,0.825,0.846,0.861,0.858,0.858,0.843,0.841,0.844,0.844,0.844,0.837,0.818,0.824,0.824,0.824,0.82,0.82,0.802,0.802,0.799,0.803,0.801,0.775,0.773,0.773,0.738,0.73,0.73,0.724,0.733,0.656,0.652,0.639,0.642,0.635,0.631,0.626,0.617],"v2x_partip":[0.192,0.192,0.192,0.215,0.397,0.669,0.675,0.675,0.675,0.675,0.671,0.666,0.715,0.71,0.706,0.702,0.698,0.69,0.682,0.71,0.702,0.699,0.695,0.699,0.695,0.667,0.663,0.658,0.621,0.604,0.599,0.637,0.632,0.615,0.61,0.607,0.589,0.589,0.562,0.539,0.539],"v2xdl_delib":[0.216,0.216,0.243,0.333,0.464,0.779,0.772,0.772,0.75,0.75,0.751,0.751,0.751,0.751,0.708,0.692,0.692,0.692,0.692,0.692,0.692,0.651,0.661,0.676,0.679,0.546,0.53,0.539,0.499,0.499,0.524,0.483,0.482,0.465,0.484,0.397,0.354,0.358,0.358,0.3,0.3]}},"RUS":{"name":"Russia","s":{"v2x_polyarchy":[0.109,0.117,0.144,0.145,0.176,0.234,0.255,0.498,0.48,0.477,0.477,0.461,0.456,0.456,0.461,0.403,0.374,0.354,0.339,0.321,0.32,0.322,0.316,0.302,0.309,0.306,0.299,0.278,0.276,0.264,0.265,0.263,0.261,0.264,0.259,0.255,0.245,0.206,0.19,0.171,0.17],"v2x_liberal":[0.081,0.107,0.108,0.115,0.168,0.235,0.324,0.518,0.527,0.533,0.542,0.544,0.54,0.539,0.531,0.44,0.417,0.367,0.352,0.335,0.323,0.323,0.315,0.308,0.309,0.294,0.296,0.279,0.261,0.252,0.25,0.243,0.246,0.244,0.241,0.222,0.219,0.168,0.164,0.149,0.147],"v2x_egal":[0.812,0.81,0.787,0.778,0.766,0.741,0.719,0.609,0.611,0.609,0.589,0.603,0.605,0.603,0.601,0.603,0.585,0.594,0.592,0.592,0.588,0.597,0.597,0.584,0.578,0.576,0.579,0.576,0.57,0.563,0.561,0.558,0.561,0.546,0.539,0.536,0.528,0.469,0.424,0.404,0.409],"v2x_partip":[0.216,0.231,0.25,0.253,0.259,0.297,0.408,0.547,0.555,0.556,0.553,0.553,0.553,0.55,0.54,0.515,0.49,0.469,0.465,0.472,0.456,0.443,0.442,0.45,0.447,0.438,0.434,0.422,0.409,0.402,0.379,0.379,0.379,0.39,0.391,0.476,0.412,0.391,0.368,0.376,0.391],"v2xdl_delib":[0.379,0.56,0.637,0.639,0.709,0.745,0.754,0.79,0.757,0.76,0.76,0.76,0.705,0.705,0.705,0.669,0.669,0.655,0.655,0.632,0.564,0.586,0.574,0.607,0.617,0.612,0.61,0.535,0.489,0.36,0.397,0.379,0.392,0.42,0.393,0.367,0.361,0.192,0.218,0.125,0.155]}},"USA":{"name":"United States of America","s":{"v2x_polyarchy":[0.856,0.857,0.863,0.862,0.859,0.863,0.867,0.872,0.867,0.867,0.868,0.869,0.871,0.871,0.868,0.867,0.828,0.829,0.86,0.862,0.856,0.862,0.897,0.9,0.9,0.9,0.896,0.896,0.905,0.901,0.9,0.885,0.834,0.824,0.818,0.815,0.821,0.833,0.857,0.843,0.735],"v2x_liberal":[0.929,0.936,0.936,0.936,0.936,0.937,0.937,0.937,0.938,0.939,0.942,0.942,0.942,0.942,0.942,0.944,0.943,0.942,0.938,0.938,0.939,0.942,0.942,0.945,0.949,0.951,0.95,0.949,0.95,0.95,0.95,0.948,0.906,0.905,0.917,0.909,0.937,0.937,0.927,0.893,0.754],"v2x_egal":[0.752,0.761,0.761,0.761,0.758,0.771,0.782,0.782,0.787,0.786,0.786,0.785,0.785,0.785,0.785,0.76,0.761,0.761,0.761,0.761,0.76,0.76,0.761,0.771,0.763,0.774,0.778,0.777,0.777,0.774,0.773,0.761,0.75,0.736,0.743,0.73,0.683,0.678,0.651,0.678,0.574],"v2x_partip":[0.656,0.656,0.656,0.656,0.656,0.659,0.659,0.659,0.659,0.659,0.659,0.659,0.659,0.659,0.659,0.66,0.66,0.66,0.66,0.66,0.66,0.66,0.66,0.66,0.66,0.659,0.659,0.659,0.659,0.659,0.659,0.661,0.661,0.659,0.659,0.658,0.655,0.655,0.656,0.655,0.645],"v2xdl_delib":[0.904,0.899,0.899,0.899,0.899,0.914,0.917,0.923,0.976,0.976,0.971,0.971,0.965,0.965,0.965,0.949,0.898,0.906,0.906,0.906,0.926,0.926,0.926,0.957,0.974,0.97,0.97,0.97,0.97,0.97,0.962,0.925,0.716,0.717,0.726,0.674,0.892,0.894,0.88,0.889,0.606]}},"CHE":{"name":"Switzerland","s":{"v2x_polyarchy":[0.871,0.871,0.871,0.87,0.875,0.887,0.887,0.886,0.886,0.886,0.887,0.89,0.89,0.89,0.89,0.889,0.889,0.889,0.888,0.886,0.886,0.886,0.888,0.895,0.895,0.895,0.897,0.907,0.907,0.907,0.903,0.902,0.902,0.902,0.902,0.902,0.896,0.893,0.884,0.882,0.882],"v2x_liberal":[0.946,0.946,0.946,0.946,0.946,0.946,0.948,0.948,0.951,0.951,0.951,0.951,0.951,0.951,0.951,0.952,0.952,0.953,0.962,0.962,0.962,0.962,0.962,0.962,0.961,0.961,0.961,0.961,0.961,0.961,0.961,0.961,0.965,0.966,0.966,0.96,0.961,0.961,0.961,0.97,0.969],"v2x_egal":[0.904,0.904,0.904,0.904,0.904,0.923,0.923,0.923,0.923,0.923,0.923,0.923,0.923,0.926,0.926,0.932,0.932,0.932,0.932,0.932,0.932,0.932,0.931,0.931,0.931,0.931,0.931,0.931,0.931,0.931,0.932,0.932,0.932,0.932,0.932,0.938,0.936,0.936,0.931,0.939,0.939],"v2x_partip":[0.882,0.882,0.882,0.882,0.882,0.881,0.882,0.882,0.882,0.882,0.882,0.882,0.882,0.882,0.874,0.874,0.874,0.882,0.882,0.882,0.882,0.882,0.882,0.882,0.882,0.882,0.882,0.883,0.883,0.883,0.882,0.882,0.882,0.882,0.877,0.873,0.882,0.882,0.882,0.882,0.882],"v2xdl_delib":[0.98,0.98,0.98,0.98,0.98,0.98,0.98,0.98,0.98,0.98,0.98,0.98,0.98,0.98,0.98,0.98,0.98,0.98,0.98,0.98,0.98,0.98,0.98,0.981,0.981,0.985,0.985,0.985,0.984,0.984,0.983,0.983,0.985,0.985,0.983,0.983,0.98,0.98,0.98,0.984,0.984]}}},"eu":{"v2x_corr":{"SWE":0.01,"POL":0.08,"PRT":0.17,"FRA":0.06,"DEU":0.02,"IRL":0.03,"ITA":0.16,"LVA":0.07,"NLD":0.03,"ESP":0.11,"AUT":0.1,"BEL":0.03,"BGR":0.64,"HRV":0.25,"CYP":0.17,"CZE":0.17,"DNK":0.0,"EST":0.03,"FIN":0.03,"GRC":0.28,"LTU":0.16,"LUX":0.03,"MLT":0.19,"ROU":0.42,"SVK":0.29,"SVN":0.08,"HUN":0.49},"v2elvotbuy":{"SWE":2.37,"POL":1.43,"PRT":1.71,"FRA":2.12,"DEU":2.26,"IRL":2.04,"ITA":0.91,"LVA":1.79,"NLD":1.87,"ESP":1.43,"AUT":2.25,"BEL":2.87,"BGR":-1.5,"HRV":1.55,"CYP":1.19,"CZE":1.9,"DNK":2.0,"EST":2.2,"FIN":2.28,"GRC":1.9,"LTU":1.15,"LUX":2.04,"MLT":1.18,"ROU":0.46,"SVK":1.49,"SVN":0.95,"HUN":-0.04},"v2xnp_client":{"SWE":0.06,"POL":0.14,"PRT":0.06,"FRA":0.07,"DEU":0.04,"IRL":0.14,"ITA":0.22,"LVA":0.13,"NLD":0.03,"ESP":0.1,"AUT":0.1,"BEL":0.06,"BGR":0.62,"HRV":0.25,"CYP":0.23,"CZE":0.07,"DNK":0.03,"EST":0.06,"FIN":0.07,"GRC":0.16,"LTU":0.13,"LUX":0.04,"MLT":0.23,"ROU":0.36,"SVK":0.14,"SVN":0.2,"HUN":0.5},"v2x_rule":{"SWE":0.99,"POL":0.88,"PRT":0.89,"FRA":0.97,"DEU":0.99,"IRL":0.98,"ITA":0.86,"LVA":0.97,"NLD":0.97,"ESP":0.95,"AUT":0.93,"BEL":0.96,"BGR":0.56,"HRV":0.8,"CYP":0.88,"CZE":0.94,"DNK":1.0,"EST":0.98,"FIN":0.98,"GRC":0.81,"LTU":0.92,"LUX":0.98,"MLT":0.83,"ROU":0.69,"SVK":0.73,"SVN":0.9,"HUN":0.6},"v2meslfcen":{"SWE":2.19,"POL":1.53,"PRT":1.86,"FRA":2.88,"DEU":1.47,"IRL":1.77,"ITA":0.29,"LVA":1.64,"NLD":1.37,"ESP":0.9,"AUT":1.2,"BEL":3.04,"BGR":-0.25,"HRV":0.82,"CYP":0.1,"CZE":1.26,"DNK":3.12,"EST":2.57,"FIN":1.27,"GRC":1.24,"LTU":1.61,"LUX":2.02,"MLT":0.8,"ROU":0.36,"SVK":1.59,"SVN":0.18,"HUN":-0.54},"v2x_jucon":{"SWE":0.97,"POL":0.71,"PRT":0.92,"FRA":0.94,"DEU":0.93,"IRL":0.96,"ITA":0.77,"LVA":0.94,"NLD":0.95,"ESP":0.94,"AUT":0.92,"BEL":0.83,"BGR":0.79,"HRV":0.86,"CYP":0.85,"CZE":0.96,"DNK":0.98,"EST":0.97,"FIN":0.97,"GRC":0.75,"LTU":0.95,"LUX":0.87,"MLT":0.79,"ROU":0.74,"SVK":0.81,"SVN":0.76,"HUN":0.68},"v2x_polyarchy":{"SWE":0.89,"POL":0.77,"PRT":0.82,"FRA":0.86,"DEU":0.83,"IRL":0.89,"ITA":0.74,"LVA":0.83,"NLD":0.83,"ESP":0.82,"AUT":0.84,"BEL":0.89,"BGR":0.6,"HRV":0.69,"CYP":0.77,"CZE":0.85,"DNK":0.91,"EST":0.89,"FIN":0.85,"GRC":0.74,"LTU":0.79,"LUX":0.87,"MLT":0.78,"ROU":0.6,"SVK":0.73,"SVN":0.69,"HUN":0.42}}};
+const $=s=>document.querySelector(s);
+let S={lang:'bg',c:'BGR',year:2025,ideal:false,sel:0,gov:0,tier:0};
+try{const l=localStorage.getItem('dem-lang');if(l==='en'||l==='bg')S.lang=l}catch(e){}
+const L=o=>Array.isArray(o)?o[S.lang==='bg'?0:1]:o;
+
+const T={
+ nav1:['Кубът','The cube'],nav2:['Кой управляваше','Who governed'],nav3:['Спрямо ЕС','Against the EU'],nav4:['Скритият слой','The hidden layer'],nav5:['Изводът','The verdict'],
+ kicker:['България · 1989–2026 · данни на V-Dem v16','Bulgaria · 1989–2026 · V-Dem v16 data'],
+ h1:['Демокрацията не е виновна','Democracy isn’t to blame'],
+ lede:['Думата „демокрация“ значи пет различни неща. България построи първото през 1990 г. и спря дотам. Останалото беше <span class="redact">заето от други</span>.','The word “democracy” means five different things. Bulgaria built the first one in 1990 and stopped there. The rest was <span class="redact">taken by others</span>.'],
+ s1tag:['01 · Какво значи думата','01 · What the word means'],
+ s1h:['Пет неща, не едно','Five things, not one'],
+ s1p:['Изследователите от V-Dem разделят демокрацията на пет принципа. Изборите са основата, а върху тях стъпват правата, равенството, участието и обсъждането. Изберете слой, страна и година и вижте колко от куба е построен.','V-Dem researchers split democracy into five principles. Elections are the base, and rights, equality, participation and deliberation stand on top of them. Pick a layer, a country and a year to see how much of the cube is built.'],
+ year:['Година','Year'],
+ cubecap:['Височина = оценка на V-Dem от 0 до 1. Пунктир = оценка 1.','Height = V-Dem score from 0 to 1. Dashed outline = a score of 1.'],
+ ideal:['Идеята','The idea'],
+ needs:['Какво изисква','What it takes'],
+ inbg:['В България','In Bulgaria'],
+ score:['Оценка','Score'],nodata:['няма данни','no data'],
+ s2tag:['02 · 1989–2026','02 · 1989–2026'],
+ s2h:['Шестнадесет редовни кабинета, една крива','Sixteen elected cabinets, one curve'],
+ s2p:['Сменяха се леви, десни, царски и протестни правителства. Изборният индекс почти не помръдна нагоре след 1992 г., а корупцията е почти двойно по-висока от тази през 2000 г. Изберете кабинет от лентата.','Left, right, royal and protest governments came and went. The electoral index barely rose after 1992, and corruption is almost double its 2000 level. Pick a cabinet from the strip.'],
+ care:['служебен кабинет','caretaker cabinet'],
+ sE:['Изборен индекс','Electoral index'],sC:['Политическа корупция','Political corruption'],sT:['Активност на парламентарни избори','Turnout, parliamentary elections'],
+ prev:['← Предишен','← Previous'],next:['Следващ →','Next →'],
+ s3tag:['03 · ЕС-27, 2025','03 · EU-27, 2025'],
+ s3h:['Последни там, където не се гласува','Last where nobody votes on it'],
+ s3p:['Кубът изглежда почти цял. Проблемът е в показателите под него: кой купува гласове, кой разпределя постове и поръчки, важи ли законът за всички. Всяка точка е държава от ЕС.','The cube looks almost whole. The trouble is in the measures underneath it: who buys votes, who hands out jobs and contracts, whether the law applies to everyone. Each dot is an EU member state.'],
+ worse:['← по-зле','← worse'],better:['по-добре →','better →'],of27:['от 27','of 27'],
+ s4tag:['04 · Държавна сигурност и след нея','04 · State Security and after'],
+ s4h:['Какво е доказано и какво не','What is proven and what is not'],
+ s4p:['Тезата за „задкулисието“ е силна само ако отделя документа от догадката. Всяка карта носи етикет за вида на доказателството и води към източника.','The “backstage” thesis is only strong if it separates the document from the hunch. Each card carries a label for the kind of evidence and links to its source.'],
+ s5tag:['05 · Изводът','05 · The verdict'],
+ s5h:['Кого да виним тогава','So who is to blame'],
+ s6tag:['Източници и метод','Sources and method'],
+ s6p:['Числата са от V-Dem Country-Year Full+Others v16 (март 2026 г.) и от набора Episodes of Regime Transformation. Индексите на V-Dem са експертни оценки с несигурност, не преброявания. Хронологията на кабинетите е по публични справочници.','Figures come from V-Dem Country-Year Full+Others v16 (March 2026) and the Episodes of Regime Transformation dataset. V-Dem indices are expert assessments with uncertainty, not counts. The cabinet chronology follows public reference sources.'],
+ foot:['Структурата с петте слоя следва видеото „I don’t get democracy“ на Johnny Harris, което използва петте принципа на V-Dem. Текстовете тук са авторски. Лицата, посочени в санкционни списъци, отричат обвиненията.','The five-layer structure follows Johnny Harris’s video “I don’t get democracy”, which uses V-Dem’s five principles. The texts here are original. People named in sanctions lists deny the accusations.']
+};
+
+const LAY=[
+ {k:'v2x_polyarchy',col:'--l1',nm:['Избори','Elections'],full:['Изборна демокрация','Electoral democracy'],
+  f:['Хората управляват, като избират кой да управлява.','The people rule by choosing who rules.'],
+  n:[['Истинска конкуренция между кандидати','Real competition between candidates'],['Равно и всеобщо право на глас','An equal vote for every adult'],['Свободна преса, за да е изборът информиран','A free press, so the choice is informed']],
+  bg:['Единственият слой, който държи от 1990 г. насам. През 2025 г. е на 0,60, най-ниско от 1990 г. и предпоследен в ЕС. Купуването на гласове е оценено като най-тежкото в Съюза.','The only layer that has held since 1990. In 2025 it stands at 0.60, its lowest since 1990 and second from the bottom in the EU. Vote buying is rated the worst in the Union.']},
+ {k:'v2x_liberal',col:'--l2',nm:['Права','Rights'],full:['Либерална демокрация','Liberal democracy'],
+  f:['Хората управляват, като остават свободни: има права, които никое мнозинство не може да отнеме.','The people rule by staying free: some rights no majority can take away.'],
+  n:[['Конституция, която ограничава властта','A constitution that limits power'],['Независим съд и парламентарен контрол','Independent courts and parliamentary oversight'],['Закон, който важи еднакво за всички','Law that applies equally to everyone']],
+  bg:['На хартия е висок: 0,83. Но индексът за върховенство на закона е последен в ЕС, а корупцията в съдебните решения е предпоследна. V-Dem нито веднъж не е класирал България като либерална демокрация.','High on paper: 0.83. But the rule-of-law index is last in the EU and corruption in court decisions is second to last. V-Dem has never once classed Bulgaria as a liberal democracy.']},
+ {k:'v2x_egal',col:'--l3',nm:['Равенство','Equality'],full:['Егалитарна демокрация','Egalitarian democracy'],
+  f:['Хората управляват, когато имат равен достъп до властта, а не само равен глас.','The people rule when they have equal access to power, not just an equal vote.'],
+  n:[['Покрити основни нужди: дом, храна, образование','Basic needs met: housing, food, education'],['Парите да не купуват политическо влияние','Money that cannot buy political influence'],['Работа, която не зависи от това за кого гласуваш','A job that does not depend on how you vote']],
+  bg:['0,71, четвърти отзад напред в ЕС. Клиентелизмът, тоест постове и поръчки срещу лоялност, е най-високият в Съюза. Това е слоят, който олигархията разяжда пряко.','0.71, fourth from the bottom in the EU. Clientelism, meaning jobs and contracts in exchange for loyalty, is the highest in the Union. This is the layer oligarchy eats directly.']},
+ {k:'v2x_partip',col:'--l4',nm:['Участие','Participation'],full:['Демокрация на участието','Participatory democracy'],
+  f:['Хората управляват, като участват и между изборите.','The people rule by taking part between elections too.'],
+  n:[['Протести, сдружения, синдикати, партиен живот','Protests, associations, unions, party life'],['Обществени обсъждания и местни решения','Public hearings and local decisions'],['Референдуми и граждански инициативи','Referendums and citizens’ initiatives']],
+  bg:['0,62, в средата на ЕС. Българите протестират често и свалят кабинети: 1997, 2013, 2020, 2025. Но активността на избори падна от 90% през 1990 г. до 39% през 2024 г.','0.62, mid-table in the EU. Bulgarians protest often and bring cabinets down: 1997, 2013, 2020, 2025. But election turnout fell from 90% in 1990 to 39% in 2024.']},
+ {k:'v2xdl_delib',col:'--l5',nm:['Обсъждане','Deliberation'],full:['Делиберативна демокрация','Deliberative democracy'],
+  f:['Хората управляват, като решават заедно: с факти, аргументи и изслушване.','The people rule by deciding together: with facts, arguments and listening.'],
+  n:[['Решения, обосновани публично','Decisions justified in public'],['Зачитане на аргументите на другата страна','Respect for the other side’s arguments'],['Медии, които не се страхуват','Media that are not afraid']],
+  bg:['0,78, шести отзад напред в ЕС. Медийната автоцензура е втората най-тежка в Съюза след унгарската. Без свободна публична сцена няма обсъждане, има само надвикване.','0.78, sixth from the bottom in the EU. Media self-censorship is the second worst in the Union after Hungary’s. Without a free public stage there is no deliberation, only shouting.']}
+];
+const CN={BGR:['България','Bulgaria'],DNK:['Дания','Denmark'],EST:['Естония','Estonia'],ROU:['Румъния','Romania'],HUN:['Унгария','Hungary'],RUS:['Русия','Russia'],USA:['САЩ','USA'],CHE:['Швейцария','Switzerland']};
+
+const GOV=[
+ {s:1990.10,e:1990.95,y:'1990',pm:['Андрей Луканов','Andrey Lukanov'],by:['БСП','BSP'],ab:'БСП|BSP',
+  t:['Комунистическата партия се преименува на БСП и печели първите свободни избори през юни 1990 г. Същата зима МВР прочиства архивите на Държавна сигурност.','The Communist Party renames itself BSP and wins the first free election in June 1990. That same winter the Interior Ministry purges the State Security archives.']},
+ {s:1990.95,e:1991.85,y:'1990–91',pm:['Димитър Попов','Dimitar Popov'],by:['Безпартиен, широка коалиция','Non-party, broad coalition'],ab:'коал.|coal.',
+  t:['Преходен кабинет на всички големи сили. Приета е Конституцията от юли 1991 г., която действа и днес.','A transitional cabinet of all major forces. The July 1991 Constitution is adopted and is still in force.']},
+ {s:1991.85,e:1992.98,y:'1991–92',pm:['Филип Димитров','Filip Dimitrov'],by:['СДС с подкрепа на ДПС','SDS, backed by DPS'],ab:'СДС|SDS',
+  t:['Първото некомунистическо правителство. Пада след 13 месеца, когато ДПС оттегля подкрепата си.','The first non-communist government. It falls after 13 months when DPS withdraws its support.']},
+ {s:1992.98,e:1994.80,y:'1992–94',pm:['Любен Беров','Lyuben Berov'],by:['„Експертен“ кабинет с мандат на ДПС и гласове на БСП','“Expert” cabinet on a DPS mandate with BSP votes'],ab:'ДПС+БСП|DPS+BSP',
+  t:['Приватизацията се бави, а силовите групировки и новите конгломерати натрупват първите си капитали.','Privatisation stalls while the racketeering groups and new conglomerates build their first fortunes.']},
+ {s:1994.80,e:1995.07,c:1,y:'1994–95',pm:['Ренета Инджова','Reneta Indzhova']},
+ {s:1995.07,e:1997.11,y:'1995–97',pm:['Жан Виденов','Zhan Videnov'],by:['БСП, самостоятелно мнозинство','BSP, outright majority'],ab:'БСП|BSP',
+  t:['Банковата система рухва, идва хиперинфлация. Уличните протести през зимата на 1997 г. налагат предсрочни избори.','The banking system collapses and hyperinflation follows. Street protests in the winter of 1997 force an early election.']},
+ {s:1997.11,e:1997.38,c:1,y:'1997',pm:['Стефан Софиянски','Stefan Sofiyanski']},
+ {s:1997.38,e:2001.56,y:'1997–2001',pm:['Иван Костов','Ivan Kostov'],by:['ОДС (СДС), мнозинство','ODS (SDS), majority'],ab:'ОДС|ODS',
+  t:['Валутен борд, стабилизация, начало на преговорите с ЕС. Първият кабинет с пълен мандат, но и с остро критикувани приватизационни сделки.','Currency board, stabilisation, the start of EU accession talks. The first cabinet to serve a full term, and one with heavily criticised privatisation deals.']},
+ {s:2001.56,e:2005.63,y:'2001–05',pm:['Симеон Сакскобургготски','Simeon Saxe-Coburg-Gotha'],by:['НДСВ + ДПС','NDSV + DPS'],ab:'НДСВ|NDSV',
+  t:['Бившият цар печели избори с партия на три месеца. България влиза в НАТО през 2004 г. Изборният индекс достига върха си: 0,72.','The former king wins an election with a three-month-old party. Bulgaria joins NATO in 2004. The electoral index reaches its peak: 0.72.']},
+ {s:2005.63,e:2009.57,y:'2005–09',pm:['Сергей Станишев','Sergei Stanishev'],by:['БСП + НДСВ + ДПС','BSP + NDSV + DPS'],ab:'БСП+НДСВ+ДПС|BSP+NDSV+DPS',
+  t:['Тройната коалиция въвежда страната в ЕС през 2007 г. Година по-късно Брюксел замразява еврофондове заради корупция. Досиетата най-после се отварят.','The triple coalition takes the country into the EU in 2007. A year later Brussels freezes EU funds over corruption. The secret-police files are finally opened.']},
+ {s:2009.57,e:2013.20,y:'2009–13',pm:['Бойко Борисов I','Boyko Borisov I'],by:['ГЕРБ, кабинет на малцинството','GERB, minority cabinet'],ab:'ГЕРБ|GERB',
+  t:['Подава оставка през февруари 2013 г. след протести срещу сметките за ток.','Resigns in February 2013 after protests over electricity bills.']},
+ {s:2013.20,e:2013.41,c:1,y:'2013',pm:['Марин Райков','Marin Raykov']},
+ {s:2013.41,e:2014.60,y:'2013–14',pm:['Пламен Орешарски','Plamen Oresharski'],by:['БСП + ДПС','BSP + DPS'],ab:'БСП+ДПС|BSP+DPS',
+  t:['Парламентът избира Делян Пеевски за шеф на ДАНС и отприщва едногодишни протести. През 2014 г. фалира КТБ, четвъртата по големина банка.','Parliament elects Delyan Peevski to head the security agency and sets off a year of protests. In 2014 KTB, the fourth-largest bank, collapses.']},
+ {s:2014.60,e:2014.85,c:1,y:'2014',pm:['Георги Близнашки','Georgi Bliznashki']},
+ {s:2014.85,e:2017.07,y:'2014–17',pm:['Борисов II','Borisov II'],by:['ГЕРБ + Реформаторски блок и др.','GERB + Reformist Bloc and others'],ab:'ГЕРБ|GERB',
+  t:['Съдебната реформа е орязана в парламента и правосъдният министър подава оставка. Кабинетът пада след загубата на президентските избори през 2016 г.','Judicial reform is cut down in parliament and the justice minister resigns. The cabinet falls after losing the 2016 presidential election.']},
+ {s:2017.07,e:2017.34,c:1,y:'2017',pm:['Огнян Герджиков','Ognyan Gerdzhikov']},
+ {s:2017.34,e:2021.36,y:'2017–21',pm:['Борисов III','Borisov III'],by:['ГЕРБ + Обединени патриоти','GERB + United Patriots'],ab:'ГЕРБ|GERB',
+  t:['Изборният индекс пада до 0,61. През лятото на 2020 г. месеци наред протести искат оставките на кабинета и на главния прокурор.','The electoral index drops to 0.61. In the summer of 2020 months of protests demand the resignation of the cabinet and the chief prosecutor.']},
+ {s:2021.36,e:2021.95,c:1,y:'2021',pm:['Стефан Янев','Stefan Yanev']},
+ {s:2021.95,e:2022.59,y:'2021–22',pm:['Кирил Петков','Kiril Petkov'],by:['ПП + БСП + ИТН + ДБ','PP + BSP + ITN + DB'],ab:'ПП|PP',
+  t:['Три избора за една година водят до четворна коалиция. След седем месеца тя пада с вот на недоверие. Корупционният индекс за 2022 г. е най-ниският от две десетилетия.','Three elections in one year produce a four-party coalition. Seven months later it falls to a no-confidence vote. The 2022 corruption index is the lowest in two decades.']},
+ {s:2022.59,e:2023.43,c:1,y:'2022–23',pm:['Гълъб Донев','Galab Donev']},
+ {s:2023.43,e:2024.27,y:'2023–24',pm:['Николай Денков','Nikolai Denkov'],by:['ПП-ДБ + ГЕРБ, ротация','PP-DB + GERB, rotation deal'],ab:'ПП-ДБ+ГЕРБ|PP-DB+GERB',
+  t:['Довчерашни противници управляват заедно. Ротацията на премиерския пост се проваля през март 2024 г.','Yesterday’s opponents govern together. The planned rotation of the prime minister’s post breaks down in March 2024.']},
+ {s:2024.27,e:2025.04,c:1,y:'2024',pm:['Димитър Главчев','Dimitar Glavchev']},
+ {s:2025.04,e:2026.13,y:'2025',pm:['Росен Желязков','Rosen Zhelyazkov'],by:['ГЕРБ + БСП + ИТН','GERB + BSP + ITN'],ab:'ГЕРБ+БСП|GERB+BSP',
+  t:['Пълно членство в Шенген и подготовка за еврото. Подава оставка през декември 2025 г. след седмици протести срещу бюджета и корупцията. Индексите за 2025 г. са най-лошите от 1990 г.','Full Schengen membership and preparation for the euro. Resigns in December 2025 after weeks of protests over the budget and corruption. The 2025 indices are the worst since 1990.']},
+ {s:2026.13,e:2026.35,c:1,y:'2026',pm:['Андрей Гюров','Andrey Gyurov']},
+ {s:2026.35,e:2026.9,y:'2026–',pm:['Румен Радев','Rumen Radev'],by:['Прогресивна България, мнозинство','Progressive Bulgaria, majority'],ab:'ПБ|PB',
+  t:['Бившият президент печели осмите избори за пет години. Това е първото самостоятелно мнозинство от 1997 г. насам. V-Dem още няма оценка за тази година.','The former president wins the eighth election in five years. It is the first single-party majority since 1997. V-Dem has no score for this year yet.']}
+];
+
+const IND=[
+ {k:'v2x_corr',inv:1,nm:['Политическа корупция','Political corruption'],d:['Подкупи и присвояване в изпълнителната власт, парламента, съда и администрацията','Bribery and embezzlement across the executive, parliament, courts and administration']},
+ {k:'v2elvotbuy',nm:['Купуване на гласове','Vote buying'],d:['Колко системно се плаща за вот на националните избори','How systematically votes are paid for in national elections']},
+ {k:'v2xnp_client',inv:1,nm:['Клиентелизъм','Clientelism'],d:['Постове, поръчки и услуги срещу политическа подкрепа','Jobs, contracts and favours in exchange for political support']},
+ {k:'v2x_rule',nm:['Върховенство на закона','Rule of law'],d:['Прилага ли се законът прозрачно, независимо и еднакво','Whether the law is applied transparently, independently and equally']},
+ {k:'v2meslfcen',nm:['Медийна автоцензура','Media self-censorship'],d:['Спестяват ли журналистите теми, неудобни за властта','Whether journalists avoid topics awkward for those in power']},
+ {k:'v2x_polyarchy',nm:['Изборен индекс','Electoral democracy index'],d:['Самата основа на куба','The base of the cube itself']}
+];
+
+const TIER=[['Всички','All'],['Официален документ','Official record'],['Санкции','Sanctions'],['Изследвания и данни','Research and data'],['Недоказано','Not proven']];
+const EV=[
+ {t:1,h:['1990: унищожени са 40% от досиетата','1990: 40% of the files are destroyed'],
+  p:['По тайна заповед на вътрешния министър са унищожени 134 102 от общо 331 995 дела на Държавна сигурност. Числата са от опис на МВР от 1994 г., цитиран от Европейския съд по правата на човека.','On a secret order of the interior minister, 134,102 of State Security’s 331,995 files are destroyed. The figures come from a 1994 Interior Ministry inventory cited by the European Court of Human Rights.'],s:[1]},
+ {t:1,h:['Досиетата се отварят 17 години по-късно','The files open 17 years late'],
+  p:['Комисията по досиетата е създадена със закон в края на 2006 г. и започва работа през 2007 г. За първите десет години обявява над 12 000 имена на хора от публичния живот.','The Dossier Commission is created by law at the end of 2006 and starts work in 2007. In its first ten years it announces more than 12,000 names of people in public life.'],s:[2,3]},
+ {t:1,h:['Държавен глава и партиен лидер','A head of state and a party leader'],
+  p:['В списъците на Комисията са президентът Георги Първанов (2002–2012) и основателят на ДПС Ахмед Доган, обявяван многократно, последно като кандидат през 2024 г.','The Commission’s lists include President Georgi Parvanov (2002–2012) and DPS founder Ahmed Dogan, named repeatedly, most recently as a candidate in 2024.'],s:[4,5]},
+ {t:1,h:['Кандидати за депутати със стаж в ДС','Candidate MPs with a State Security past'],
+  bars:[[2013,141],[2017,81],[2021,87],[2024,41]],
+  p:['Броят пада, защото законът не проверява кандидатите под възрастовия праг: през 2024 г. са проверени едва 1793 от 4848 кандидати. Намалява поколението, не влиянието. В парламента от 2013 г. влизат 12 такива депутати от всичките четири партии.','The count falls because the law does not check candidates below its age threshold: in 2024 only 1,793 of 4,848 candidates were checked. The generation is shrinking, which says nothing about the influence. The 2013 parliament seated 12 such MPs, from all four parties.'],s:[6,7,8,5,9]},
+ {t:1,h:['45% от посланиците','45% of ambassadors'],
+  p:['През 2010 г. Комисията проверява 462 дипломати. По думите на тогавашния външен министър 45% от проверените ръководители на мисии са били сътрудници на ДС.','In 2010 the Commission checks 462 diplomats. According to the foreign minister at the time, 45% of the heads of mission examined had collaborated with State Security.'],s:[10,11]},
+ {t:1,h:['11 от 15 митрополити','11 of 15 metropolitans'],
+  p:['През 2012 г. Комисията обявява, че 11 от 15-те членове на Светия синод са работили за Държавна сигурност.','In 2012 the Commission announces that 11 of the 15 members of the Holy Synod worked for State Security.'],s:[12]},
+ {t:1,h:['Медии и банки','Media and banks'],
+  p:['Сред обявените са водещите Кеворк Кеворкян, Иван Гарелов и Георги Коритаров. Комисията огласява и свързани с ДС „кредитни милионери“ и членове на банкови ръководства.','Those named include broadcasters Kevork Kevorkian, Ivan Garelov and Georgi Koritarov. The Commission also discloses “credit millionaires” and bank board members tied to State Security.'],s:[13]},
+ {t:2,h:['2021: „Магнитски“','2021: Magnitsky'],
+  p:['САЩ санкционират за корупция Делян Пеевски, Васил Божков и Илко Желязков заедно с 64 свързани дружества. Това е най-голямата еднодневна акция по закона дотогава. Пеевски и Божков отричат.','The US sanctions Delyan Peevski, Vassil Bozhkov and Ilko Zhelyazkov for corruption, along with 64 related entities. It is the largest single-day action under the act up to then. Peevski and Bozhkov deny wrongdoing.'],s:[14,15]},
+ {t:2,h:['2023: от ляво до дясно','2023: across the spectrum'],
+  p:['Вашингтон добавя бившите министри Румен Овчаров (БСП) и Владислав Горанов (ГЕРБ), както и Александър Николов, Иван Генов и Николай Малинов. Великобритания налага свои санкции на първите трима от 2021 г.','Washington adds former ministers Rumen Ovcharov (BSP) and Vladislav Goranov (GERB), plus Aleksandar Nikolov, Ivan Genov and Nikolay Malinov. The UK imposes its own sanctions on the first three from 2021.'],s:[16,17]},
+ {t:2,h:['Руската връзка в санкциите','The Russia link in the sanctions'],
+  p:['Министерството на финансите на САЩ твърди, че Божков е плащал на български политици, за да отвори канал за влияние на руски лидери върху правителството. Това е твърдение на санкциониращ орган, не съдебна присъда.','The US Treasury states that Bozhkov paid Bulgarian politicians to open a channel for Russian leaders to influence the government. This is a sanctioning body’s finding, not a court verdict.'],s:[14]},
+ {t:3,h:['Най-корумпираната в ЕС по V-Dem','The most corrupt in the EU, per V-Dem'],
+  p:['Индексът за политическа корупция е 0,64 през 2025 г. срещу 0,49 за Унгария и 0,42 за Румъния. През 2000 г. е бил 0,33, а през 2022 г. за кратко пада до 0,30.','The political corruption index is 0.64 in 2025, against 0.49 for Hungary and 0.42 for Romania. In 2000 it was 0.33, and in 2022 it briefly fell to 0.30.'],s:[0]},
+ {t:3,h:['Тезата на историците','The historians’ thesis'],
+  p:['Изследователи на архивите като Момчил Методиев описват как офицери на ДС са пренесли връзките си в частния сектор след 1990 г. и как късното отваряне на досиетата е помогнало на старите мрежи да се наложат.','Archive researchers such as Momchil Metodiev describe how State Security officers carried their networks into the private sector after 1990, and how the late opening of the files helped the old networks establish themselves.'],s:[18]},
+ {t:3,h:['Комисията под заплаха','The Commission under threat'],
+  p:['В края на 2025 г. медии съобщават за план Комисията по досиетата да бъде закрита с бюджета за 2026 г. Проверете актуалното състояние, преди да цитирате.','In late 2025 media report a plan to close the Dossier Commission under the 2026 budget. Check its current status before citing this.'],s:[19]},
+ {t:4,h:['„Винаги са служили на Москва“','“They always served Moscow”'],
+  p:['Това не може да се изведе от позициите на един политик по световни теми. Същата политическа класа въведе България в НАТО (2004), ЕС (2007), Шенген (2025) и еврозоната (2026). Доказателство биха били документи, пари или съдебни решения.','This cannot be read off a politician’s positions on world affairs. The same political class took Bulgaria into NATO (2004), the EU (2007), Schengen (2025) and the eurozone (2026). Evidence would be documents, money trails or court rulings.'],s:[]},
+ {t:4,h:['„Никога не сме имали демокрация“','“We never had a democracy”'],
+  p:['По V-Dem не е точно: от 1990 г. България е изборна демокрация всяка година. Точното твърдение е по-тясно и по-тежко: никога не е била либерална демокрация, а основата ѝ се руши от 2004 г.','By V-Dem that is not accurate: Bulgaria has been an electoral democracy every year since 1990. The accurate claim is narrower and heavier: it has never been a liberal democracy, and its base has been eroding since 2004.'],s:[0]}
+];
+
+const VERD=[
+ {b:['Не демокрацията','Not democracy'],p:['Обвиняваме дума, под която разбираме „добро управление“. Изборите работят горе-долу, както трябва. Те са един от пет слоя.','We blame a word we take to mean “good government”. Elections work roughly as they should. They are one layer of five.']},
+ {b:['А липсващите слоеве','But the missing layers'],p:['Съд, който не се купува, медии, които не мълчат, и равен достъп до властта никога не бяха достроени. Там България е последна в ЕС.','Courts that cannot be bought, media that do not stay silent and equal access to power were never finished. That is where Bulgaria is last in the EU.']},
+ {b:['И тези, които ги заеха','And those who occupied them'],p:['Документите показват кои мрежи преминаха от старата държава в новата. Те не свалиха демокрацията. Просто не допуснаха тя да стигне по-високо от урната.','The documents show which networks moved from the old state into the new one. They did not bring democracy down. They simply kept it from rising above the ballot box.']}
+];
+
+const SRC=[
+ ['V-Dem Dataset v16 (Country-Year Full+Others)','https://v-dem.net/data/the-v-dem-dataset/'],
+ ['Atanas Semerdzhiev (Wikipedia; ECHR figures)','https://en.wikipedia.org/wiki/Atanas_Semerdzhiev'],
+ ['Sofia Globe: 12,000 agents announced in 10 years','https://sofiaglobe.com/?p=57857'],
+ ['Sofia Globe: Dossier Commission, new head','https://sofiaglobe.com/?p=123715'],
+ ['Novinite: nearly 4,000 named since 2007','https://m.novinite.com/view_news.php?id=126705'],
+ ['Sofia Globe: October 2024 candidates','https://sofiaglobe.com/?p=121110'],
+ ['Sofia Globe: 141 candidate MPs (2013)','https://sofiaglobe.com/?p=17613'],
+ ['Sofia Globe: 2017 candidates','https://sofiaglobe.com/?p=59272'],
+ ['Sofia Globe: 87 candidate MPs (2021)','https://sofiaglobe.com/2021/03/23/bulgarias-2021-elections-87-candidate-mps-worked-for-communist-era-secret-service/'],
+ ['Sofia Globe: twelve agents among MPs (2013)','https://sofiaglobe.com/?p=18706'],
+ ['Ministry of Foreign Affairs statement, 15 Dec 2010','https://mfa.bg/en/news/402'],
+ ['Novinite: envoys scandal','https://www.novinite.com/articles/123351/Bulgaria%27s+Top+Diplomat+Asks+MPs+to+Take+Stand+on+Envoys+Scandal'],
+ ['Sofia Globe: religious leaderships checked','https://sofiaglobe.com/?p=66278'],
+ ['Sofia Globe: agents in the media, credit millionaires','https://sofiaglobe.com/?p=21003'],
+ ['RFE/RL: US sanctions, June 2021','https://www.globalsecurity.org/military/library/news/2021/06/mil-210603-rferl03.htm'],
+ ['OCCRP: largest single-day Magnitsky action','https://www.occrp.org/en/daily/14561-us-sanctions-bulgarian-oligarchs-public-officials-for-corruption'],
+ ['Novinite: five more on the Magnitsky list (2023)','https://m.novinite.com/view_news.php?id=218814'],
+ ['SeeNews: UK and US sanctions (2023)','https://seenews.com/news/uk-us-sanction-high-profile-bulgarians-over-corruption-814242'],
+ ['BNR: State Security’s long shadow','https://parliament140.bnr.bg/en/post/100653711/state-securitys-long-shadow-26-years-later?page_1_3=7'],
+ ['Novinite: plan to shut down the Commission','https://www.novinite.com/view_news.php?id=239237'],
+ ['V-Dem ERT (Episodes of Regime Transformation)','https://github.com/vdeminstitute/ERT'],
+ ['Wikipedia: 2026 Bulgarian parliamentary election','https://en.wikipedia.org/wiki/2026_Bulgarian_parliamentary_election'],
+ ['Johnny Harris, “I don’t get democracy”','https://www.youtube.com/watch?v=O7LvhSQ5Te4']
+];
+
+const fmt=v=>v==null?'–':(S.lang==='bg'?v.toFixed(2).replace('.',','):v.toFixed(2));
+function val(k){ if(S.ideal) return 1; const s=D.cmp[S.c].s[k]; const i=S.year-(2025-s.length+1); return i<0?null:s[i]; }
+
+/* ---------- cube ---------- */
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,p){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+const OX=200,OY=196,A=78,B=45,H=90,HB=.7,HC=1.3;
+const P=(x,y,z)=>[OX+(x-y)*A, OY+(x+y)*B-z*H];
+const pts=a=>a.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+function box(g,x,y,w,d,z0,z1,col){
+  const c='var('+col+')';
+  el('polygon',{class:'face',points:pts([P(x,y+d,z0),P(x+w,y+d,z0),P(x+w,y+d,z1),P(x,y+d,z1)]),style:`fill:color-mix(in srgb, ${c} 62%, #000)`},g);
+  el('polygon',{class:'face',points:pts([P(x+w,y,z0),P(x+w,y+d,z0),P(x+w,y+d,z1),P(x+w,y,z1)]),style:`fill:color-mix(in srgb, ${c} 80%, #000)`},g);
+  el('polygon',{class:'face top',points:pts([P(x,y,z1),P(x+w,y,z1),P(x+w,y+d,z1),P(x,y+d,z1)]),style:'fill:'+c},g);
+}
+function drawCube(){
+  const svg=$('#cubesvg'); svg.textContent='';
+  const pos=[null,[0,0],[1,0],[0,1],[1,1]];
+  const piece=(i)=>{const g=el('g',{class:'piece'+(S.sel===i?'':' dim'),tabindex:0,role:'button','aria-label':L(LAY[i].full)},svg);
+    g.addEventListener('click',()=>{S.sel=i;render()});
+    g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();S.sel=i;render()}});return g};
+  const vb=val(LAY[0].k), hb=(vb??0)*HB;
+  const g0=piece(0); box(g0,0,0,2,2,0,Math.max(hb,.02),LAY[0].col);
+  [1,2,3,4].forEach(i=>{const v=val(LAY[i].k); const [x,y]=pos[i]; const g=piece(i); const z1=hb+Math.max((v??0)*HC,.02);
+    box(g,x+.05,y+.05,.9,.9,hb,z1,LAY[i].col);
+    const c=P(x+.5,y+.5,z1); el('text',{x:c[0],y:c[1]+4},g).textContent=S.ideal?String(i+1):fmt(v);});
+  if(hb>=.2){const cb=P(1,2,hb/2); el('text',{x:cb[0],y:cb[1]+5},g0).textContent=S.ideal?'1':fmt(vb);}
+  const Z=HB+HC;
+  el('polygon',{class:'ghost',points:pts([P(0,0,Z),P(2,0,Z),P(2,2,Z),P(0,2,Z)])},svg);
+  el('polyline',{class:'ghost',points:pts([P(0,2,Z),P(0,2,0),P(2,2,0),P(2,0,0),P(2,0,Z)])},svg);
+  el('polyline',{class:'ghost',points:pts([P(2,2,Z),P(2,2,0)])},svg);
+}
+function drawLayers(){
+  const box=$('#layers'); box.textContent='';
+  LAY.forEach((l,i)=>{const b=document.createElement('button'); b.type='button'; b.className='lbtn'; b.setAttribute('aria-pressed',S.sel===i);
+    b.innerHTML=`<span class="n" style="background:var(${l.col})">${i+1}</span><span class="nm">${L(l.nm)}</span><span class="sc">${S.ideal?'':fmt(val(l.k))}</span>`;
+    b.onclick=()=>{S.sel=i;render()}; box.appendChild(b)});
+  const l=LAY[S.sel], v=val(l.k);
+  $('#detail').innerHTML=`<p class="tag">${S.sel+1} · ${L(l.full)}</p><p class="formula">${L(l.f)}</p>
+   ${S.ideal?'':`<div><p class="mono muted">${L(T.score)} · ${L(CN[S.c])} ${S.year}: ${v==null?L(T.nodata):fmt(v)}</p><div class="meter"><i style="width:${(v??0)*100}%;background:var(${l.col})"></i></div></div>`}
+   <div><p class="tag">${L(T.needs)}</p><ul>${l.n.map(x=>`<li>${L(x)}</li>`).join('')}</ul></div>
+   ${(!S.ideal&&S.c==='BGR')||S.ideal?`<div class="note"><p class="tag">${L(T.inbg)} · 2025</p><p>${L(l.bg)}</p></div>`:''}`;
+}
+function drawCountries(){
+  const box=$('#countries'); box.textContent='';
+  const mk=(label,on,fn)=>{const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=label;b.setAttribute('aria-pressed',on);b.onclick=fn;box.appendChild(b)};
+  mk(L(T.ideal),S.ideal,()=>{S.ideal=true;render()});
+  Object.keys(CN).forEach(c=>mk(L(CN[c]),!S.ideal&&S.c===c,()=>{S.ideal=false;S.c=c;render()}));
+  $('#year').disabled=S.ideal; $('#year').value=S.year; $('#yearout').textContent=S.ideal?'—':S.year;
+}
+
+/* ---------- timeline ---------- */
+const X0=46,X1=880,Y0=92,Y1=318;
+const tx=y=>X0+(y-1989)/(2027-1989)*(X1-X0), ty=v=>Y1-v*(Y1-Y0);
+function drawTL(){
+  const svg=$('#tl'); svg.textContent='';
+  const defs=el('defs',{},svg); const pat=el('pattern',{id:'hatch',width:6,height:6,patternUnits:'userSpaceOnUse',patternTransform:'rotate(45)'},defs);
+  el('rect',{width:6,height:6,style:'fill:var(--soft)'},pat); el('rect',{width:2,height:6,style:'fill:var(--muted)'},pat);
+  const g=GOV[S.gov]; el('rect',{class:'hl',x:tx(g.s),y:18,width:Math.max(tx(g.e)-tx(g.s),3),height:Y1-18},svg);
+  [0,.25,.5,.75,1].forEach(v=>{el('line',{class:'grid',x1:X0,x2:X1,y1:ty(v),y2:ty(v)},svg); const t=el('text',{x:X0-8,y:ty(v)+4,'text-anchor':'end'},svg); t.textContent=fmt(v)});
+  for(let y=1990;y<=2025;y+=5){const t=el('text',{x:tx(y+.5),y:Y1+18,'text-anchor':'middle'},svg); t.textContent=y; el('line',{class:'grid',x1:tx(y+.5),x2:tx(y+.5),y1:Y1,y2:Y1+5},svg)}
+  GOV.forEach((o,i)=>{const w=tx(o.e)-tx(o.s); const r=el('rect',{class:'band '+(o.c?'care':'reg')+(i===S.gov?' on':''),x:tx(o.s),y:20,width:w,height:o.c?22:40,tabindex:0,role:'button','aria-label':L(o.pm)+' '+o.y},svg);
+    r.addEventListener('click',()=>{S.gov=i;renderTL()}); r.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();S.gov=i;renderTL()}});
+    if(!o.c){const lab=L(o.ab.split('|')); if(w>lab.length*7+6){const t=el('text',{class:'bl',x:tx(o.s)+w/2,y:44},svg); t.textContent=lab}}});
+  const line=(k,cls)=>{const a=D.bg[k]; const d=D.years.map((y,i)=>y<1989?null:[tx(y+.5),ty(a[i])]).filter(Boolean); el('polyline',{class:cls,points:pts(d)},svg); return d[d.length-1]};
+  const e1=line('v2x_polyarchy','s1'), e2=line('v2x_corr','s2');
+  D.turnout.filter(t=>![1992,1996,2006,2011,2016].includes(t[0])).forEach(t=>el('circle',{class:'dot',cx:tx(t[0]+.5),cy:ty(t[1]/100),r:4},svg));
+  const lab=(p,dy,txt,fill)=>{const t=el('text',{class:'end',x:X1+6,y:p[1]+dy,fill},svg); t.setAttribute('style','fill:'+fill); t.textContent=txt};
+  lab(e2,-6,S.lang==='bg'?'Корупция':'Corruption','var(--shadow)'); lab(e1,14,S.lang==='bg'?'Избори':'Elections','var(--l1)');
+  const t=el('text',{class:'end',x:X1+6,y:ty(.389)+4},svg); t.textContent=S.lang==='bg'?'Активност':'Turnout';
+  const lg=el('text',{x:X0,y:80},svg); lg.textContent='▨ '+L(T.care)+'   ○ '+L(T.sT)+' (÷100)   — '+L(T.sE)+' / '+L(T.sC)+' (0–1)';
+}
+function drawGov(){
+  const g=GOV[S.gov];
+  $('#gov').innerHTML=`<div class="yrs">${g.y}</div><div class="who"><h3>${L(g.pm)}</h3>
+    <p class="tag">${g.c?L(T.care):L(g.by)}</p>${g.t?`<p>${L(g.t)}</p>`:''}
+    <div class="nav2"><button class="chip" type="button" id="gp">${L(T.prev)}</button><button class="chip" type="button" id="gn">${L(T.next)}</button></div></div>`;
+  $('#gp').onclick=()=>{S.gov=(S.gov+GOV.length-1)%GOV.length;renderTL()}; $('#gn').onclick=()=>{S.gov=(S.gov+1)%GOV.length;renderTL()};
+}
+function renderTL(){drawTL();drawGov()}
+
+/* ---------- EU strips ---------- */
+function drawStrips(){
+  const box=$('#strips'); box.textContent='';
+  IND.forEach(ind=>{const o=D.eu[ind.k]; const ks=Object.keys(o); const vs=ks.map(k=>o[k]); const mn=Math.min(...vs), mx=Math.max(...vs);
+    const pos=k=>{let p=(o[k]-mn)/(mx-mn); if(ind.inv)p=1-p; return p*100};
+    const sorted=ks.slice().sort((a,b)=>pos(a)-pos(b)); const rank=27-sorted.indexOf('BGR'); const best=sorted[26], worst=sorted[0];
+    const row=document.createElement('div'); row.className='strip';
+    row.innerHTML=`<div class="lab"><b>${L(ind.nm)}</b><span>${L(ind.d)}</span></div>
+      <div class="track">${ks.map(k=>`<i class="${k==='BGR'?'bg':''}" style="left:${pos(k)}%" title="${k} ${o[k]}"></i>`).join('')}
+        <em class="bg" style="left:${pos('BGR')}%;bottom:27px">BG ${fmt(o.BGR)}</em>${worst!=='BGR'?`<em style="left:${pos(worst)}%">${worst}</em>`:''}<em style="left:${pos(best)}%">${best}</em></div>
+      <div class="rank">${rank}<span class="mono muted"> ${L(T.of27)}</span></div>`;
+    box.appendChild(row)});
+}
+
+/* ---------- evidence ---------- */
+function drawEv(){
+  const f=$('#filters'); f.textContent='';
+  TIER.forEach((t,i)=>{const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=L(t)+(i?` · ${EV.filter(e=>e.t===i).length}`:'');b.setAttribute('aria-pressed',S.tier===i);b.onclick=()=>{S.tier=i;drawEv()};f.appendChild(b)});
+  $('#ev').innerHTML=EV.filter(e=>!S.tier||e.t===S.tier).map(e=>{
+    const mx=e.bars?Math.max(...e.bars.map(b=>b[1])):0;
+    return `<article class="card t${e.t}"><p class="tag">${L(TIER[e.t])}</p><h3>${L(e.h)}</h3>
+     ${e.bars?`<div class="bars" style="margin:18px 0 22px">${e.bars.map(b=>`<div style="height:${b[1]/mx*100}%"><b>${b[1]}</b><span>${b[0]}</span></div>`).join('')}</div>`:''}
+     <p>${L(e.p)}</p><p class="src">${e.s.map(i=>`<a href="${SRC[i][1]}" target="_blank" rel="noopener">[${i+1}]</a>`).join('')}</p></article>`}).join('');
+}
+
+function drawStatic(){
+  document.documentElement.lang=S.lang; document.title=L(T.h1);
+  document.querySelectorAll('[data-t]').forEach(e=>e.innerHTML=L(T[e.dataset.t]));
+  $('#lbg').setAttribute('aria-pressed',S.lang==='bg'); $('#len').setAttribute('aria-pressed',S.lang==='en');
+  const F=[['36',['години поред изборна демокрация по V-Dem (1990–2025)','straight years as an electoral democracy, per V-Dem (1990–2025)']],
+           ['0',['години като либерална демокрация','years as a liberal democracy']],
+           ['27/27',['в ЕС по корупция, купуване на гласове, клиентелизъм и върховенство на закона','in the EU on corruption, vote buying, clientelism and rule of law']],
+           ['90→39%',['избирателна активност, 1990 → 2024','election turnout, 1990 → 2024']]];
+  $('#facts').innerHTML=F.map(f=>`<div class="fact"><b>${f[0]}</b><span>${L(f[1])}</span></div>`).join('');
+  $('#verd').innerHTML=VERD.map(v=>`<div><b>${L(v.b)}</b><p>${L(v.p)}</p></div>`).join('');
+  $('#srcs').innerHTML=SRC.map(s=>`<li><a href="${s[1]}" target="_blank" rel="noopener">${s[0]}</a></li>`).join('');
+}
+function render(){drawCountries();drawCube();drawLayers()}
+function all(){drawStatic();render();renderTL();drawStrips();drawEv()}
+$('#year').addEventListener('input',e=>{S.year=+e.target.value;$('#yearout').textContent=S.year;drawCube();drawLayers()});
+const setL=l=>{S.lang=l;try{localStorage.setItem('dem-lang',l)}catch(e){}all()};
+$('#lbg').onclick=()=>setL('bg'); $('#len').onclick=()=>setL('en');
+S.gov=GOV.length-3; all();
+</script>
+</body>
+</html>

@@ -119,7 +119,7 @@ section{padding:72px 0;border-bottom:1px solid var(--line)}
 .cube .piece:not(.dim) .face{stroke:var(--ink);stroke-width:2.5}
 .cube .piece:focus-visible{outline:none}
 .cube .piece:focus-visible .top{stroke:var(--ink);stroke-width:3}
-.cube .face{stroke:var(--panel);stroke-width:1.5;stroke-linejoin:round}
+.cube .vx{stroke-width:1;stroke-linejoin:round;cursor:pointer}
 .cube .ghost{fill:none;stroke:var(--muted);stroke-width:1;stroke-dasharray:4 4}
 .cube text{font-family:var(--mono);font-size:13px;font-weight:700;fill:#fff;pointer-events:none;text-anchor:middle}
 .yearrow{display:flex;align-items:center;gap:12px}
@@ -289,7 +289,7 @@ footer p{max-width:46em}
   <div class="stage">
     <div class="cubebox">
       <div class="controls" id="countries"></div>
-      <svg class="cube" id="cubesvg" viewBox="0 0 400 392" role="group" aria-label="Democracy cube"></svg>
+      <svg class="cube" id="cubesvg" viewBox="0 0 400 410" role="group" aria-label="Democracy cube"></svg>
       <div class="yearrow"><label class="tag" for="year" data-t="year"></label><input id="year" type="range" min="1985" max="2025" step="1" value="2025"><output id="yearout" for="year">2025</output></div>
       <p class="mono muted" data-t="cubecap"></p>
     </div>
@@ -380,7 +380,7 @@ const T={
  qend:['Една демокрация може да има лоши пътища, а една автокрация добри. Когато наричаме „демокрация“ всичко, което искаме, после я виним за всичко, което нямаме.','A democracy can have bad roads and an autocracy good ones. When we call everything we want “democracy”, we end up blaming it for everything we lack.'],
  sth:['Как слоевете стъпват един върху друг','How the layers rest on each other'],
  stp:['Всеки горен слой се умножава по основата. V-Dem смята „либерална демокрация“ главно като избори × права, затова слабите избори смъкват всичко над тях. Светлата лента е слоят сам по себе си, плътната е това, което остава от него върху българската основа от 0,60.','Every upper layer is multiplied by the base. V-Dem computes “liberal democracy” mainly as elections × rights, so weak elections pull down everything above them. The pale bar is the layer on its own, and the solid bar is what is left of it on Bulgaria’s base of 0.60.'],
- stq:['Въпросът','The question'],stw:['Без него','Without it'],sown:['сам','alone'],son:['върху основата','on the base'],
+ stq:['Въпросът','The question'],stw:['Без нея','Without it'],sown:['сам','alone'],son:['върху основата','on the base'],
  btag:['02 · Преди и след 1989','02 · Before and after 1989'],
  bh:['Какво се промени, ако усещането е същото','What changed, if it feels the same'],
  bp:['До 1989 г. България е закрита автокрация: една партия, без избор, без изход. От 1990 г. е изборна демокрация. Разликата е огромна в свободите и обратна там, където човек среща държавата всеки ден.','Until 1989 Bulgaria was a closed autocracy: one party, no choice, no exit. Since 1990 it has been an electoral democracy. The difference is enormous in freedoms, and it runs the other way where a person meets the state every day.'],
@@ -410,7 +410,7 @@ const T={
  s1h:['Пет неща, не едно','Five things, not one'],
  s1p:['Изследователите от <a href="https://www.v-dem.net/" target="_blank" rel="noopener">V-Dem</a> разделят демокрацията на пет принципа. Изборите са основата, а върху тях стъпват правата, равенството, участието и обсъждането. Изберете слой, страна и година и вижте колко от куба е построен.','<a href="https://www.v-dem.net/" target="_blank" rel="noopener">V-Dem</a> researchers split democracy into five principles. Elections are the base, and rights, equality, participation and deliberation stand on top of them. Pick a layer, a country and a year to see how much of the cube is built.'],
  year:['Година','Year'],
- cubecap:['Височина = оценка на V-Dem от 0 до 1. Пунктир = оценка 1.','Height = V-Dem score from 0 to 1. Dashed outline = a score of 1.'],
+ cubecap:['Ниската оценка издърпва парчето навън, а основата надолу. Сглобен куб = оценка 1 навсякъде.','A low score pulls a piece outward, and the base downward. A fully assembled cube means a score of 1 everywhere.'],
  ideal:['Идеята','The idea'],
  needs:['Какво изисква','What it takes'],
  inbg:['В България','In Bulgaria'],
@@ -569,7 +569,7 @@ const QUIZ=[
  [['Равен достъп до властта','Equal access to power'],2],[['Обществен дебат преди решение','Public debate before a decision'],4]];
 const QS=new Set();
 const STK=[
- {i:.60,q:['Кой управлява?','Who rules?'],w:['Нищо над него не важи. Права, дадени от власт, която не можеш да смениш, са милост.','Nothing above it counts. Rights granted by a power you cannot remove are favours.']},
+ {i:.60,q:['Кой управлява?','Who rules?'],w:['Нищо над нея не важи. Права, дадени от власт, която не можеш да смениш, са милост.','Nothing above it counts. Rights granted by a power you cannot remove are favours.']},
  {i:.50,q:['Какво не може да прави властта?','What may those in power never do?'],w:['51% могат да направят всичко на останалите 49%. Това е избрана диктатура.','51% can do anything to the other 49%. That is an elected dictatorship.']},
  {i:.44,q:['Всеки ли тежи еднакво?','Does everyone count the same?'],w:['Гласовете са равни, но достъпът не е. Пръв е чут този, който плаща кампаниите и държи медиите.','Votes are equal but access is not. Whoever funds the campaigns and holds the media is heard first.']},
  {i:.40,q:['Какво става между изборите?','What happens between elections?'],w:['Гражданите са зрители, които някой пита веднъж на четири години.','Citizens are spectators who get asked once every four years.']},
@@ -649,31 +649,33 @@ function val(k){ if(S.ideal) return 1; const s=D.cmp[S.c].s[k]; const i=S.year-(
 /* ---------- cube ---------- */
 const NS='http://www.w3.org/2000/svg';
 function el(n,a,p){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
-const OX=200,OY=196,A=78,B=45,H=90,HB=.7,HC=1.3;
+const OX=200,OY=176,A=40,B=23,H=46;
 const P=(x,y,z)=>[OX+(x-y)*A, OY+(x+y)*B-z*H];
 const pts=a=>a.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
-function box(g,x,y,w,d,z0,z1,col){
-  const c='var('+col+')';
-  el('polygon',{class:'face',points:pts([P(x,y+d,z0),P(x+w,y+d,z0),P(x+w,y+d,z1),P(x,y+d,z1)]),style:`fill:color-mix(in srgb, ${c} 62%, #000)`},g);
-  el('polygon',{class:'face',points:pts([P(x+w,y,z0),P(x+w,y+d,z0),P(x+w,y+d,z1),P(x+w,y,z1)]),style:`fill:color-mix(in srgb, ${c} 80%, #000)`},g);
-  el('polygon',{class:'face top',points:pts([P(x,y,z1),P(x+w,y,z1),P(x+w,y+d,z1),P(x,y+d,z1)]),style:'fill:'+c},g);
-}
+/* our own five-piece dissection of a 3x3x3 cube: a base slab with a central spine, and four pieces that wrap around it */
+const RING=[[0,0],[1,0],[2,0],[2,1],[2,2],[1,2],[0,2],[0,1]], OUT=[[0,-1],[1,0],[0,1],[-1,0]];
+const VOX=[];
+for(let x=0;x<3;x++)for(let y=0;y<3;y++)VOX.push([x,y,0,0]);
+VOX.push([1,1,1,0],[1,1,2,0]);
+for(let k=0;k<4;k++){const a=RING[2*k],b=RING[2*k+1],c=RING[(2*k+2)%8];VOX.push([a[0],a[1],1,k+1],[b[0],b[1],1,k+1],[b[0],b[1],2,k+1],[c[0],c[1],2,k+1])}
 function drawCube(){
   const svg=$('#cubesvg'); svg.textContent='';
-  const pos=[null,[0,0],[1,0],[0,1],[1,1]];
-  const piece=(i)=>{const g=el('g',{class:'piece'+(S.sel===i?'':' dim'),tabindex:0,role:'button','aria-label':L(LAY[i].full)},svg);
-    g.addEventListener('click',()=>{S.sel=i;render()});
-    g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();S.sel=i;render()}});return g};
-  const vb=val(LAY[0].k), hb=(vb??0)*HB;
-  const g0=piece(0); box(g0,0,0,2,2,0,Math.max(hb,.02),LAY[0].col);
-  [1,2,3,4].forEach(i=>{const v=val(LAY[i].k); const [x,y]=pos[i]; const g=piece(i); const z1=hb+Math.max((v??0)*HC,.02);
-    box(g,x+.05,y+.05,.9,.9,hb,z1,LAY[i].col);
-    const c=P(x+.5,y+.5,z1); el('text',{x:c[0],y:c[1]+4},g).textContent=S.ideal?String(i+1):fmt(v);});
-  if(hb>=.2){const cb=P(1,2,hb/2); el('text',{x:cb[0],y:cb[1]+5},g0).textContent=S.ideal?'1':fmt(vb);}
-  const Z=HB+HC;
-  el('polygon',{class:'ghost',points:pts([P(0,0,Z),P(2,0,Z),P(2,2,Z),P(0,2,Z)])},svg);
-  el('polyline',{class:'ghost',points:pts([P(0,2,Z),P(0,2,0),P(2,2,0),P(2,0,0),P(2,0,Z)])},svg);
-  el('polyline',{class:'ghost',points:pts([P(2,2,Z),P(2,2,0)])},svg);
+  const v=LAY.map(l=>val(l.k)), gap=v.map(x=>x==null?1:1-x);
+  const off=p=>p?[OUT[p-1][0]*gap[p]*1.4,OUT[p-1][1]*gap[p]*1.4,0]:[0,0,-gap[0]];
+  const cells=VOX.map(c=>{const o=off(c[3]);return {x:c[0]+o[0],y:c[1]+o[1],z:c[2]+o[2],p:c[3]}}).sort((a,b)=>(a.x+a.y+a.z)-(b.x+b.y+b.z));
+  const face=(q,mix,p)=>{const c='var('+LAY[p].col+')', f=mix?`color-mix(in srgb, ${c} ${mix}%, #000)`:c;
+    const e=el('polygon',{points:pts(q),class:'vx',style:`fill:${f};stroke:${S.sel===p?'var(--panel)':f}`},svg);
+    e.addEventListener('click',()=>{S.sel=p;render()})};
+  cells.forEach(c=>{const {x,y,z,p}=c;
+    face([P(x,y+1,z),P(x+1,y+1,z),P(x+1,y+1,z+1),P(x,y+1,z+1)],62,p);
+    face([P(x+1,y,z),P(x+1,y+1,z),P(x+1,y+1,z+1),P(x+1,y,z+1)],80,p);
+    face([P(x,y,z+1),P(x+1,y,z+1),P(x+1,y+1,z+1),P(x,y+1,z+1)],0,p)});
+  el('polygon',{class:'ghost',points:pts([P(0,0,3),P(3,0,3),P(3,3,3),P(0,3,3)])},svg);
+  el('polyline',{class:'ghost',points:pts([P(0,3,3),P(0,3,0),P(3,3,0),P(3,0,0),P(3,0,3)])},svg);
+  el('polyline',{class:'ghost',points:pts([P(3,3,3),P(3,3,0)])},svg);
+  const lab=(q,i)=>{el('text',{x:q[0],y:q[1]+4},svg).textContent=S.ideal?String(i+1):fmt(v[i])};
+  const o0=off(0); lab(P(1.5+o0[0],3+o0[1],.5+o0[2]),0);
+  for(let k=0;k<4;k++){const b=RING[2*k+1],o=off(k+1); lab(P(b[0]+.5+o[0],b[1]+.5+o[1],3),k+1)}
 }
 function drawLayers(){
   const box=$('#layers'); box.textContent='';

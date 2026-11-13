@@ -3,15 +3,37 @@ import { Link } from "react-router-dom";
 export const work = {
   fintech: {
     title: "FinTech", role: "Platform Architect", bg: "#1a1a1a", color: "#fff",
-    intro: "Consumer lending and payment products in Bulgaria.",
+    intro: "Since 2021 at Credissimo — first as Product Development Manager, now Chief Product Officer leading a 5-brand product ecosystem and a 40+ person team.",
+    stats: [
+      { value: "700K+", label: "customers served" },
+      { value: "€30M+", label: "annual transaction volume" },
+      { value: "5", label: "brands in the portfolio" },
+      { value: "50K", label: "native app downloads" },
+    ],
     sections: [
       {
         label: "Products",
-        links: [
-          { title: "Credissimo", desc: "Online consumer loans, since 2006", href: "https://credissimo.bg" },
-          { title: "Xtra", desc: "App-based online loans", href: "https://xtra.bg" },
-          { title: "Umo", desc: "Online consumer loans", href: "https://umo.bg" },
-          { title: "Plati Posle", desc: "Buy now, pay later", href: "https://platiposle.bg" },
+        products: [
+          {
+            title: "Credissimo", href: "https://credissimo.bg", tag: "Flagship",
+            body: "The flagship consumer lender, online since 2006. Fast loans up to €5,000, applied for online with just an ID card — now backed by a native mobile platform.",
+            image: null, // e.g. "/fintech/credissimo.png"
+          },
+          {
+            title: "Xtra", href: "https://xtra.bg", tag: "Built 0→1",
+            body: "An app-first lending product: loans from €100 to €5,000 over 3–24 months, applied for entirely in the Xtra app with an ID card.",
+            image: null,
+          },
+          {
+            title: "Plati Posle", href: "https://platiposle.bg", tag: "Built 0→1",
+            body: "Buy now, pay later — split payments for products and services into instalments, with 0% interest for the first 30 days.",
+            image: null,
+          },
+          {
+            title: "Umo", href: "https://umo.bg",
+            body: "Online consumer loans up to €5,000, repaid over 3–24 months.",
+            image: null,
+          },
         ],
       },
     ],
@@ -87,6 +109,10 @@ export default function Work({ slug }) {
         .row:hover .arr{transform:translateX(4px)}
         .arr{transition:transform .3s}
         .meta{text-align:right}
+        .product{display:grid;grid-template-columns:1fr;gap:32px;align-items:center;padding:40px 0;border-top:1px solid #e0e0e0}
+        .product:has(img){grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
+        .product:hover .arr{transform:translate(3px,-3px)}
+        @media (max-width: 900px){ .product:has(img){grid-template-columns:1fr} .stats{grid-template-columns:repeat(2,1fr)!important;row-gap:32px!important} }
         @media (max-width: 768px){ .row{flex-direction:column;gap:4px} .meta{text-align:left} }
       `}</style>
 
@@ -101,6 +127,17 @@ export default function Work({ slug }) {
 
       <main className="fu" style={{ padding: "56px var(--pad) 96px" }}>
         <p style={{ fontSize: "clamp(20px, 2.4vw, 28px)", fontWeight: 500, lineHeight: 1.4, color: "#1a1a1a", maxWidth: 820, marginBottom: 72 }}>{w.intro}</p>
+
+        {w.stats && (
+          <div className="stats" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 24, marginBottom: 80, borderTop: "3px solid #1a1a1a", paddingTop: 28 }}>
+            {w.stats.map((st) => (
+              <div key={st.label}>
+                <div style={{ fontSize: "clamp(36px, 5vw, 64px)", fontWeight: 900, letterSpacing: "-0.03em", lineHeight: 1 }}>{st.value}</div>
+                <div style={{ fontSize: 15, color: "#888", marginTop: 8 }}>{st.label}</div>
+              </div>
+            ))}
+          </div>
+        )}
 
         {w.sections.map((s) => (
           <section key={s.title || s.label} style={{ marginBottom: 88 }}>
@@ -134,6 +171,23 @@ export default function Work({ slug }) {
                 />
               </div></div>
             )}
+
+            {s.products?.map((pr) => (
+              <a key={pr.href} href={pr.href} target="_blank" rel="noopener" className="product">
+                <div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+                    <span style={{ fontSize: "clamp(30px, 4vw, 48px)", fontWeight: 900, letterSpacing: "-0.03em", lineHeight: 1.05 }}>{pr.title}</span>
+                    {pr.tag && <span style={{ fontSize: 12, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1.5, padding: "5px 10px", borderRadius: 6, background: "#1a1a1a", color: "#fff" }}>{pr.tag}</span>}
+                  </div>
+                  <p style={{ fontSize: 18, lineHeight: 1.65, color: "#444", marginTop: 14, maxWidth: 560 }}>{pr.body}</p>
+                  <div style={{ fontSize: 15, fontWeight: 600, marginTop: 16 }}>{host(pr.href)} <span className="arr" style={{ display: "inline-block" }}>↗</span></div>
+                </div>
+                {pr.image && (
+                  <img src={pr.image} alt={`${pr.title} screenshot`} loading="lazy"
+                    style={{ width: "100%", borderRadius: 12, border: "1px solid #e5e5e5", boxShadow: "0 12px 40px rgba(0,0,0,.08)", display: "block" }} />
+                )}
+              </a>
+            ))}
 
             {s.links?.map((l) => (
               <a key={l.href} href={l.href} target="_blank" rel="noopener" className="row">

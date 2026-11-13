@@ -3,19 +3,19 @@ import { Link } from "react-router-dom";
 
 const groups = [
   {
-    label: "Experiments",
-    bands: [
-      { title: "F1 Predictor", role: "AI-Powered Fantasy Tool", bg: "#e10600", color: "#fff", link: "/f1predictor", live: true },
-      { title: "Samardala", role: "Live WebGL Experience", bg: "#1C2431", color: "#fff", href: "https://samardala.com", live: true },
-      { title: "Law Trail", role: "Mapping Influence on Bulgarian Law", bg: "#9a80f2", color: "#101216", href: "https://law-trail.vercel.app", live: true },
-    ],
-  },
-  {
     label: "Work",
     bands: [
       { title: "FinTech", role: "Platform Architect", bg: "#1a1a1a", color: "#fff", link: "/fintech" },
       { title: "Creative", role: "Experiential & Interactive", bg: "#FF8000", color: "#fff", link: "/creative" },
       { title: "EdTech", role: "Interactive Learning Platform", bg: "#3671C6", color: "#fff", link: "/edtech" },
+    ],
+  },
+  {
+    label: "Experiments",
+    bands: [
+      { title: "F1 Predictor", role: "AI-Powered Fantasy Tool", bg: "#e10600", color: "#fff", link: "/f1predictor", live: true },
+      { title: "Samardala", role: "Live WebGL Experience", bg: "#1C2431", color: "#fff", href: "https://samardala.com", live: true },
+      { title: "Law Trail", role: "Mapping Influence on Bulgarian Law", bg: "#9a80f2", color: "#101216", href: "https://law-trail.vercel.app", live: true },
     ],
   },
   {

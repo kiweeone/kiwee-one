@@ -40,7 +40,7 @@ export const work = {
   },
   creative: {
     title: "Creative", role: "Experiential & Interactive", bg: "#FF8000", color: "#fff",
-    intro: "Campaigns and interactive experiences from Saatchi & Saatchi Sofia and Digitas Sofia.",
+    intro: "From 2016 to 2021 I led experiential technology at Saatchi & Saatchi Sofia and Digitas Sofia — robotic installations, AR experiences, guerrilla social campaigns and national education platforms for brands including Nissan, Audi, Coca-Cola, Samsung, DSK Bank and Zagorka. Engineering-driven work with measurable business impact, and 10+ industry awards along the way.",
     sections: [
       {
         title: "Mediapool — You Are What You Read",
@@ -70,12 +70,17 @@ export const work = {
   },
   edtech: {
     title: "EdTech", role: "Interactive Learning Platform", bg: "#3671C6", color: "#fff",
-    intro: "Financial-literacy education, built as a national competition.",
+    intro: "Financial-literacy education for families, built as a national digital competition with DSK Bank.",
     sections: [
       {
         title: "National Finansiada",
         meta: "DSK Bank · Digitas Sofia with MSL, OmniChannel, Dialog",
         desc: "Financial literacy in Bulgaria had been low for years. As the market leader, DSK Bank set out to change that — and we helped by finding the people who know and making them an example for everyone else. Whole families tested their knowledge on our educational platform, and the best 12 teams faced off live in the final, proving financial literacy can be mastered by adults and teenagers alike. One student took a step toward studying abroad by winning an education scholarship.",
+        results: [
+          { value: "900+", label: "parent-and-child teams in the 2020 edition" },
+          { value: "6", label: "education scholarships awarded" },
+          { value: "Live", label: "fully digital final, streamed on Facebook" },
+        ],
         awards: ["2× Gold PR awards (with MSL)", "BAPRA Bright Awards 2021 · 3rd place — CSR campaign"],
         video: "HrrhA1GKEdY",
         links: [
@@ -149,6 +154,16 @@ export default function Work({ slug }) {
                 <h2 style={{ fontSize: "clamp(30px, 4vw, 48px)", fontWeight: 900, letterSpacing: "-0.03em", lineHeight: 1.05 }}>{s.title}</h2>
                 {s.meta && <div style={{ fontSize: 15, fontWeight: 600, color: "#888", marginTop: 12 }}>{s.meta}</div>}
                 {s.desc && <p style={{ fontSize: 18, lineHeight: 1.65, color: "#333", maxWidth: 760, marginTop: 24 }}>{s.desc}</p>}
+                {s.results && (
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 20, marginTop: 28, maxWidth: 760 }}>
+                    {s.results.map((r) => (
+                      <div key={r.label}>
+                        <div style={{ fontSize: "clamp(30px, 3.5vw, 44px)", fontWeight: 900, letterSpacing: "-0.03em", lineHeight: 1, color: w.bg }}>{r.value}</div>
+                        <div style={{ fontSize: 15, color: "#666", marginTop: 6 }}>{r.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                )}
                 {s.awards && (
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 20 }}>
                     {s.awards.map((a) => (

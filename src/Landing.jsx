@@ -172,7 +172,7 @@ export default function Landing() {
         background: "#1a1a1a", borderTop: "1px solid #333", padding: "20px var(--pad)",
         display: "flex", justifyContent: "space-between", fontSize: 13, color: "#555",
       }}>
-        <span>© 2026 Zhelyo Ivanov</span>
+        <span>© 2026 Zhelyo Ivanov · <span lang="bg">Жельо Иванов</span></span>
         <span>kiwee.one</span>
       </footer>
     </div>

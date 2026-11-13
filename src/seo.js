@@ -5,7 +5,7 @@ export const NAME = "Zhelyo Ivanov";
 export const pages = {
   "/": {
     title: "Zhelyo Ivanov — Chief Product Officer | kiwee.one",
-    description: "Zhelyo Ivanov — Chief Product Officer at Credissimo. Product leader across FinTech, EdTech and award-winning creative work; builder of F1 Predictor, Samardala and Law Trail.",
+    description: "Zhelyo Ivanov — Chief Product Officer at Credissimo. Product leader across FinTech, EdTech and award-winning creative work; builder of Samardala and F1 Predictor.",
   },
   "/about": {
     title: "About Zhelyo Ivanov — Product Leader & CPO | kiwee.one",
@@ -32,9 +32,13 @@ export const pages = {
 export const person = {
   "@context": "https://schema.org",
   "@type": "Person",
+  "@id": SITE + "/#person",
   name: NAME,
+  alternateName: "Жельо Иванов",
   url: SITE + "/",
   jobTitle: "Chief Product Officer",
+  description: "Product leader across FinTech, EdTech and award-winning creative technology. Chief Product Officer at Credissimo; formerly Saatchi & Saatchi Sofia and Digitas Sofia.",
+  knowsAbout: ["Product management", "FinTech", "Consumer lending", "Buy now, pay later", "EdTech", "Experiential technology", "WebGL"],
   worksFor: { "@type": "Organization", name: "Credissimo", url: "https://credissimo.bg" },
   alumniOf: [
     { "@type": "Organization", name: "Saatchi & Saatchi Sofia" },
@@ -44,6 +48,5 @@ export const person = {
     "https://www.linkedin.com/in/zhelyoivanov/",
     "https://github.com/kiweeone",
     "https://samardala.com/",
-    "https://law-trail.vercel.app/",
   ],
 };

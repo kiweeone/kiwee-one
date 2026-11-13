@@ -1,0 +1,23 @@
+# Zhelyo Ivanov (Жельо Иванов) — kiwee.one
+
+> Personal site of Zhelyo Ivanov, Chief Product Officer at Credissimo. Product leader across FinTech, EdTech and award-winning creative technology, with a decade-plus of shipping products — from interactive installations and national education platforms to consumer lending apps.
+
+## About
+- Role: Chief Product Officer at Credissimo (2023–present), leading a 5-brand product ecosystem and a 40+ person team.
+- Before: Product Development Manager at Credissimo (2021–2023); "Director of Extraordinary" at Saatchi & Saatchi Sofia / Digitas Sofia (2016–2021).
+- Brands worked with: Nissan, Audi, Coca-Cola, Samsung, DSK Bank, Zagorka. 10+ industry awards, including Agency of the Year 2017.
+- Based in Sofia, Bulgaria.
+
+## Work
+- [FinTech](https://www.kiwee.one/fintech): Credissimo, Xtra (built 0→1), Plati Posle (BNPL, built 0→1), Umo. 700K+ customers, €30M+ annual transaction volume, 50K native app downloads.
+- [Creative](https://www.kiwee.one/creative): Mediapool "You Are What You Read" anti-fake-news campaign (FARA 2017: 2× Gold), Nissan LEAF "Conquer the Future", Digital Signage as a Service.
+- [EdTech](https://www.kiwee.one/edtech): National Finansiada — DSK Bank's financial-literacy competition for families.
+- [About & CV](https://www.kiwee.one/about)
+
+## Experiments
+- [Samardala](https://samardala.com): a live WebGL experience about the Bulgarian herb samardala.
+- [F1 Predictor](https://www.kiwee.one/f1predictor): AI-powered F1 Fantasy prediction tool.
+
+## Links
+- LinkedIn: https://www.linkedin.com/in/zhelyoivanov/
+- GitHub: https://github.com/kiweeone

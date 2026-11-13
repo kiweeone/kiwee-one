@@ -1,3 +1,9 @@
+# kiwee.one — Zhelyo Ivanov
+
+Source of [kiwee.one](https://www.kiwee.one/), the personal site of **Zhelyo Ivanov** (Жельо Иванов), Chief Product Officer — plus the F1 Fantasy Predictor that lives at [/f1predictor](https://www.kiwee.one/f1predictor).
+
+---
+
 # F1 Fantasy Predictor 2026
 
 Live FP analysis engine, lineup optimizer, and scoring calculator for F1 Fantasy 2026.  

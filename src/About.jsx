@@ -131,7 +131,7 @@ export default function About() {
         background: "#1a1a1a", padding: "20px var(--pad)",
         display: "flex", justifyContent: "space-between", fontSize: 13, color: "#555",
       }}>
-        <span>© 2026 Zhelyo Ivanov</span>
+        <span>© 2026 Zhelyo Ivanov · <span lang="bg">Жельо Иванов</span></span>
         <Link to="/" style={{ color: "#555", transition: "color 0.2s" }}
           onMouseEnter={e => e.target.style.color = "#fff"}
           onMouseLeave={e => e.target.style.color = "#555"}

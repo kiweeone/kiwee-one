@@ -197,6 +197,18 @@ ol.srcs{margin:0;padding-left:1.4em;columns:2;column-gap:40px;font-size:14.5px}
 ol.srcs li{break-inside:avoid;margin-bottom:6px}
 @media (max-width:760px){ol.srcs{columns:1}}
 footer{padding:32px 0 64px;font-size:14.5px;color:var(--muted)}
+/* four bulgarias banner */
+#four{padding:48px 0}
+.fb{display:flex;flex-wrap:wrap;align-items:center;gap:24px 32px;border:2px solid var(--ink);background:var(--panel);padding:28px;text-decoration:none;color:var(--ink);transition:background .15s}
+.fb:hover{background:var(--soft)}
+.fb-grid{display:grid;grid-template-columns:repeat(2,40px);gap:6px;flex:0 0 auto}
+.fb-grid i{display:block;width:40px;height:40px}
+.fb-txt{flex:1 1 360px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.fb-h{font-family:var(--display);font-weight:900;text-transform:uppercase;line-height:.92;font-size:clamp(38px,6vw,60px)}
+.fb-q{font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:clamp(22px,3vw,30px);line-height:1;color:var(--muted)}
+.fb-p{max-width:38em;margin-top:6px}
+.fb-cta{font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border:2px solid var(--ink);padding:14px 18px;white-space:nowrap}
+.fb:hover .fb-cta{background:var(--ink);color:var(--bg)}
 footer p{max-width:46em}
 
 /* quiz, stack, before/after, vote */
@@ -359,6 +371,14 @@ footer p{max-width:46em}
   <div class="verdict" id="verd"></div>
 </div></section>
 
+<section id="four"><div class="wrap">
+  <a class="fb" href="/four-bulgarias">
+    <span class="fb-grid" aria-hidden="true"><i style="background:#1F5FBF"></i><i style="background:#A8551C"></i><i style="background:#5E97E3"></i><i style="background:#E39A4F"></i></span>
+    <span class="fb-txt"><span class="tag" data-t="fbtag"></span><span class="fb-h" data-t="fbh"></span><span class="fb-q" data-t="fbq"></span><span class="fb-p" data-t="fbp"></span></span>
+    <span class="fb-cta" data-t="fbcta"></span>
+  </a>
+</div></section>
+
 <section id="sources"><div class="wrap">
   <div class="head"><p class="tag" data-t="s6tag"></p><p class="prose" data-t="s6p"></p></div>
   <ol class="srcs" id="srcs"></ol>
@@ -433,6 +453,9 @@ const T={
  s4p:['Тезата за „задкулисието“ е силна само ако отделя документа от догадката. Всяка карта носи етикет за вида на доказателството и води към източника.','The “backstage” thesis is only strong if it separates the document from the hunch. Each card carries a label for the kind of evidence and links to its source.'],
  s5tag:['07 · Изводът','07 · The verdict'],
  s5h:['Кого да виним тогава','So who is to blame'],
+ fbtag:['Следваща стъпка','Next step'],fbh:['Четири Българии','Four Bulgarias'],fbq:['Къде сте вие?','Where do you stand?'],
+ fbp:['Демокрацията обещава отговорност и глас. Хората от всички лагери искат и двете — с различни думи. Шест въпроса ще ви покажат къде сте сред четирите Българии и какво ви свързва с останалите.','Democracy promises accountability and a voice. People in every camp want both, in different words. Six questions show where you stand among the four Bulgarias, and what connects you to the rest.'],
+ fbcta:['Вижте къде сте →','Find out →'],
  s6tag:['Източници и метод','Sources and method'],
  s6p:['Числата са от <a href="https://www.v-dem.net/" target="_blank" rel="noopener">V-Dem</a> Country-Year Full+Others v16 (март 2026 г.) и от набора Episodes of Regime Transformation. Индексите на V-Dem са експертни оценки с несигурност, не преброявания. Хронологията на кабинетите е по публични справочници.','Figures come from <a href="https://www.v-dem.net/" target="_blank" rel="noopener">V-Dem</a> Country-Year Full+Others v16 (March 2026) and the Episodes of Regime Transformation dataset. V-Dem indices are expert assessments with uncertainty, not counts. The cabinet chronology follows public reference sources.'],
  foot:['Структурата с петте слоя следва видеото „I don’t get democracy“ на Johnny Harris, което използва петте принципа на V-Dem. Текстовете тук са авторски. Лицата, посочени в санкционни списъци, отричат обвиненията.<br><br>Проект на Жельо Иванов · <a href="https://www.kiwee.one/">kiwee.one</a>','The five-layer structure follows Johnny Harris’s video “I don’t get democracy”, which uses V-Dem’s five principles. The texts here are original. People named in sanctions lists deny the accusations.<br><br>A project by Zhelyo Ivanov · <a href="https://www.kiwee.one/">kiwee.one</a>']

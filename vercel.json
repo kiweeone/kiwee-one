@@ -25,6 +25,10 @@
       "destination": "/democracy/index.html"
     },
     {
+      "source": "/four-bulgarias",
+      "destination": "/four-bulgarias/index.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/app.html"
     }

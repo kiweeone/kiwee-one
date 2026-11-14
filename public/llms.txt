@@ -16,6 +16,7 @@
 
 ## Experiments
 - [Democracy](https://www.kiwee.one/democracy): bilingual (BG/EN) interactive explainer of the five layers of democracy and how Bulgaria scores on them since 1989, using V-Dem data.
+- [Four Bulgarias](https://www.kiwee.one/four-bulgarias): bilingual (BG/EN) interactive explainer that splits Bulgaria's divide into four quadrants (EU or Russia lean × trust in the system) and shows what they share on fears, belonging, beliefs, convictions and affiliation.
 - [Samardala](https://samardala.com): a live WebGL experience about the Bulgarian herb samardala.
 - [F1 Predictor](https://www.kiwee.one/f1predictor): AI-powered F1 Fantasy prediction tool.
 

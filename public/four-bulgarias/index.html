@@ -92,7 +92,6 @@ section{display:flex;flex-direction:column;gap:24px}
 .pill[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 .pill.lg{min-height:46px;padding:4px 20px;font-size:16px}
 .result{background:var(--ink);color:var(--bg);padding:28px;display:flex;flex-wrap:wrap;gap:24px;align-items:center}
-.result .sw{width:56px;height:56px;border:2px solid var(--bg);flex:0 0 56px}
 .result .body{flex:1 1 420px;min-width:0;display:flex;flex-direction:column;gap:8px}
 .result .small{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;opacity:.75}
 .result .name{font-family:var(--display);text-transform:uppercase;font-size:clamp(36px,5vw,52px);font-weight:900;line-height:.92}
@@ -109,11 +108,15 @@ section{display:flex;flex-direction:column;gap:24px}
 .qcard[aria-pressed="true"]{border:2px solid var(--ink)}
 .qcard .nm{display:flex;align-items:center;gap:10px;font-family:var(--display);text-transform:uppercase;font-size:28px;font-weight:900;line-height:.95;color:var(--text)}
 .dot{width:14px;height:14px;flex:0 0 14px}
+.qcard{min-width:0}
+.qcard .nm{min-width:0;overflow-wrap:anywhere;hyphens:auto}
 .qcard .ax{font-family:var(--mono);font-size:12px;letter-spacing:.03em;color:var(--muted)}
 .qcard .tg{font-size:15.5px;color:var(--text)}
-.you{position:absolute;display:flex;align-items:center;gap:6px;pointer-events:none;transform:translate(-11px,-11px);transition:left .6s ease,top .6s ease}
-.you .pin{width:22px;height:22px;border-radius:50%;background:var(--ink);border:3px solid var(--bg)}
-.you .lab{padding:3px 8px;background:var(--ink);color:var(--bg);font-family:var(--mono);font-size:12px;font-weight:700;text-transform:uppercase}
+.youtag{display:inline-flex;align-items:center;gap:6px;padding:3px 8px;background:var(--ink);color:var(--bg);font-family:var(--mono);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.youtag::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--bg)}
+.mini{position:relative;width:96px;height:96px;flex:0 0 96px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:2px;border:2px solid var(--bg);padding:2px}
+.mini i{display:block;opacity:.6}
+.mini b{position:absolute;width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--ink);transform:translate(-7px,-7px)}
 .note{background:var(--surface-2);padding:14px 16px;font-size:15px;color:var(--text)}
 .profile{flex:1 1 400px;min-width:0;padding:24px;display:flex;flex-direction:column;gap:18px;border-top:2px solid var(--ink)}
 .profile h3{font-size:clamp(34px,4vw,44px);display:flex;align-items:center;gap:12px}
@@ -172,7 +175,7 @@ footer{padding:32px 0 64px;display:flex;flex-direction:column;gap:16px}
 .step .ev{font-size:14px}
 .closing{font-family:var(--display);text-transform:uppercase;font-size:clamp(32px,4.4vw,52px);font-weight:900;line-height:.95;max-width:900px}
 @media (max-width:760px){.bridge-grid{grid-template-columns:minmax(0,1fr)}}
-@media (max-width:560px){.opts{grid-template-columns:minmax(0,1fr)}.scale{border-right:0;border-bottom:1px solid var(--border);min-height:42px;text-align:left;padding:8px 12px}.scale:last-child{border-bottom:0}.q{padding:14px}.qcard{min-height:170px;padding:14px}.qcard .nm{font-size:22px}.split-grid{grid-template-columns:minmax(0,1fr)!important}}
+@media (max-width:560px){.opts{grid-template-columns:minmax(0,1fr)}.scale{border-right:0;border-bottom:1px solid var(--border);min-height:42px;text-align:left;padding:8px 12px}.scale:last-child{border-bottom:0}.q{padding:14px}.qcard{min-height:170px;padding:14px}.qcard .nm{font-size:20px}.split-grid{grid-template-columns:minmax(0,1fr)!important}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 <script>window.si=window.si||function(){(window.siq=window.siq||[]).push(arguments)};</script>
@@ -273,7 +276,7 @@ var T={
   axB:L("Angry at the system ↓","Гняв към системата ↓"),
   mapNote:L("Since April 2026, “trusting the system” mostly means your side holds power. When Radev took office, many Reform and Sovereignty voters moved up the map.",
             "От април 2026 г. „доверие в системата“ означава най-вече, че вашата страна е на власт. Когато Радев пое управлението, много „Европейци на промяната“ и „Протестиращи за суверенитет“ се преместиха нагоре по картата."),
-  you:L("You","Вие"),
+  youHere:L("You are here","Вие сте тук"),
   who:L("Who's in it","Кой е тук"),
   signals:L("Signals","Сигнали"),
   s3k:L("03 · Five lenses","03 · Пет гледни точки"),
@@ -363,7 +366,7 @@ var quads={
     name:L("Reform Europeans","Европейци на промяната"),short:L("Reform","Промяна"),
     axes:L("Leans EU · Angry at the system","Клони към ЕС · Гняв към системата"),
     tag:L("Pro-European and furious at the Borissov–Peevski era.","Проевропейци, бесни на ерата Борисов–Пеевски."),
-    sum:L("The hinge that decides elections. Many voted Radev in April as a clean break, then backed Gyurov in November.","Пантата, която решава изборите. Мнозина гласуваха за Радев през април като за чисто начало, а после подкрепиха Гюров през ноември."),
+    sum:L("The swing group that decides elections. Many voted Radev in April as a clean break, then backed Gyurov in November.","Групата, която накланя везните на изборите. Мнозина гласуваха за Радев през април като за чисто начало, а после подкрепиха Гюров през ноември."),
     who:[
       [L("The December 2025 protest generation","Протестното поколение от декември 2025"),L("Gen Z protests that brought down the government, under EU and Bulgarian flags.","Протестите на поколението Z, които свалиха правителството, под българското и европейското знаме.")],
       [L("The 2020 protest core","Ядрото на протестите от 2020"),L("Sofia, graduates, the diaspora. The PP–DB base.","София, висшистите, диаспората. Базата на ПП–ДБ.")],
@@ -553,7 +556,8 @@ function renderSurvey(){
     var p=position(),q=quads[p.id],ax=Math.abs(p.x),ay=Math.abs(p.y);
     var xs=ax<0.4?T.xMid:(p.x<0?(ax>1.2?T.xEU2:T.xEU1):(ax>1.2?T.xRU2:T.xRU1));
     var ys=ay<0.4?T.yMid:(p.y>0?T.yUp:T.yDn);
-    h+='<div class="result" id="result"><div class="sw" style="background:'+q.color+'"></div><div class="body"><div class="small">'+t(T.closest)+'</div><div class="name">'+t(q.name)+'</div><div>'+f(t(T.resultS),{x:t(xs),y:t(ys)})+' '+t(q.tag)+'</div></div><a class="btn" href="#map">'+t(T.seeMap)+'</a></div>';
+    var ml=6+((p.x+2)/4)*84, mt=6+((2-p.y)/4)*84;
+    h+='<div class="result" id="result"><div class="mini" role="img" aria-label="'+t(q.name)+'"><i style="background:'+quads.A.color+'"></i><i style="background:'+quads.B.color+'"></i><i style="background:'+quads.C.color+'"></i><i style="background:'+quads.D.color+'"></i><b style="left:'+ml+'px;top:'+mt+'px"></b></div><div class="body"><div class="small">'+t(T.closest)+'</div><div class="name">'+t(q.name)+'</div><div>'+f(t(T.resultS),{x:t(xs),y:t(ys)})+' '+t(q.tag)+'</div></div><a class="btn" href="#map">'+t(T.seeMap)+'</a></div>';
   }
   $("survey").innerHTML=h;
 }
@@ -565,13 +569,9 @@ function renderMap(){
   h+='<div class="two"><div class="mapcol"><div class="axis"><span>'+t(T.axL)+'</span><span>'+t(T.axT)+'</span><span>'+t(T.axR)+'</span></div><div class="mapwrap"><div class="grid2">';
   ORDER.forEach(function(id){
     var q=quads[id];
-    h+='<button type="button" class="qcard" data-act="quad" data-v="'+id+'" aria-pressed="'+(sel===id)+'" style="background:var('+q.tint+')"><span class="nm"><span class="dot" style="background:'+q.color+'"></span>'+t(q.name)+'</span><span class="ax">'+t(q.axes)+'</span><span class="tg">'+t(q.tag)+'</span></button>';
+    h+='<button type="button" class="qcard" data-act="quad" data-v="'+id+'" aria-pressed="'+(sel===id)+'" style="background:var('+q.tint+')">'+(res&&res.id===id?'<span class="youtag">'+t(T.youHere)+'</span>':'')+'<span class="nm"><span class="dot" style="background:'+q.color+'"></span>'+t(q.name)+'</span><span class="ax">'+t(q.axes)+'</span><span class="tg">'+t(q.tag)+'</span></button>';
   });
   h+='</div>';
-  if(res){
-    var left=50+(res.x/2)*44, top=50-(res.y/2)*44;
-    h+='<div class="you" style="left:'+left+'%;top:'+top+'%"><div class="pin"></div><div class="lab">'+t(T.you)+'</div></div>';
-  }
   h+='</div><div class="axis center"><span>'+t(T.axB)+'</span></div><div class="note">'+t(T.mapNote)+'</div></div>';
   var p=quads[sel];
   h+='<div class="card profile" aria-live="polite"><h3><span class="dot" style="width:18px;height:18px;flex:0 0 18px;background:'+p.color+'"></span>'+t(p.name)+'</h3><p style="margin:0;color:var(--text-2)">'+t(p.sum)+'</p>';

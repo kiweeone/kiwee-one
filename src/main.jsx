@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import Landing from './Landing.jsx'
 import About from './About.jsx'
 import Work from './Work.jsx'
@@ -37,6 +38,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/edtech" element={<Work slug="edtech" />} />
       </Routes>
       <Analytics />
+      <SpeedInsights />
     </BrowserRouter>
   </React.StrictMode>,
 )

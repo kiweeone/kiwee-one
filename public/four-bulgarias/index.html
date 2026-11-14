@@ -50,6 +50,7 @@ h1,h2,h3{font-family:var(--display);font-weight:900;text-transform:uppercase;lin
 .brand{display:flex;flex-direction:column;gap:6px;min-width:0}
 .home{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.04em;text-decoration:none;white-space:nowrap;color:var(--muted)}
 .home:hover{color:var(--ink)}
+.crumbs{display:flex;flex-wrap:wrap;gap:6px;align-items:baseline}
 .word{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(28px,7.4vw,52px);line-height:.9;text-decoration:none;letter-spacing:.01em;color:var(--ink)}
 .tools{display:flex;gap:8px;align-items:center;flex:none}
 .icon{display:grid;place-items:center;width:30px;height:30px;background:transparent;border:1px solid var(--ink);border-radius:3px;padding:0}
@@ -75,11 +76,17 @@ section{display:flex;flex-direction:column;gap:24px}
 .sec-head h2{font-size:clamp(38px,6vw,68px)}
 .sec-head p{margin:0;max-width:38em;color:var(--text)}
 .card{background:var(--surface);border:1px solid var(--border)}
-.q{padding:18px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px}
-.q-text{flex:1 1 340px;min-width:0;display:flex;gap:14px;align-items:baseline}
+.q{padding:18px 20px;display:flex;flex-direction:column;gap:14px}
+.q-text{min-width:0;display:flex;gap:14px;align-items:baseline}
 .q-num{font-family:var(--mono);font-weight:700;color:var(--muted);font-size:12px}
 .q-stmt{font-size:18px;line-height:1.4;font-weight:500}
-.opts{flex:1 1 540px;display:flex;flex-wrap:wrap;gap:6px}
+.opts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border:1px solid var(--ink)}
+.scale{min-height:44px;padding:6px 6px;border:0;border-right:1px solid var(--border);background:transparent;font-size:14px;line-height:1.2;color:var(--text)}
+.scale:last-child{border-right:0}
+.scale:hover{background:var(--surface-2)}
+.scale[aria-pressed="true"]{background:var(--ink);color:var(--bg);font-weight:700}
+.locked{border:1px dashed var(--muted);padding:14px 16px;font-family:var(--mono);font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between}
+[hidden]{display:none!important}
 .pill{min-height:40px;padding:4px 14px;border-radius:999px;border:1px solid var(--border);background:transparent;font-size:14px;color:var(--text)}
 .pill:hover{border-color:var(--ink)}
 .pill[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
@@ -165,7 +172,7 @@ footer{padding:32px 0 64px;display:flex;flex-direction:column;gap:16px}
 .step .ev{font-size:14px}
 .closing{font-family:var(--display);text-transform:uppercase;font-size:clamp(32px,4.4vw,52px);font-weight:900;line-height:.95;max-width:900px}
 @media (max-width:760px){.bridge-grid{grid-template-columns:minmax(0,1fr)}}
-@media (max-width:560px){.qcard{min-height:170px;padding:14px}.qcard .nm{font-size:22px}.split-grid{grid-template-columns:minmax(0,1fr)!important}}
+@media (max-width:560px){.opts{grid-template-columns:minmax(0,1fr)}.scale{border-right:0;border-bottom:1px solid var(--border);min-height:42px;text-align:left;padding:8px 12px}.scale:last-child{border-bottom:0}.q{padding:14px}.qcard{min-height:170px;padding:14px}.qcard .nm{font-size:22px}.split-grid{grid-template-columns:minmax(0,1fr)!important}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 <script>window.si=window.si||function(){(window.siq=window.siq||[]).push(arguments)};</script>
@@ -173,7 +180,7 @@ footer{padding:32px 0 64px;display:flex;flex-direction:column;gap:16px}
 </head>
 <body>
 <div class="mast"><div class="wrap">
-  <div class="brand"><a class="home" href="https://www.kiwee.one/">← kiwee.one</a><a class="word" href="#top" id="brand">Четири Българии</a></div>
+  <div class="brand"><div class="crumbs"><a class="home" href="https://www.kiwee.one/">← kiwee.one</a><span class="home" aria-hidden="true">/</span><a class="home" href="/democracy" id="demLink">Демокрацията не е виновна</a></div><a class="word" href="#top" id="brand">Четири Българии</a></div>
   <div class="tools"><button type="button" class="icon" data-act="theme" id="themeBtn" aria-label="Dark mode"></button><div class="seg" role="group" aria-label="Language"><button type="button" data-act="lang" data-v="bg" aria-pressed="true">BG</button><button type="button" data-act="lang" data-v="en" aria-pressed="false">EN</button></div></div>
 </div></div>
 
@@ -290,6 +297,8 @@ var T={
   howP:L("The quadrants and overlap levels are estimates built from national polls and election data from 2024 to 2026, not measured quadrant by quadrant. Treat them as a hypothesis. The next step is a perception-gap survey that asks each quadrant what it believes, and what it thinks the others believe.",
          "Квадрантите и нивата на припокриване са оценки, изградени от национални проучвания и изборни данни от 2024 до 2026 г., а не измерени за всеки квадрант поотделно. Приемете ги като хипотеза. Следващата стъпка е проучване на разминаването във възприятията, което пита всеки квадрант какво мисли той — и какво смята, че мислят другите."),
   sources:L("Sources","Източници"),
+  demLink:L("Democracy isn’t to blame","Демокрацията не е виновна"),
+  locked:L("The map, the five lenses and the verdict open after the six questions.","Картата, петте гледни точки и изводът се отварят след шестте въпроса."),
   bg:L("Background: what democracy is, and how Bulgaria has measured up since 1989, in <a href=\"/democracy\">Democracy isn’t to blame</a>.","Контекст: какво е демокрацията и как се представя България от 1989 г. насам — в <a href=\"/democracy\">Демокрацията не е виновна</a>."),
   credit:L("A project by Zhelyo Ivanov · <a href=\"https://www.kiwee.one/\">kiwee.one</a>","Проект на Жельо Иванов · <a href=\"https://www.kiwee.one/\">kiwee.one</a>"),
   s5k:L("05 · What you can do","05 · Какво можете да направите"),
@@ -481,7 +490,7 @@ var sources=[
 var S={
   lang:(load("dem-lang")||((navigator.language||"").toLowerCase().indexOf("bg")===0?"bg":"en")),
   theme:(load("dem-theme")||((window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light")),
-  answers:{},showResult:false,quad:null,lens:"fears",guess:null
+  answers:{},showResult:false,revealed:false,quad:null,lens:"fears",guess:null
 };
 if(S.lang!=="bg"&&S.lang!=="en")S.lang="en";
 if(S.theme!=="dark"&&S.theme!=="light")S.theme="light";
@@ -506,6 +515,7 @@ function renderChrome(){
   document.documentElement.setAttribute("data-theme",S.theme);
   document.title=S.lang==="bg"?"Четири Българии — колко голямо е разделението?":"Four Bulgarias — how big is the divide?";
   $("brand").textContent=t(T.brand);
+  $("demLink").textContent=t(T.demLink);
   document.querySelectorAll('[data-act="lang"]').forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-v")===S.lang))});
   var tb=$("themeBtn");
   tb.setAttribute("aria-label",t(S.theme==="dark"?T.toLight:T.toDark));
@@ -518,7 +528,7 @@ function head(k,ti,p){return '<div class="sec-head"><div class="sec-kicker">'+t(
 
 function renderHero(){
   $("hero").innerHTML='<div class="kicker">'+t(T.kicker)+'</div><h1>'+t(T.title)+'</h1><p class="lede">'+t(T.lede)+'</p>'+
-    '<div class="row" style="padding-top:8px"><a class="btn" href="#survey">'+t(T.cta1)+'</a><a class="btn ghost" href="#map">'+t(T.cta2)+'</a></div>';
+    '<div class="row" style="padding-top:8px"><a class="btn" href="#survey">'+t(T.cta1)+'</a><a class="btn ghost" href="#map" data-act="skip">'+t(T.cta2)+'</a></div>';
 }
 
 function renderSurvey(){
@@ -528,7 +538,7 @@ function renderSurvey(){
     h+='<div class="card q" role="group" aria-labelledby="'+q.id+'-l"><div class="q-text"><span class="q-num">0'+(i+1)+'</span><span class="q-stmt" id="'+q.id+'-l">'+t(q.t)+'</span></div><div class="opts">';
     lik.forEach(function(l,v){
       var val=v-2;
-      h+='<button type="button" class="pill" data-act="ans" data-q="'+q.id+'" data-v="'+val+'" aria-pressed="'+(S.answers[q.id]===val)+'">'+l+'</button>';
+      h+='<button type="button" class="scale" data-act="ans" data-q="'+q.id+'" data-v="'+val+'" aria-pressed="'+(S.answers[q.id]===val)+'">'+l+'</button>';
     });
     h+='</div></div>';
   });
@@ -537,7 +547,8 @@ function renderSurvey(){
   h+='<div class="row">'+(n===questions.length
       ?'<button type="button" class="btn" data-act="see">'+t(T.see)+'</button>'
       :'<span class="btn disabled" aria-live="polite">'+f(t(T.answerAll),{n:n})+'</span>')+
-     '<a href="#map" style="font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em">'+t(T.skipQ)+'</a></div>';
+     '<a href="#map" data-act="skip" style="font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em">'+t(T.skipQ)+'</a></div>';
+  if(!S.revealed)h+='<div class="locked"><span>'+t(T.locked)+'</span></div>';
   if(hasResult()){
     var p=position(),q=quads[p.id],ax=Math.abs(p.x),ay=Math.abs(p.y);
     var xs=ax<0.4?T.xMid:(p.x<0?(ax>1.2?T.xEU2:T.xEU1):(ax>1.2?T.xRU2:T.xRU1));
@@ -655,14 +666,17 @@ function renderFoot(){
   $("foot").innerHTML=h;
 }
 
-function renderAll(){renderChrome();renderHero();renderSurvey();renderMap();renderLens();renderVerdict();renderAct();renderFoot()}
+function applyReveal(){["map","lenses","verdict","act"].forEach(function(id){$(id).hidden=!S.revealed})}
+function reveal(){if(!S.revealed){S.revealed=true;applyReveal();renderSurvey();}}
+function renderAll(){applyReveal();renderChrome();renderHero();renderSurvey();renderMap();renderLens();renderVerdict();renderAct();renderFoot()}
 
 /* ---------- events ---------- */
 document.addEventListener("click",function(e){
   var el=e.target.closest("[data-act]"); if(!el)return;
   var act=el.getAttribute("data-act"), v=el.getAttribute("data-v");
+  if(act==="skip"){e.preventDefault();reveal();$("map").scrollIntoView({behavior:"smooth",block:"start"});return;}
   if(act==="ans"){S.answers[el.getAttribute("data-q")]=parseInt(v,10);renderSurvey();if(hasResult()){renderMap();renderAct();}}
-  else if(act==="see"){S.showResult=true;S.quad=position().id;renderSurvey();renderMap();renderAct();var r=$("result");if(r)r.scrollIntoView({block:"center"});}
+  else if(act==="see"){S.revealed=true;applyReveal();S.showResult=true;S.quad=position().id;renderSurvey();renderMap();renderAct();var r=$("result");if(r)r.scrollIntoView({block:"center"});}
   else if(act==="quad"){S.quad=v;renderMap();}
   else if(act==="lens"){S.lens=v;renderLens();}
   else if(act==="guess"){S.guess=v;renderVerdict();}

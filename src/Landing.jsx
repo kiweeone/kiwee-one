@@ -79,7 +79,7 @@ export default function Landing() {
         {groups.map((g) => (
           <div key={g.label || "end"}>
             {g.label && (
-              <div style={{ padding: "40px var(--pad) 14px", fontSize: 12, fontWeight: 700, color: "#bbb", textTransform: "uppercase", letterSpacing: 3 }}>
+              <div style={{ padding: "40px var(--pad) 14px", fontSize: 15, fontWeight: 700, color: "#666", textTransform: "uppercase", letterSpacing: 3 }}>
                 {g.label}
               </div>
             )}
@@ -130,7 +130,7 @@ export default function Landing() {
       {/* ─── SKILLS ─── */}
       <section style={{ background: "#f0f0f0", padding: "60px var(--pad)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: "#bbb", textTransform: "uppercase", letterSpacing: 3, marginBottom: 24 }}>
+          <div style={{ fontSize: 15, fontWeight: 700, color: "#666", textTransform: "uppercase", letterSpacing: 3, marginBottom: 24 }}>
             Core Competencies
           </div>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>

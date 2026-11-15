@@ -29,6 +29,10 @@
       "destination": "/four-bulgarias/index.html"
     },
     {
+      "source": "/p/poligona-fxzd5g1iwikb",
+      "destination": "/p/poligona-fxzd5g1iwikb/index.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/app.html"
     }

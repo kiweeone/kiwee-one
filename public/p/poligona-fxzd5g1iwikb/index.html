@@ -298,8 +298,9 @@ B(3.71,4.64,0,2.18,-.13,-.09,M.white);                                          
 [[3.69,3.73],[4.62,4.66]].forEach(r=>B(r[0],r[1],0,2.2,-.1,.012,M.black));B(3.69,4.66,2.18,2.22,-.1,.012,M.black);
 B(4.52,4.56,1.0,1.03,-.09,-.02,M.chrome);
 // the whole hall wall around the bedroom door is mirror, door leaf included
+const MIRRORS=[];
 function mirrorMesh(geo){if(THREE.Reflector){try{const pr=Math.min(devicePixelRatio||1,2);const m=new THREE.Reflector(geo,{color:0xe6ecec,textureWidth:Math.min(2048,Math.max(1024,innerWidth*pr)),textureHeight:Math.min(2048,Math.max(1024,innerHeight*pr)),clipBias:.003});
-      m.material.fragmentShader=m.material.fragmentShader.replace('gl_FragColor = vec4( blendOverlay( base.rgb, color ), 1.0 );','gl_FragColor = vec4( base.rgb * color * 0.96, 1.0 );');m.material.needsUpdate=true;m.userData.mirror=true;return m;}catch(e){}}
+      m.material.fragmentShader=m.material.fragmentShader.replace('gl_FragColor = vec4( blendOverlay( base.rgb, color ), 1.0 );','gl_FragColor = vec4( base.rgb * color * 0.96, 1.0 );');m.material.needsUpdate=true;m.userData.zone='hall';MIRRORS.push(m);return m;}catch(e){}}
   return new THREE.Mesh(geo,M.mirror);}
 (function(){const sh=new THREE.Shape([[-1.2,0],[0,0],[0,H],[-1.2,H]].map(p=>new THREE.Vector2(p[0],p[1])));
   sh.holes.push(new THREE.Path([[-.9,0],[-.9,2.18],[-.08,2.18],[-.08,0]].map(p=>new THREE.Vector2(p[0],p[1]))));
@@ -310,11 +311,11 @@ B(5.12,5.16,.53,.74,.1,.24,M.dark);B(5.17,5.2,.53,.7,.1,.22,M.grey);cyl(.045,.14
 B(4.95,6.11,2.3,H,.36,1.2,M.wood);B(4.95,6.11,0,2.3,1.17,1.2,M.wood);                 // timber portal to the living room
 [5.5,5.56].forEach(x=>{B(x,x+.025,1.0,1.025,1.14,1.17,M.chrome);B(x,x+.025,1.0,1.025,.36,.39,M.chrome);});
 const DOORS=[];
-function door(name,block,leaves){const d={name,block,open:true,leaves:[]};leaves.forEach(l=>{const g=new THREE.Group();g.position.set(l.x,0,l.z);g.rotation.y=l.open;g.userData.door=d;scene.add(g);
+function door(name,block,leaves,shut){const d={name,block,open:!shut,leaves:[]};leaves.forEach(l=>{const g=new THREE.Group();g.position.set(l.x,0,l.z);g.rotation.y=shut?l.closed:l.open;g.userData.door=d;scene.add(g);
     if(l.glass){LB(g,0,l.w,.03,2.15,-.012,.012,M.glass);[0,.72,1.44,2.15].forEach(y=>LB(g,0,l.w,y,y+.03,-.02,.02,M.accent));[0,l.w-.03].forEach(x=>LB(g,x,x+.03,0,2.18,-.02,.02,M.accent));}
     else{LB(g,0,l.w,0,2.18,-.02,.02,M.white);if(l.mirror){const mm=mirrorMesh(new THREE.PlaneGeometry(l.w,2.18));mm.position.set(l.w/2,1.09,.023);g.add(mm);}[-.05,.05].forEach(z=>{LB(g,l.w-.09,l.w-.07,1.0,1.02,Math.min(0,z),Math.max(0,z),M.chrome);LB(g,l.w-.19,l.w-.07,1.0,1.02,z-.008,z+.008,M.chrome);});}
     d.leaves.push({g,open:l.open,closed:l.closed});});DOORS.push(d);return d;}
-door('Bedroom door',[3.05,3.65,.0,1.0],[{x:3.40,z:.90,w:.82,mirror:1,open:Math.PI,closed:Math.PI/2}]);
+door('Bedroom door',[3.05,3.65,.0,1.0],[{x:3.40,z:.90,w:.82,mirror:1,open:Math.PI,closed:Math.PI/2}],true);
 door('Bathroom door',[4.0,5.0,.95,1.55],[{x:4.90,z:1.285,w:.81,open:Math.PI*1.5,closed:Math.PI}]);
 B(3.9,6.0,H-.02,H,.75,.79,M.white);[4.2,4.8,5.4].forEach(x=>ball(.03,M.led,x,H-.03,.77));
 
@@ -327,7 +328,7 @@ B(3.9,6.0,H-.02,H,.75,.79,M.white);[4.2,4.8,5.4].forEach(x=>ball(.03,M.led,x,H-.
   panel(4.984,1.30,4.984,2.09,0,H,M.tile);
   panel(4.99,2.974,5.94,2.974,0,H,M.shower);panel(4.99,2.096,5.94,2.096,0,H,M.shower);panel(5.934,2.09,5.934,2.98,0,H,M.shower);
   B(3.42,4.05,0,H,1.30,1.67,M.tile);                                                  // service shaft
-  B(3.42,3.62,0,1.2,1.67,2.42,M.tile);panel(3.432,1.67,3.432,2.98,1.2,2.35,M.mirror); // WC frame + mirror
+  B(3.42,3.62,0,1.2,1.67,2.42,M.tile);{const bm=mirrorMesh(new THREE.PlaneGeometry(1.31,1.15));bm.rotation.y=Math.PI/2;bm.position.set(3.434,1.775,2.325);bm.userData.zone='bath';scene.add(bm);} // WC frame + real mirror
   RB(3.6,4.16,.2,.46,1.87,2.23,M.white,.16);RB(3.62,4.14,.455,.48,1.88,2.22,M.white,.012);
   B(3.6,3.63,.95,1.05,1.95,2.15,M.steel);
   RB(3.44,3.84,.76,.9,2.48,2.94,M.white,.03);B(3.5,3.8,.895,.902,2.53,2.89,M.grey);cyl(.012,.14,M.chrome,3.5,.9,2.71);B(3.5,3.62,1.02,1.04,2.7,2.72,M.chrome);cyl(.03,.5,M.chrome,3.6,.26,2.71);
@@ -534,6 +535,8 @@ function tick(now){const dt=Math.min(.05,(now-last)/1000);last=now;
     camera.position.set(orbit.tx+orbit.r*sp*Math.sin(orbit.az),orbit.ty+orbit.r*cp,orbit.tz+orbit.r*sp*Math.cos(orbit.az));camera.lookAt(orbit.tx,orbit.ty,orbit.tz);
   }
   for(const d of DOORS)for(const l of d.leaves){const t=d.open?l.open:l.closed,c=l.g.rotation.y;if(Math.abs(t-c)>.001)l.g.rotation.y=c+(t-c)*Math.min(1,dt*7);}
+  {const cx=camera.position.x,cz=camera.position.z,doll=mode==='doll',inBath=cx>3.42&&cx<5.95&&cz>1.27&&cz<3;
+   for(const m of MIRRORS)m.visible=doll||(m.userData.zone==='bath'?inBath:(cx>3.42&&!inBath));}
   me.setAttribute('transform',`translate(${6+pos.x*20} ${6+pos.z*20}) rotate(${-look.yaw*180/Math.PI})`);
   renderer.render(scene,camera);requestAnimationFrame(tick);}
 window.__apt={DOORS,toggleDoor,go,setMode,setSlot,state,walkable,pos,look,orbit};

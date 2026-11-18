@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Четири Българии — колко голямо е разделението?</title>
-<meta name="description" content="Bulgaria looks split in two. Split it in four, by geopolitical lean and trust in the system, and see what the four actually share. Bilingual (BG/EN) interactive explainer.">
+<meta name="description" content="Bulgaria looks split in two. Split it in four, by where people think the country should look and whom they think the state works for, and see what the four actually share. Bilingual (BG/EN) interactive explainer.">
 <link rel="canonical" href="https://www.kiwee.one/four-bulgarias">
 <meta property="og:title" content="Четири Българии / Four Bulgarias">
 <meta property="og:description" content="Шест въпроса, четири Българии и какво всъщност ги свързва. / Six questions, four Bulgarias, and what actually connects them.">
@@ -94,22 +94,27 @@ section{display:flex;flex-direction:column;gap:24px}
 .result{background:var(--ink);color:var(--bg);padding:28px;display:flex;flex-wrap:wrap;gap:24px;align-items:center}
 .result .body{flex:1 1 420px;min-width:0;display:flex;flex-direction:column;gap:8px}
 .result .small{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;opacity:.75}
-.result .name{font-family:var(--display);text-transform:uppercase;font-size:clamp(36px,5vw,52px);font-weight:900;line-height:.92}
+.result .name{font-family:var(--display);text-transform:none;font-size:clamp(36px,5vw,52px);font-weight:900;line-height:.92}
 .result .btn{background:var(--bg);color:var(--ink);border-color:var(--bg)}
 .result .btn:hover{color:var(--ink)}
 .two{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}
 .mapcol{flex:1 1 520px;min-width:0;display:flex;flex-direction:column;gap:10px}
 .axis{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
-.axis.center{justify-content:center}
+.axis.center{justify-content:center;text-align:center}
+.axis .sm{display:none}
+.statedef{border:2px solid var(--ink);padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.statedef b{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.statedef p{margin:0;font-size:15.5px;line-height:1.5}
 .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 .mapwrap{position:relative}
 .qcard{min-height:190px;padding:18px;border:1px solid var(--border);display:flex;flex-direction:column;gap:10px;align-items:flex-start;text-align:left;border-radius:0;transition:border-color .15s}
 .qcard:hover{border-color:var(--ink)}
 .qcard[aria-pressed="true"]{border:2px solid var(--ink)}
-.qcard .nm{display:flex;align-items:center;gap:10px;font-family:var(--display);text-transform:uppercase;font-size:28px;font-weight:900;line-height:.95;color:var(--text)}
+.qcard .nm{display:flex;align-items:flex-start;gap:10px;font-family:var(--display);font-size:32px;font-weight:900;line-height:.98;color:var(--text)}
+.qcard .nm .dot{margin-top:6px}
 .dot{width:14px;height:14px;flex:0 0 14px}
 .qcard{min-width:0}
-.qcard .nm{min-width:0;overflow-wrap:anywhere;hyphens:auto}
+.qcard .nm{min-width:0;overflow-wrap:break-word;hyphens:manual}
 .qcard .ax{font-family:var(--mono);font-size:12px;letter-spacing:.03em;color:var(--muted)}
 .qcard .tg{font-size:15.5px;color:var(--text)}
 .youtag{display:inline-flex;align-items:center;gap:6px;padding:3px 8px;background:var(--ink);color:var(--bg);font-family:var(--mono);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
@@ -119,7 +124,7 @@ section{display:flex;flex-direction:column;gap:24px}
 .mini b{position:absolute;width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--ink);transform:translate(-7px,-7px)}
 .note{background:var(--surface-2);padding:14px 16px;font-size:15px;color:var(--text)}
 .profile{flex:1 1 400px;min-width:0;padding:24px;display:flex;flex-direction:column;gap:18px;border-top:2px solid var(--ink)}
-.profile h3{font-size:clamp(34px,4vw,44px);display:flex;align-items:center;gap:12px}
+.profile h3{font-size:clamp(32px,3.6vw,42px);display:flex;align-items:flex-start;gap:12px;text-transform:none;line-height:.98}
 .list{display:flex;flex-direction:column;gap:12px}
 .who-t{font-weight:700}
 .who-d{font-size:15.5px;color:var(--text-2)}
@@ -131,7 +136,7 @@ section{display:flex;flex-direction:column;gap:24px}
 .vizbox{flex:0 1 480px;max-width:100%;overflow-x:auto}
 .viz{position:relative;width:480px;height:480px}
 .circ{position:absolute;width:220px;height:220px;border-radius:50%;border:2px solid;transition:left .7s cubic-bezier(.4,.1,.2,1),top .7s cubic-bezier(.4,.1,.2,1)}
-.clab{position:absolute;width:120px;text-align:center;font-family:var(--mono);font-size:12px;font-weight:700;text-transform:uppercase;color:var(--text);transition:left .7s cubic-bezier(.4,.1,.2,1),top .7s cubic-bezier(.4,.1,.2,1)}
+.clab{position:absolute;width:150px;text-align:center;font-family:var(--mono);font-size:12px;font-weight:700;text-transform:uppercase;color:var(--text);transition:left .7s cubic-bezier(.4,.1,.2,1),top .7s cubic-bezier(.4,.1,.2,1)}
 .shared-pill{position:absolute;left:170px;top:222px;width:140px;height:36px;background:var(--ink);color:var(--bg);font-family:var(--mono);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;display:flex;align-items:center;justify-content:center;text-align:center}
 .lensinfo{flex:1 1 420px;min-width:0;display:flex;flex-direction:column;gap:20px}
 .lensinfo h3{font-size:clamp(40px,5vw,56px)}
@@ -175,7 +180,7 @@ footer{padding:32px 0 64px;display:flex;flex-direction:column;gap:16px}
 .step .ev{font-size:14px}
 .closing{font-family:var(--display);text-transform:uppercase;font-size:clamp(32px,4.4vw,52px);font-weight:900;line-height:.95;max-width:900px}
 @media (max-width:760px){.bridge-grid{grid-template-columns:minmax(0,1fr)}}
-@media (max-width:560px){.opts{grid-template-columns:minmax(0,1fr)}.scale{border-right:0;border-bottom:1px solid var(--border);min-height:42px;text-align:left;padding:8px 12px}.scale:last-child{border-bottom:0}.q{padding:14px}.qcard{min-height:170px;padding:14px}.qcard .nm{font-size:20px}.split-grid{grid-template-columns:minmax(0,1fr)!important}}
+@media (max-width:560px){.opts{grid-template-columns:minmax(0,1fr)}.scale{border-right:0;border-bottom:1px solid var(--border);min-height:42px;text-align:left;padding:8px 12px}.scale:last-child{border-bottom:0}.q{padding:14px}.qcard{min-height:0;padding:12px;gap:6px}.qcard .nm{font-size:21px;gap:8px}.qcard .nm .dot{width:10px;height:10px;flex:0 0 10px;margin-top:5px}.qcard .ax,.qcard .tg{display:none}.youtag{font-size:10.5px;padding:2px 6px}.grid2{gap:6px}.axis .lg{display:none}.axis .sm{display:inline}.split-grid{grid-template-columns:minmax(0,1fr)!important}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 <script>window.si=window.si||function(){(window.siq=window.siq||[]).push(arguments)};</script>
@@ -243,39 +248,38 @@ var T={
   brand:L("Four Bulgarias","Четири Българии"),
   kicker:L("An interactive explainer · Bulgaria, 2026","Интерактивно обяснение · България, 2026"),
   title:L("Four Bulgarias","Четири Българии"),
-  lede:L("Bulgaria looks split in two. Split it in four instead, by where people lean (Europe or Russia) and whether they trust the system. Then ask what the four actually share.",
-         "Изглежда, че България е разделена на две. Всъщност е по-скоро на четири — според това накъде клонят хората, към Европа или към Русия, и дали имат доверие в системата. А четирите Българии споделят повече, отколкото си мислим."),
+  lede:L("Bulgaria looks split in two. Split it in four instead: by where people think the country should look, West or East, and whom they think the state works for, people like them or a connected few. Then ask what the four actually share.","Изглежда, че България е разделена на две. Всъщност е по-скоро на четири — според това накъде смятат хората, че трябва да гледа страната, на Запад или на Изток, и за кого според тях работи държавата: за хора като тях или за малцина свързани. А четирите Българии споделят повече, отколкото си мислим."),
   cta1:L("Start with 6 questions","Започнете с 6 въпроса"),
   cta2:L("Skip to the map","Направо към картата"),
   s1k:L("01 · Where do you stand?","01 · Къде сте вие?"),
   s1t:L("Six statements. No right answers.","Шест твърдения. Няма верни отговори."),
-  s1p:L("Three statements place you between Europe and Russia, three between trusting and distrusting the system. Your answers stay on this page.",
-        "Три твърдения ви поставят между Европа и Русия, три — между доверието и недоверието към системата. Отговорите ви остават само на тази страница."),
+  s1p:L("Three statements place you between West and East, three between a state that works for people like you and one that works for a connected few. Your answers stay on this page.","Три твърдения ви поставят между Запада и Изтока, три — между държава, която работи за хора като вас, и държава, която работи за малцина свързани. Отговорите ви остават само на тази страница."),
   likert:L(["Strongly disagree","Disagree","Neutral","Agree","Strongly agree"],["Категорично не","По-скоро не","Неутрално","По-скоро да","Категорично да"]),
   see:L("See where you stand","Вижте къде сте"),
   answerAll:L("Answer all six to see your result · {n} of 6","Отговорете на всички шест, за да видите резултата · {n} от 6"),
   skipQ:L("Skip the questions","Пропуснете въпросите"),
   closest:L("You're closest to","Най-близо сте до"),
-  resultS:L("Your answers place you {x}, and {y}.","Според отговорите си сте {x} и {y}."),
-  xMid:L("near the middle between Europe and Russia","някъде по средата между Европа и Русия"),
-  xEU2:L("clearly on the EU side","ясно на страната на ЕС"),
-  xEU1:L("leaning toward the EU","с наклон към ЕС"),
-  xRU2:L("clearly toward Russia","ясно към Русия"),
-  xRU1:L("leaning toward Russia","с наклон към Русия"),
-  yMid:L("torn about the system","раздвоени спрямо системата"),
-  yUp:L("broadly trusting the system","по-скоро с доверие към системата"),
-  yDn:L("angry at the system","ядосани на системата"),
+  resultS:L("From your answers, you're {x}, {y}.","Според отговорите си сте {x} и {y}."),
+  xMid:L("near the middle between West and East","някъде по средата между Запада и Изтока"),
+  xEU2:L("clearly looking West","ясно обърнати към Запада"),
+  xEU1:L("leaning West","по-скоро обърнати към Запада"),
+  xRU2:L("clearly looking East","ясно обърнати към Изтока"),
+  xRU1:L("leaning East","по-скоро обърнати към Изтока"),
+  yMid:L("unsure whom the state works for","несигурни за кого работи държавата"),
+  yUp:L("feeling the state works for people like you","с усещането, че държавата работи за хора като вас"),
+  yDn:L("feeling the state works for a connected few","с усещането, че държавата работи за малцина свързани"),
   seeMap:L("See yourself on the map","Вижте се на картата"),
   s2k:L("02 · The map","02 · Картата"),
   s2t:L("Two lines, four Bulgarias","Две линии, четири Българии"),
-  s2p:L("Left to right: where people lean between Europe and Russia. Top to bottom: whether they trust the system or are angry at it. Pick a quadrant to see who is in it.",
-        "Отляво надясно: накъде клонят хората — към Европа или към Русия. Отгоре надолу: дали имат доверие на системата, или са ядосани на нея. Изберете квадрант, за да видите кой е в него."),
-  axL:L("← Leans EU","← Клони към ЕС"),
-  axT:L("Trusts the system ↑","Доверие в системата ↑"),
-  axR:L("Leans Russia →","Клони към Русия →"),
-  axB:L("Angry at the system ↓","Гняв към системата ↓"),
-  mapNote:L("Since April 2026, “trusting the system” mostly means your side holds power. When Radev took office, many Reform and Sovereignty voters moved up the map.",
-            "От април 2026 г. „доверие в системата“ означава най-вече, че вашата страна е на власт. Когато Радев пое управлението, много „Европейци на промяната“ и „Протестиращи за суверенитет“ се преместиха нагоре по картата."),
+  s2p:L("Left to right: where people think Bulgaria should look, West or East. Top to bottom: whom they think the state works for, people like them or a connected few. Pick a group to see who is in it.","Отляво надясно: накъде смятат хората, че трябва да гледа България — на Запад или на Изток. Отгоре надолу: за кого според тях работи държавата — за хора като тях или за малцина свързани. Изберете група, за да видите кой е в нея."),
+  axL:L("← Looks West","← Гледа на Запад"),
+  axT:L("↑ The state works for people like me","↑ Държавата работи за хора като мен"),
+  axR:L("Looks East →","Гледа на Изток →"),
+  axLs:L("← West","← Запад"),axRs:L("East →","Изток →"),axTs:L("↑ For people like me","↑ За хора като мен"),axBs:L("↓ For a connected few","↓ За малцина свързани"),
+  stateT:L("What we mean by “the state”","Какво имаме предвид под „държавата“"),
+  stateP:L("Not democracy itself, and not Bulgaria. We mean the people who actually decide how public money and power are used: ministers, MPs, prosecutors, mayors, and the business circles around them. Many Bulgarians see the parties less as left or right than as vehicles for business interests. So the question isn’t which side you’re on. It’s whom you think the state works for.","Не самата демокрация и не България. Имаме предвид хората, които реално решават как се използват обществените пари и власт: министри, депутати, прокурори, кметове и бизнес кръговете около тях. Много българи виждат партиите не като леви или десни, а като проводници на бизнес интереси. Затова въпросът не е от коя страна сте, а за кого според вас работи държавата."),
+  axB:L("↓ The state works for a connected few","↓ Държавата работи за малцина свързани"),
+  mapNote:L("Since April 2026, many people feel the state works for them mainly when their side is in power. When Radev took office, many from “Europe, but without the mafia” and “We should decide for ourselves” moved up the map.","От април 2026 г. мнозина усещат, че държавата работи за тях най-вече когато тяхната страна е на власт. Когато Радев пое управлението, много хора от „Европа, но без мафията“ и „Сами да решаваме“ се преместиха нагоре по картата."),
   youHere:L("You are here","Вие сте тук"),
   who:L("Who's in it","Кой е тук"),
   signals:L("Signals","Сигнали"),
@@ -287,7 +291,7 @@ var T={
   sharedFour:L("Shared by all four","Общо и за четирите"),
   split:L("Where they split","Къде се разделят"),
   overlap:L("Overlap","Припокриване"),
-  vizAria:L("Four overlapping circles, one per quadrant. Overlap on {lens}: {lvl}.","Четири припокриващи се кръга, по един за квадрант. Припокриване по „{lens}“: {lvl}."),
+  vizAria:L("Four overlapping circles, one per group. Overlap on {lens}: {lvl}.","Четири припокриващи се кръга, по един за група. Припокриване по „{lens}“: {lvl}."),
   s4k:L("04 · The verdict","04 · Изводът"),
   s4t:L("Before you look: how much do the four share?","Преди да погледнете: колко споделят четирите?"),
   barsNote:L("Estimated overlap. A hypothesis, not a measurement.","Оценка на припокриването. Хипотеза, не измерване."),
@@ -297,8 +301,7 @@ var T={
   vP2:L("So the divide is not imaginary. It is concentrated in politics and labels, and it grows with how each side imagines the other.",
         "Разделението не е измислено. То е съсредоточено в политиката и етикетите и расте с това как всяка страна си представя другата."),
   howT:L("How to read this","Как да четете това"),
-  howP:L("The quadrants and overlap levels are estimates built from national polls and election data from 2024 to 2026, not measured quadrant by quadrant. Treat them as a hypothesis. The next step is a perception-gap survey that asks each quadrant what it believes, and what it thinks the others believe.",
-         "Квадрантите и нивата на припокриване са оценки, изградени от национални проучвания и изборни данни от 2024 до 2026 г., а не измерени за всеки квадрант поотделно. Приемете ги като хипотеза. Следващата стъпка е проучване на разминаването във възприятията, което пита всеки квадрант какво мисли той — и какво смята, че мислят другите."),
+  howP:L("The four groups and overlap levels are estimates built from national polls and election data from 2024 to 2026, not measured group by group. Treat them as a hypothesis. The next step is a perception-gap survey that asks each group what it believes, and what it thinks the others believe.","Четирите групи и нивата на припокриване са оценки, изградени от национални проучвания и изборни данни от 2024 до 2026 г., а не измерени за всяка група поотделно. Приемете ги като хипотеза. Следващата стъпка е проучване на разминаването във възприятията, което пита всяка група какво мисли тя — и какво смята, че мислят другите."),
   sources:L("Sources","Източници"),
   demLink:L("Democracy isn’t to blame","Демокрацията не е виновна"),
   locked:L("The map, the five lenses and the verdict open after the six questions.","Картата, петте гледни точки и изводът се отварят след шестте въпроса."),
@@ -313,11 +316,11 @@ var T={
   bShare:L("What you share","Какво споделяте"),
   bAvoid:L("Leave this out","Оставете това настрана"),
   bAsk:L("Open with","Започнете с"),
-  bNone:L("Answer the six questions to get your own bridge to the quadrant furthest from you.","Отговорете на шестте въпроса, за да получите своя мост към най-далечния от вас квадрант."),
+  bNone:L("Answer the six questions to get your own bridge to the group furthest from you.","Отговорете на шестте въпроса, за да получите своя мост към най-далечната от вас група."),
   bGo:L("Take the 6 questions","Към 6-те въпроса"),
   stepsT:L("Six steps that close the gap","Шест стъпки, които стесняват пропастта"),
   usNote:L("Both studies were done in the US; neither has been tested in Bulgaria.","И двете изследвания са правени в САЩ; в България не са проверявани."),
-  closing:L("Send this page to someone from another quadrant. Compare your results. Then talk.","Изпратете тази страница на човек от друг квадрант. Сравнете резултатите си. После поговорете."),
+  closing:L("Send this page to someone from another group. Compare your results. Then talk.","Изпратете тази страница на човек от друга група. Сравнете резултатите си. После поговорете."),
   toDark:L("Switch to dark mode","Превключи към тъмен режим"),
   toLight:L("Switch to light mode","Превключи към светъл режим")
 };
@@ -326,17 +329,17 @@ var questions=[
   {id:"q1",t:L("Bulgaria's future is safest inside the EU and NATO.","Бъдещето на България е най-сигурно в ЕС и НАТО.")},
   {id:"q2",t:L("Once the war ends, Bulgaria should restore close ties with Russia.","След края на войната България трябва да възстанови тесните връзки с Русия.")},
   {id:"q3",t:L("Adopting the euro was the right decision.","Приемането на еврото беше правилно решение.")},
-  {id:"q4",t:L("Courts, parliament and police mostly work as they should.","Съдът, парламентът и полицията в общи линии работят както трябва.")},
+  {id:"q4",t:L("The state mostly works for ordinary people like me.","Държавата в общи линии работи за обикновени хора като мен.")},
   {id:"q5",t:L("Whoever is in power, the same networks keep stealing.","Който и да е на власт, едни и същи кръгове продължават да крадат.")},
   {id:"q6",t:L("My vote can change how the country is run.","Моят глас може да промени начина, по който се управлява страната.")}
 ];
 
 var quads={
   A:{color:"#1F5FBF",fill:"rgba(31,95,191,0.20)",tint:"--tA",
-    name:L("Stability Europeans","Европейци на стабилността"),short:L("Stability","Стабилност"),
-    axes:L("Leans EU · Trusts the system","Клони към ЕС · Доверие в системата"),
+    name:L("“Let’s keep what we’ve built”","„Да пазим постигнатото“"),short:L("Keep it","Да пазим"),
+    axes:L("Looks West · State works for us","Гледа на Запад · Държавата работи за нас"),
     tag:L("Pro-European by habit or career, invested in the old order.","Проевропейци по навик или професия, вложени в стария ред."),
-    sum:L("The smallest quadrant, and shrinking. Less “trusting” than invested in the system that ran Bulgaria until 2026.","Най-малкият квадрант, и се свива. По-скоро „вложени“ в системата, управлявала България до 2026 г., отколкото „доверчиви“."),
+    sum:L("The smallest group, and shrinking. Many are invested in the order that ran Bulgaria until 2026.","Най-малката група, и се свива. Мнозина са вложени в реда, управлявал България до 2026 г."),
     who:[
       [L("GERB's remaining base","Останалата база на ГЕРБ"),L("Older voters, municipal networks, the party of EU funds and stability.","По-възрастни избиратели, общински мрежи, партията на европейските средства и стабилността.")],
       [L("DPS–New Beginning's electorate","Избирателите на ДПС–Ново начало"),L("Largely ethnic Turkish voters, for whom the party has meant representation, plus patronage networks.","Предимно етнически турци, за които партията означава представителство, плюс клиентелистки мрежи.")],
@@ -348,13 +351,13 @@ var quads={
       [L("Only 16% of Bulgarians report high or moderately high trust in government.","Само 16% от българите имат високо или умерено високо доверие в правителството."),L("OECD Trust Survey","Проучване на ОИСР за доверието"),U.oecd]
     ]},
   B:{color:"#A8551C",fill:"rgba(168,85,28,0.22)",tint:"--tB",
-    name:L("Statehood traditionalists","Традиционалисти на държавността"),short:L("Statehood","Държавност"),
-    axes:L("Leans Russia · Trusts the system","Клони към Русия · Доверие в системата"),
+    name:L("“A strong state that looks after us”","„Силна държава, която се грижи за нас“"),short:L("Strong state","Силна държава"),
+    axes:L("Looks East · State works for us","Гледа на Изток · Държавата работи за нас"),
     tag:L("Older and regional. Want social protection and a strong state.","По-възрастни, от провинцията. Искат социална защита и силна държава."),
-    sum:L("The quadrant closest to power today. Its tilt toward Russia is mostly cultural and pragmatic, not a demand for an alliance.","Квадрантът, който е най-близо до властта днес. Наклонът му към Русия е предимно културен и прагматичен, а не искане за съюз."),
+    sum:L("The group closest to power today. Its tilt toward Russia is mostly cultural and pragmatic, not a demand for an alliance.","Групата, която е най-близо до властта днес. Наклонът ѝ към Русия е предимно културен и прагматичен, а не искане за съюз."),
     who:[
       [L("The traditional left","Традиционната левица"),L("BSP voters, mostly over 60, who moved to Radev when the BSP fell out of parliament.","Избиратели на БСП, предимно над 60 г., които преминаха към Радев, когато БСП отпадна от парламента.")],
-      [L("Radev voters who want a softer line on Russia","Избиратели на Радев, които искат по-мека линия към Русия"),L("Roughly half of his electorate. They trust the system now that it's theirs.","Около половината от неговия електорат. Имат доверие в системата сега, когато тя е тяхна.")],
+      [L("Radev voters who want a softer line on Russia","Избиратели на Радев, които искат по-мека линия към Русия"),L("Roughly half of his electorate. They feel the state works for them now that their side runs it.","Около половината от неговия електорат. Усещат, че държавата работи за тях, откакто тяхната страна я управлява.")],
       [L("Pragmatists","Прагматиците"),L("Russia as a necessary partner for trade, energy and peace, not as an ally.","Русия като необходим партньор за търговия, енергия и мир, а не като съюзник.")]
     ],
     sig:[
@@ -363,8 +366,8 @@ var quads={
       [L("41% see Russia as a necessary partner, 16% as an ally.","41% виждат Русия като необходим партньор, 16% — като съюзник."),L("ECFR via Sofia Globe","ECFR чрез Sofia Globe"),U.ecfr]
     ]},
   C:{color:"#5E97E3",fill:"rgba(94,151,227,0.24)",tint:"--tC",
-    name:L("Reform Europeans","Европейци на промяната"),short:L("Reform","Промяна"),
-    axes:L("Leans EU · Angry at the system","Клони към ЕС · Гняв към системата"),
+    name:L("“Europe, but without the mafia”","„Европа, но без мафията“"),short:L("No mafia","Без мафията"),
+    axes:L("Looks West · State works for the few","Гледа на Запад · Държавата работи за малцина"),
     tag:L("Pro-European and furious at the Borissov–Peevski era.","Проевропейци, бесни на ерата Борисов–Пеевски."),
     sum:L("The swing group that decides elections. Many voted Radev in April as a clean break, then backed Gyurov in November.","Групата, която накланя везните на изборите. Мнозина гласуваха за Радев през април като за чисто начало, а после подкрепиха Гюров през ноември."),
     who:[
@@ -378,10 +381,10 @@ var quads={
       [L("34% of 18 to 30-year-olds voted for Radev's Progressive Bulgaria.","34% от 18–30-годишните гласуваха за „Прогресивна България“ на Радев."),L("Exit poll via WSWS","Екзитпол чрез WSWS"),U.young]
     ]},
   D:{color:"#E39A4F",fill:"rgba(227,154,79,0.26)",tint:"--tD",
-    name:L("Sovereignty protesters","Протестиращи за суверенитет"),short:L("Sovereignty","Суверенитет"),
-    axes:L("Leans Russia · Angry at the system","Клони към Русия · Гняв към системата"),
+    name:L("“We should decide for ourselves”","„Сами да решаваме“"),short:L("Our call","Сами да решаваме"),
+    axes:L("Looks East · State works for the few","Гледа на Изток · Държавата работи за малцина"),
     tag:L("Angry at the post-1989 order itself, Brussels included.","Ядосани на самия ред след 1989 г., включително на Брюксел."),
-    sum:L("More a protest vote than a radical one. Its voters cross into the other quadrants more often than either side admits.","По-скоро протестен вот, отколкото радикален. Избирателите му преминават в другите квадранти по-често, отколкото която и да е страна признава."),
+    sum:L("More a protest vote than a radical one. Its voters cross into the other groups more often than either side admits.","По-скоро протестен вот, отколкото радикален. Избирателите ѝ преминават в другите групи по-често, отколкото която и да е страна признава."),
     who:[
       [L("Revival's core vote","Ядрото на „Възраждане“"),L("Middle-aged, regional centres.","На средна възраст, от областните центрове.")],
       [L("The anti-euro movement","Движението срещу еврото"),L("Feared rising prices and wanted a referendum, a say in the decision.","Страхуваше се от поскъпване и искаше референдум — дума в решението.")],
@@ -454,7 +457,7 @@ var steps=[
    p:L("Most people imagine the other camp as more extreme and more hostile than it is. Before you argue, guess what they believe, then ask.","Повечето хора си представят другия лагер по-краен и по-враждебен, отколкото е. Преди да спорите, предположете какво мислят — после попитайте."),
    e:[L("In a 32,000-person study, correcting such misperceptions and stressing shared identity were among the strongest ways to reduce hostility.","В изследване с 32 000 души коригирането на тези погрешни представи и подчертаването на общата идентичност са сред най-силните начини за намаляване на враждебността."),L("Strengthening Democracy Challenge","Strengthening Democracy Challenge"),U.sdc]},
   {t:L("Start with the shared fear","Започнете от общия страх"),
-   p:L("Prices, emigration, stolen money. Every quadrant carries them. Start there, not with Russia or Brussels.","Цените, емиграцията, откраднатите пари. Всеки квадрант ги носи. Започнете оттам, а не от Русия или Брюксел."),e:null},
+   p:L("Prices, emigration, stolen money. Every group carries them. Start there, not with Russia or Brussels.","Цените, емиграцията, откраднатите пари. Всяка група ги носи. Започнете оттам, а не от Русия или Брюксел."),e:null},
   {t:L("Ask, don't correct","Питайте, не поправяйте"),
    p:L("A fact-check under someone's post rarely changes a mind. Listening does.","Проверката на факти под нечий пост рядко променя мнение. Слушането го прави."),
    e:[L("In field experiments, 10-minute two-way conversations shifted views, and the shift lasted for months.","В полеви експерименти 10-минутни двустранни разговори променят нагласите, а промяната трае месеци."),L("Kalla & Broockman, via UC Berkeley","Кала и Брокман, чрез UC Berkeley"),U.deep]},
@@ -566,13 +569,13 @@ function renderMap(){
   var res=hasResult()?position():null;
   var sel=S.quad||(res?res.id:"A");
   var h=head(T.s2k,T.s2t,T.s2p);
-  h+='<div class="two"><div class="mapcol"><div class="axis"><span>'+t(T.axL)+'</span><span>'+t(T.axT)+'</span><span>'+t(T.axR)+'</span></div><div class="mapwrap"><div class="grid2">';
+  h+='<div class="two"><div class="mapcol"><div class="axis center"><span class="lg">'+t(T.axT)+'</span><span class="sm">'+t(T.axTs)+'</span></div><div class="axis"><span><span class="lg">'+t(T.axL)+'</span><span class="sm">'+t(T.axLs)+'</span></span><span><span class="lg">'+t(T.axR)+'</span><span class="sm">'+t(T.axRs)+'</span></span></div><div class="mapwrap"><div class="grid2">';
   ORDER.forEach(function(id){
     var q=quads[id];
     h+='<button type="button" class="qcard" data-act="quad" data-v="'+id+'" aria-pressed="'+(sel===id)+'" style="background:var('+q.tint+')">'+(res&&res.id===id?'<span class="youtag">'+t(T.youHere)+'</span>':'')+'<span class="nm"><span class="dot" style="background:'+q.color+'"></span>'+t(q.name)+'</span><span class="ax">'+t(q.axes)+'</span><span class="tg">'+t(q.tag)+'</span></button>';
   });
   h+='</div>';
-  h+='</div><div class="axis center"><span>'+t(T.axB)+'</span></div><div class="note">'+t(T.mapNote)+'</div></div>';
+  h+='</div><div class="axis center"><span class="lg">'+t(T.axB)+'</span><span class="sm">'+t(T.axBs)+'</span></div><div class="statedef"><b>'+t(T.stateT)+'</b><p>'+t(T.stateP)+'</p></div><div class="note">'+t(T.mapNote)+'</div></div>';
   var p=quads[sel];
   h+='<div class="card profile" aria-live="polite"><h3><span class="dot" style="width:18px;height:18px;flex:0 0 18px;background:'+p.color+'"></span>'+t(p.name)+'</h3><p style="margin:0;color:var(--text-2)">'+t(p.sum)+'</p>';
   h+='<div class="list"><div class="label">'+t(T.who)+'</div>';
@@ -603,7 +606,7 @@ function renderLens(){
   ORDER.forEach(function(id){
     var cx=240+DIRS[id][0]*d, cy=240+DIRS[id][1]*d;
     var c=$("c"+id); c.style.left=(cx-110)+"px"; c.style.top=(cy-110)+"px";
-    var lb=$("l"+id); lb.style.left=(cx+DIRS[id][0]*48-60)+"px"; lb.style.top=(cy+DIRS[id][1]*56-11)+"px"; lb.textContent=t(quads[id].short);
+    var lb=$("l"+id); lb.style.left=(cx+DIRS[id][0]*40-75)+"px"; lb.style.top=(cy+DIRS[id][1]*56-11)+"px"; lb.textContent=t(quads[id].short);
   });
   $("sharedPill").textContent=t(T.sharedAll);
   $("viz").setAttribute("aria-label",f(t(T.vizAria),{lens:t(lens.name),lvl:t(lens.lvl)}));

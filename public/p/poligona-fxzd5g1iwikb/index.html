@@ -264,7 +264,9 @@ function paint(id,hex){state[id]=hex;M[id].color.copy(lin(hex));}
 
 const MODEL_URL=(/\/$|\.html?$/.test(location.pathname)?'':location.pathname.split('/').pop()+'/')+'poligona.glb';
 /* ---------- extra materials for the studio model ---------- */
-M.tile.map=null;M.shower.map=null;M.tile.vertexColors=M.shower.vertexColors=true;[M.tile,M.shower].forEach(t=>{t.polygonOffset=true;t.polygonOffsetFactor=-1;t.polygonOffsetUnits=-4;});M.tile.roughness=M.shower.roughness=.3;M.tile.needsUpdate=M.shower.needsUpdate=true;
+const groutTex=(function(){const c=cv(128,128),g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,128,128);g.fillStyle='#2c3b40';const w=3.5;
+  g.fillRect(0,0,128,w);g.fillRect(0,128-w,128,w);g.fillRect(0,0,w,128);g.fillRect(128-w,0,w,128);return tex(c);})();
+M.tile.map=groutTex;M.shower.map=groutTex;M.tile.vertexColors=M.shower.vertexColors=true;[M.tile,M.shower].forEach(t=>{t.polygonOffset=true;t.polygonOffsetFactor=-1;t.polygonOffsetUnits=-4;});M.tile.roughness=M.shower.roughness=.3;M.tile.needsUpdate=M.shower.needsUpdate=true;
 const DECO=['#c46a3c','#d9a882','#6f8a63','#e9e4da','#3a3d40','#c9a227'];
 const X={
  ceramic:std({color:lin('#f6f5f1'),roughness:.15,envMap:env,envMapIntensity:.7}),
@@ -329,8 +331,9 @@ function mkPivot(node,x,z){const g=new THREE.Group();g.position.set(x,0,z);scene
 const DOORDEF=[
  {name:'Bedroom door',nodes:['door_bed'],block:[3.12,3.55,.05,.98],shut:true,mirror:true,
   setup(d){d.g=mkPivot(d.n[0],3.335,.09);},pose(d,t){d.g.rotation.y=-1.5*t;}},
- {name:'Bathroom door',nodes:['door_bath'],block:[4.0,5.0,1.15,1.52],
-  setup(d){d.g=mkPivot(d.n[0],4.10,1.33);},pose(d,t){d.g.rotation.y=-1.45*t;}},
+ {name:'Bathroom door',nodes:['door_bath'],block:[4.05,4.95,1.2,1.47],
+  // hinged on the washer-closet side and opening into the bathroom (plan 01)
+  setup(d){d.g=mkPivot(d.n[0],4.90,1.33);},pose(d,t){d.g.rotation.y=1.45*t;}},
  {name:'Living-room doors',nodes:[],block:[5.8,6.05,.3,1.27],
   // two glazed leaves with a grid, as in the corridor render; they open into the living room
   setup(d){const w=.425,H2=2.17;d.leaves=[[.36,1,1.5],[1.21,-1,-1.5]].map(([zh,dir,open])=>{const g=new THREE.Group();g.position.set(5.915,0,zh);scene.add(g);
@@ -385,6 +388,7 @@ ROOMS.forEach(r=>r.dev.forEach(d=>{d.room=r.id;d.on=false;DEV[d.id]=d;d.mats=(d.
   d.lights=d.L.map(l=>{const p=new THREE.PointLight(0xffcf9a,0,l[4],2);p.position.set(l[0],l[1],l[2]);p.userData.i=l[3];scene.add(p);return p;});}));
 const winglass=std({color:lin('#f4f8fb'),roughness:.05,transparent:true,opacity:.9,envMap:env,envMapIntensity:.4,depthWrite:false,side:THREE.DoubleSide});
 CLASS.winglass=winglass;
+X.tilepaint=std({roughness:.5,side:THREE.DoubleSide});X.tilepaint.color=M.tile.color;X.tilepaint.userData.slot='tile';CLASS.tilepaint=X.tilepaint;
 let night=false;
 function applyLights(){const n=night;
   hemi.intensity=n?.018:.55;amb.intensity=n?.012:.12;sun.intensity=n?0:.45;DAYFILL.forEach(p=>p.intensity=n?0:p.userData.i);

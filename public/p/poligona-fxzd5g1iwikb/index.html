@@ -264,9 +264,17 @@ function paint(id,hex){state[id]=hex;M[id].color.copy(lin(hex));}
 
 const MODEL_URL=(/\/$|\.html?$/.test(location.pathname)?'':location.pathname.split('/').pop()+'/')+'poligona.glb';
 /* ---------- extra materials for the studio model ---------- */
-const groutTex=(function(){const c=cv(128,128),g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,128,128);g.fillStyle='#2c3b40';const w=3.5;
-  g.fillRect(0,0,128,w);g.fillRect(0,128-w,128,w);g.fillRect(0,0,w,128);g.fillRect(128-w,0,w,128);return tex(c);})();
-M.tile.map=groutTex;M.shower.map=groutTex;M.tile.vertexColors=M.shower.vertexColors=true;[M.tile,M.shower].forEach(t=>{t.polygonOffset=true;t.polygonOffsetFactor=-1;t.polygonOffsetUnits=-4;});M.tile.roughness=M.shower.roughness=.3;M.tile.needsUpdate=M.shower.needsUpdate=true;
+// grout: the model's own grooves (vertex colour 0 = groove) are painted petrol blue, as in the bathroom render
+const GROUT=lin('#1f3d4a');
+[M.tile,M.shower].forEach(t=>{t.map=null;t.onBeforeCompile=s=>{s.uniforms.uGrout={value:GROUT};
+  s.fragmentShader='uniform vec3 uGrout;\n'+s.fragmentShader.replace('#include <color_fragment>','#ifdef USE_COLOR\n diffuseColor.rgb = mix(uGrout, diffuseColor.rgb, smoothstep(.5,.98,vColor.r));\n#endif');};});
+// bathroom floor: sage terrazzo in large slabs with small white and black chips
+M.terrazzo.map=(function(){const c=cv(1024,1024),g=c.getContext('2d');g.fillStyle='#93a093';g.fillRect(0,0,1024,1024);
+  for(let i=0;i<9000;i++){const v=150+Math.floor(rnd()*60);g.fillStyle=`rgba(${v-8},${v+4},${v-8},.18)`;g.fillRect(rnd()*1024,rnd()*1024,2,2);}
+  const cols=['#ffffff','#f4f4ee','#1d2421','#2d3a36','#d9ddd5'];
+  for(let i=0;i<520;i++){g.save();g.translate(rnd()*1024,rnd()*1024);g.rotate(rnd()*6.3);g.fillStyle=cols[Math.floor(rnd()*cols.length)];g.fillRect(-3,-1.5,4+rnd()*9,2.5+rnd()*3);g.restore();}
+  g.fillStyle='rgba(40,55,52,.55)';g.fillRect(0,0,1024,2);g.fillRect(0,0,2,1024);const t=tex(c);t.repeat.set(1/.6,1/.6);return t;})();
+M.terrazzo.color.copy(lin('#ffffff'));M.terrazzo.roughness=.55;M.terrazzo.needsUpdate=true;M.tile.vertexColors=M.shower.vertexColors=true;[M.tile,M.shower].forEach(t=>{t.polygonOffset=true;t.polygonOffsetFactor=-2;t.polygonOffsetUnits=-12;});M.tile.roughness=M.shower.roughness=.3;M.tile.needsUpdate=M.shower.needsUpdate=true;
 const DECO=['#c46a3c','#d9a882','#6f8a63','#e9e4da','#3a3d40','#c9a227'];
 const X={
  ceramic:std({color:lin('#f6f5f1'),roughness:.15,envMap:env,envMapIntensity:.7}),

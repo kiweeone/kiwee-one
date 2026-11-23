@@ -14,6 +14,7 @@ const groups = [
   {
     label: "Experiments",
     bands: [
+      { title: "Dapper Butler", role: "Every Outfit Your Wardrobe Can Make", bg: "#3447e8", color: "#e9fbb8", href: "/dapper-butler", live: true },
       { title: "Democracy", role: "Why Bulgaria Never Got Past the Ballot Box", bg: "#249a66", color: "#fff", href: "/democracy", live: true },
       { title: "Law Trail", role: "Mapping Influence on Bulgarian Law", bg: "#9a80f2", color: "#101216", href: "https://www.lawtrail.eu", live: true },
       { title: "Samardala", role: "Live WebGL Experience", bg: "#1C2431", color: "#fff", href: "https://samardala.com", live: true },

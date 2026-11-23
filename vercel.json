@@ -1,6 +1,14 @@
 {
   "rewrites": [
     {
+      "source": "/dapper-butler",
+      "destination": "https://dapper-butler.vercel.app/dapper-butler"
+    },
+    {
+      "source": "/dapper-butler/(.*)",
+      "destination": "https://dapper-butler.vercel.app/dapper-butler/$1"
+    },
+    {
       "source": "/api/(.*)",
       "destination": "/api/$1"
     },

@@ -6,6 +6,11 @@
       "permanent": true
     },
     {
+      "source": "/dapper-butler/",
+      "destination": "https://dapperbutler.com/",
+      "permanent": true
+    },
+    {
       "source": "/dapper-butler/:path*",
       "destination": "https://dapperbutler.com/:path*",
       "permanent": true

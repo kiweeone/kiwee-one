@@ -1,13 +1,17 @@
 {
-  "rewrites": [
+  "redirects": [
     {
       "source": "/dapper-butler",
-      "destination": "https://dapper-butler.vercel.app/dapper-butler"
+      "destination": "https://dapperbutler.com/",
+      "permanent": true
     },
     {
-      "source": "/dapper-butler/(.*)",
-      "destination": "https://dapper-butler.vercel.app/dapper-butler/$1"
-    },
+      "source": "/dapper-butler/:path*",
+      "destination": "https://dapperbutler.com/:path*",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
     {
       "source": "/api/(.*)",
       "destination": "/api/$1"
